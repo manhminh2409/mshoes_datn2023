@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <th:block th:fragment="header">
+      <div class="row m-0">
+        <div class="col-xl-10 col-lg-11 mx-auto">
+          <div class="user-header d-flex justify-content-between">
+            <div class="brand-logo text-center">
+              M
+            </div>
+
+            <div class="user-menu d-flex justify-content-between">
+              <div class="find-store">
+                <a href="#" class="">Tìm kiếm cửa hàng</a>
+              </div>
+              |
+              <div class="help">
+                <a href="#" class="">Trợ giúp</a>
+              </div>
+              |
+              <th:block th:if="${userLogined} == null">
+                <div class="join-us">
+                  <a th:href="@{/signup}" class="">Đăng ký</a>
+                </div>
+                |
+                <div class="sign-in">
+                  <a th:href="@{/login}" class="">Đăng nhập</a>
+                </div>
+              </th:block>
+              <th:block th:if="${userLogined} != null">
+                <div class="join-us">
+                  <a th:href="@{/logout}" class="">Đăng xuất</a>
+                </div>
+                |
+                <div class="sign-in">
+                  <a th:href="@{/detailUser}" class="">Welcome [[${userLogined.fullname}]]</a>
+                </div>
+              </th:block>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= Header ======= -->
+      <header id="header" class="fixed-top">
+        <div class="container-fluid">
+
+          <div class="row justify-content-center">
+            <div class="col-xl-11 d-flex align-items-center justify-content-lg-between">
+              <h1 class="logo me-auto me-lg-0"><a th:href="@{/}">MShoes<span class="logo-dot">.</span></a></h1>
+              <!-- Uncomment below if you prefer to use an image logo -->
+              <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+              <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                  <li><a class="nav-link scrollto active" th:href="@{/}">Trang chủ</a></li>
+                  <li><a class="nav-link scrollto" href="#about">Về chúng tôi</a></li>
+                  <li class="dropdown"><a class="nav-link scrollto" th:href="@{/home/product}"><span>Sản phẩm</span> <i class="fa-solid fa-chevron-down"></i></a>
+                    <ul>
+                      <li><a href="#">Nike</a></li>
+                      <li class="dropdown"><a href="#"><span>Balenciaga</span> <i class="fa-solid fa-chevron-right"></i></a>
+                        <ul>
+                          <li><a href="#">Adidas</a></li>
+                          <li><a href="#">Balenciaga</a></li>
+                          <li><a href="#">Dior</a></li>
+                          <li><a href="#">Channel</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#">Adidas</a></li>
+                      <li><a href="#">Dior</a></li>
+                    </ul>
+                  </li>
+                  <li><a class="nav-link scrollto" href="#events">Sự kiện</a></li>
+                  <li><a class="nav-link scrollto" href="#store">Cửa hàng</a></li>
+                  <li><a class="nav-link scrollto" href="collection.html">Bộ sưu tập</a></li>
+                  <li><a class="nav-link scrollto" href="#contact">Liên hệ</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+              </nav><!-- .navbar -->
+
+              <div class="nav-right d-flex align-items-center">
+                <form class="search scrollto position-relative" role="search">
+                  <input class="form-control me-2 rounded-pill " type="search" placeholder="Search..." aria-label="Search">
+                  <button type="submit" class="position-absolute rounded-pill"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+
+                <a class="nav-link nav-cart nav-icon position-relative ms-2" th:href="@{/home/cart}">
+                  <i class="fa-solid fa-bag-shopping"></i>
+                  <span class="badge badge-number" th:text="${cartItem}"></span>
+                </a><!-- End Notification Icon -->
+
+
+
+                    <a class="nav-link dropdown nav-user nav-icon position-relative ms-3" href="#" data-bs-toggle="dropdown">
+                      <th:block th:if="${userLogined} == null">
+                        <img src="/assets/images/user/default.png">
+                      </th:block>
+                      <th:block th:if="${userLogined} != null">
+                        <img th:src="${userLogined.image}" alt="">
+                      </th:block>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" th:href="@{/home/user}">
+                      <i class="bi bi-person"></i>
+                      <span>Thông tin cá nhân</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                      <i class="bi bi-gear"></i>
+                      <span>Thay đổi mật khẩu</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                      <i class="bi bi-question-circle"></i>
+                      <span>Hỗ trợ?</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" th:href="@{/logout}">
+                      <i class="bi bi-box-arrow-right"></i>
+                      <span>Đăng xuất</span>
+                    </a>
+                  </li>
+                </ul><!-- End Profile Dropdown Items -->
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </header><!-- End Header -->
+    </th:block>
+</body>
+</html>

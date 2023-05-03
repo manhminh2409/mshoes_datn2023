@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--CSS FILES-->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/vendor/aos/aos.css">
+    <link rel="stylesheet" href="/assets/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/assets/vendor/glightbox/css/glightbox.min.css">
+
+    <link rel="stylesheet" href="/assets/vendor/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!--JAVASCRIPT FILES-->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    <style type="text/css">
+        .swiper-image swiper-container {
+        width: 100%;
+        height: 100%;
+        }
+
+        .swiper-image swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .swiper-image swiper-slide img {
+        /* display: sw </swiper-slidek; */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+        .swiper-image swiper-container {
+        width: 100%;
+        height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        }
+
+        .swiper-image swiper-slide {
+        background-size: cover;
+        background-position: center;
+        }
+
+        .swiper-image .mySwiper {
+        height: 66%;
+        width: 100%;
+        }
+
+        .swiper-image .mySwiper2 {
+        height: 20%;
+        box-sizing: border-box;
+        padding: 10px 0;
+        }
+
+        .swiper-image .mySwiper2 swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+        }
+
+        .swiper-image .mySwiper2 .swiper-slide-thumb-active {
+        opacity: 1;
+        }
+
+        .swiper-image swiper-slide img {
+        /* display: sw </swiper-slidek; */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{web/fragments/header :: header}"></th:block>
+
+  <main id="main" class="product-detail">
+    <div class="pagetitle">
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+            <li class="breadcrumb-item">Sản phẩm </li>
+            <li class="breadcrumb-item active">Chi tiết sản phẩm</li>
+          </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="row align-items-center mx-0 mt-5">
+        <div class="col-lg-11 mx-auto">
+            <div class="row">
+                <div class="col-lg-6 swiper-image">
+                    <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+                        thumbs-swiper=".mySwiper2" loop="true" space-between="10" navigation="true">
+                        <th:block th:each="image : ${productDetail.getImageResponses}">
+                            <swiper-slide>
+                                <img th:src="${image.url}" />
+                            </swiper-slide>
+                        </th:block>
+                    </swiper-container>
+
+                    <swiper-container class="mySwiper2" loop="true" space-between="10" slides-per-view="4" free-mode="true"
+                        watch-slides-progress="true">
+                        <th:block th:each="image : ${productDetail.getImageResponses}">
+                            <swiper-slide>
+                                <img th:src="${image.url}" />
+                            </swiper-slide>
+                        </th:block>
+                    </swiper-container>
+                </div>
+                <div class="col-lg-6 infor-detail">
+                    <div class="category">
+                        <a href="" class=""><h5 th:text="'['+${categoryTitle} +']'"></h5></a>
+                    </div><!-- Danh mục -->
+
+                    <div class="detail-name mt-4">
+                        <h3 th:text="${productDetail.name}"></h3>
+                    </div><!-- Tên sản phẩm -->
+
+                    <div class="detail-review d-flex mt-1 align-items-center">
+                        <div class="star">
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <span class="px-4">|</span>
+                        <div class="sold">
+                            Đã bán: <strong class="text-danger d-inline-block mb-0" th:text="${sold}"></strong>
+                        </div>
+                    </div><!-- Đánh giá, số lượng bán -->
+
+                    <div class="detail-price mt-4">
+                        <strong th:class="'price'" th:if="${productDetail.discountPrice != 0}"th:style="'font-size: 28px;color: #E64A45;'">[[${productDetail.discountPrice}]]</strong>
+                        <span th:class="'price'" th:if="${productDetail.discountPrice != 0}"  th:style="'text-decoration:line-through; color:#959595; font-size: 14px;'">[[${productDetail.price}]]</span>
+                        <strong th:class="'price'" th:if="${productDetail.discountPrice == 0}"  th:style="'font-size: 28px;color: #E64A45;'">[[${productDetail.price}]]</strong>
+                    </div><!--Giá bán-->
+
+                    <div class="detail-description mt-3">
+                        <span class="py-2 fw-bold d-block">Mô tả sản phẩm:</span>
+                        <span th:text="${productDetail.description}"></span>
+                    </div><!--description-->
+
+                    <div class="detail-color mt-4">
+                        <h6 class="py-3">Màu sắc:</h6>
+                        <th:block th:each="color :${listColors}">
+                            <label class="radio">
+                                <input type="radio" name="color" th:value="${color}" checked>
+                                <span class="value" th:text="${color}" style="border: 1px solid #ddd;"></span>
+                            </label>
+                        </th:block>
+                    </div><!--Màu sắc-->
+                    
+                    <div class="detail-size mt-3">
+                        <h6 class="py-3">Size:</h6>
+                        <th:block th:each="size :${listSizes}">
+                            <label class="radio">
+                                <input type="radio" name="size" th:value="${size}" checked> <span th:text="${size}"></span>
+                            </label>
+                        </th:block>
+                    </div><!--Size-->
+                    <th:block >
+                        <form method="post" th:action="@{/home/cart/addtocart}" th:object="${OrderItemRequest}">
+                            <div class="mt-2">
+                                <h6 class="py-3 d-inline-block pe-2">Số lượng:</h6>
+                                <input type="number" id="quantity" name="quantity" value="1" class="text-center form-control d-inline-block" style="width: 60px;">
+                                <div class="detail-total mt-5 d-inline-block ps-2">
+                                    <span class="" id="messQuantity"></span>
+                                    <input class="d-none" id="sizeId" type="text" name="sizeId">
+                                </div>
+                            </div>
+                            <div class="add-to-cart mt-3">
+                                <th:block th:if="${userLogined} == null">
+                                    <a th:href="@{/login}" class="btn btn-secondary">Đăng nhập để thêm</a>
+                                </th:block>
+                                <th:block th:if="${userLogined} != null">
+                                    <button type="submit" class="btn btn-success" id="addToCart">Thêm vào giỏ hàng</button>
+                                </th:block>
+                            </div>
+                            <script th:inline="javascript">
+                                // Lấy số lượng tương ứng với màu sắc và kích thước
+                                function getQuantity() {
+                                    // Lấy giá trị của color và size tương ứng
+                                    let color = document.querySelector('input[name="color"]:checked').value;
+                                    let size = document.querySelector('input[name="size"]:checked').value;
+                                    // Tạo key cho quantitiesByColorAndSize
+                                    let key = color.replace(/\s+/g, "") + '-' + size;
+                                    key = encodeURIComponent(key);
+                                    // Lấy số lượng tương ứng
+                                    let totalByColorAndSize = /*[[${totalByColorAndSize}]]*/ {};
+                                    let stringValue = totalByColorAndSize[key];
+                                    let total = document.getElementById("messQuantity");
+                                    let sizeIdInput = document.getElementById("sizeId");
+                                    const addToCartBtn = document.getElementById("addToCart");
+                                    if (stringValue != null){
+                                        addToCartBtn.removeAttribute("disabled");
+                                        // Hiển thị số lượng
+                                        const parts = stringValue.split("-");
+                                        const quantityValue = parts[0];
+                                        const idValue = parts[1];
+                                        if (quantityValue != null){
+                                            total.innerHTML = 'Còn ' + quantityValue + ' sản phẩm';
+                                            total.style.color = "#3d4e53";
+                                        }else {
+                                            total.innerHTML = 'Sản phẩm đã hết hàng';
+                                            total.style.color = 'red';
+                                        }
+                                        if(idValue == null){
+                                            sizeIdInput.value = 0;
+                                        }else {
+                                            sizeIdInput.value = idValue;
+                                        }
+                                    }else {
+                                        addToCartBtn.setAttribute("disabled", "disabled");
+                                        total.innerHTML = 'Sản phẩm đã hết hàng';
+                                        total.style.color = 'red';
+                                    }
+                                }
+                                // Gọi hàm getQuantity khi checked vào các radio button
+                                let radios = document.querySelectorAll('input[type="radio"]');
+                                for (let i = 0; i < radios.length; i++) {
+                                    radios[i].addEventListener('click', function() {
+                                        getQuantity();
+                                    });
+                                }
+                                // Hiển thị số lượng ban đầu
+                                getQuantity();
+                            </script>
+
+                        </form>
+
+                    </th:block>
+
+                    <div class="col-md-12 offset-md-3 circle">
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <section id="detail-slide-product" class="detail-slide-product">
+          <div class="container-fluid">
+              <div class="section-header">
+                  <h2>Sản phẩm</h2>
+                  <p>Sản phẩm liên quan</p>
+              </div>
+              <div class="row mt-5">
+                  <div class="col-lg-11 mx-auto">
+                      <div class="slides-events swiper">
+                          <button class="swiper-button-prev"></button>
+                          <button class="swiper-button-next"></button>
+                          <div class="swiper-wrapper" >
+                              <th:block th:each="product : ${productsByCate}">
+                                  <div class="swiper-slide">
+                                      <div class="product-item">
+                                          <a th:href="@{'/home/product/detail/' + ${product.id}}">
+                                              <div class="slide-image">
+                                                  <img th:src="${product.imageResponses[0].url}" alt="" class="">
+                                              </div>
+                                              <div class="product-name">
+                                                  <a th:href="@{'/home/product/detail/' + ${product.id}}" class="name" th:text="${product.name}"></a>
+                                                  <span class="d-block">
+                                                    <strong th:if="${product.discountPrice != 0}" th:text="${product.discountPrice} + 'đ'" th:style="'font-size: 18px;color: #E64A45;'"></strong>
+                                                    <span th:if="${product.discountPrice != 0}" th:text="${product.price}+'đ'" th:style="'text-decoration:line-through; color:#959595; font-size: 14px;'"></span>
+                                                    <strong th:if="${product.discountPrice == 0}" th:text="${product.price}+'đ'" th:style="'font-size: 18px;color: #E64A45;'"></strong>
+                                              </span>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div><!-- End product item -->
+                              </th:block>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section><!-- End Newest Product -->
+
+      <div class="row mx-0">
+          <div class="col-lg-12 text-center">
+              <a href="product.html" class="btn view-all-product">Xem tất cả sản phẩm</a>
+          </div>
+      </div>
+  </main>
+    <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer mt-5">
+
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-geo-alt icon"></i>
+          <div>
+            <h4>Địa chỉ</h4>
+            <p>
+              Đôn Nhân <br>
+              Sông Lô, Vĩnh Phúc<br>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Thông tin liên hệ</h4>
+            <p>
+              <strong>Điện thoại:</strong> +84 0379 612 164<br>
+              <strong>Email:</strong> mshoes@gmail.com<br>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-clock icon"></i>
+          <div>
+            <h4>Thời gian mở cửa</h4>
+            <p>
+              <strong>Mon - Sat</strong> 8AM - 22PM
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Theo dõi chúng tôi</h4>
+          <div class="social-links d-flex">
+            <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer><!-- End Footer -->
+  <!-- End Footer -->
+  <div id="preloader"></div>
+
+
+  <!--Vendor JavaScript Files-->
+  <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/main.js"></script>
+</body>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--CSS FILES-->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/vendor/aos/aos.css">
+    <link rel="stylesheet" href="/assets/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/assets/vendor/glightbox/css/glightbox.min.css">
+
+    <link rel="stylesheet" href="/assets/vendor/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!--JAVASCRIPT FILES-->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    
+</head>
+<body>
+  
+     <!--REGISTER FORM-->
+     <div class="bg-white container-fluid">
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="register-view bg-light my-4">
+                    <div class="card">  
+                        <div class="card-body">
+                            <form method="post" th:action="@{/signup}" th:object="${signupRequest}">
+                                <!--Title-->
+                                <div class="row mt-3">
+                                    <div class="col-md-12 text-center py-3">
+                                        <h1 class="logo me-auto me-lg-0"><a th:href="@{/home}">MShoes<span class="logo-dot">.</span></a></h1>
+                                        <div class="text-secondary pt-2 px-5 login-des link-register">
+                                                Để đăng ký, bạn phải đồng ý với 
+                                            <span>
+                                                <a href="#">điều khoản</a>
+                                            </span> 
+                                            & 
+                                            <span>
+                                                <a href="#">chính sách</a>
+                                            </span> của chúng tôi.
+
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!--Full name-->
+                                <div class="row mt-2 px-5">
+                                    <div class="col-md-12 text-start pt-3">
+                                        <label for="fullname" class="form-label">Họ và tên:</label>
+                                    </div>
+        
+                                    <div class="col-md-12 text-center pt-1 ">
+                                        <input  type="text" class="form-control py-2" id="fullname" name="fullname" placeholder="Nhập họ và tên.">
+                                    </div>
+                                </div>
+        
+                                <!--Username-->
+                                <div class="row mt-2 px-5">
+                                    <div class="col-md-12 text-start pt-3">
+                                        <label for="username" class="form-label">Tên đăng nhập:  </label>
+                                    </div>
+                                    <div class="col-md-12 text-center pt-1 ">
+                                            <input  type="text" class="form-control py-2" id="username" name="username" placeholder="Nhập tên đăng nhập.">
+                                    </div>
+                                </div>
+        
+                                <!--Password-->
+                                <div class="row mt-2 px-5">
+                                    <div class="col-md-12 text-start pt-3">
+                                        <label for="password" class="form-label">Mật khẩu:</label>
+                                    </div>
+        
+                                    <div class="col-md-12 text-center pt-1 position-relative ">
+                                        <input  type="password" class="form-control py-2" id="password" name="password" placeholder="Nhập khẩu của bạn.">
+                                        <div class =" text-secondary show-pass" id ="showpass" onclick="showPass(this.form)">
+                                            <i class="fa-regular fa-eye-slash" ></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Confirm Password-->
+                                <div class="row mt-2 px-5">
+                                    <div class="col-md-12 text-start pt-3">
+                                        <label for="cfPassword" class="form-label">Nhập lại mật khẩu:</label>
+                                    </div>
+        
+                                    <div class="col-md-12 text-center pt-1 position-relative ">
+                                        <input  type="password" class="form-control py-2" id="cfPassword" name="cfpassword" placeholder="Nhập lại mật khẩu của bạn.">
+                                    </div>
+                                </div>
+                                
+                                <!--Button Register-->
+                                <div class="row mt-3 px-5">
+                                    <div class="col-md-12 text-center pt-3">
+                                        <button type="submit" class="btn form-control py-2 w-100 btn-login btn-register" >Đăng ký</button>
+                                    </div>
+                                </div>
+        
+                                <div class="position-relative row px-5">
+                                    <div class="col-md-12 text-center pt-4 pb-2">
+                                        <hr class="w-100 ">
+                                        <p class="position-absolute top-0 left-50 right-50 d-inline-block p-2 bg-white">Or</p>
+                                    </div>
+                                </div>
+        
+                                <!--Login-->
+                                <div class="row px-2">
+                                    <div class="col-md-12 text-center link-register py-2">
+                                        Đã có tài khoản?
+                                        <a href="login.html" class="">Đăng nhập</a>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <!--Vendor JavaScript Files-->
+    <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    
+    <script type="text/javascript" src="/assets/js/main.js"></script>
+</body>
+</body>
+</html>

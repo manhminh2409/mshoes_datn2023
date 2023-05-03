@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <!--CSS FILES-->
+    <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/assets/vendor/aos/aos.css}" rel="stylesheet"/>
+
+    <link th:href="@{/assets/vendor/fontawesome/css/all.css}" rel="stylesheet"/>
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet"/>
+
+    <!--JAVASCRIPT FILES-->
+    <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
+
+
+</head>
+<body class="bg-light">
+    <div class="bg-light container-fluid">
+        <!--LOGIN FORM-->
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="login-view bg-light my-4">
+                    <div class="card">  
+                        <div class="card-body">
+                            <form method="post" th:action="@{/login}" th:object="${loginRequest}">
+                                <!--Title-->
+                                <div class="row mt-3">
+                                    <div class="col-md-12 text-center py-3">
+                                        <h1 class="logo me-auto me-lg-0"><a href="index.html">MShoes<span class="logo-dot">.</span></a></h1>
+                                        <div class="text-secondary pt-2 login-des">
+                                            Đăng nhập bằng 
+                                            <span>
+                                                tên đăng nhập
+                                            </span> 
+                                            & 
+                                            <span>
+                                                mật khẩu
+                                            </span>.
+                                        </div>
+                                    </div>
+                                </div>
+        
+        
+                                <!--Username-->
+                                <div class="row mx-auto justify-content-center">
+                                    <div class="col-md-10 text-start pt-3">
+                                        <label for="username" class="form-label">Tên đăng nhập:</label>
+                                    </div>
+        
+                                    <div class="col-md-10 text-center pt-1 ">
+                                        <input  type="text" class="form-control py-2" id="username" name="username" placeholder="Nhập vào tên đăng nhập.">
+                                    </div>
+                                </div>
+        
+                                 <!--Password-->
+                                 <div class="row mt-3 mx-auto align-items-center justify-content-center">
+                                    <div class="col-md-10 text-start pt-3 d-flex justify-content-between">
+                                        <label for="password" class="form-label">Mật khẩu:</label>
+                                        <a href="#" class="text-success pt-1" style="font-size: 13px;">Quên mật khẩu?</a>
+                                    </div>
+        
+                                    <div class="col-md-10 text-center pt-1 position-relative">
+                                        <input  type="password" class="form-control py-2 " id="password" name="password" placeholder="Nhập mật khẩu.">
+                                        <div class = "text-secondary show-pass" id="showpass" onclick="showPass(this.form)">
+                                            <i class="fa-regular fa-eye-slash" ></i>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!--Button Login-->
+                                <div class="row mt-3 px-5">
+                                    <div class="col-md-12 text-center pt-3">
+                                        <button type="submit" class="btn form-control py-2 w-100 btn-login" >Đăng nhập</button>
+                                    </div>
+                                </div>
+        
+                                <div class="position-relative row px-5">
+                                    <div class="col-md-12 text-center pt-4 pb-2">
+                                        <hr class="w-100 ">
+                                        <p class="position-absolute top-0 left-50 right-50 d-inline-block p-2 bg-white">Or</p>
+                                    </div>
+                                </div>
+                                
+                                <!--Register-->
+                                <div class="row px-2">
+                                    <div class="col-md-12 text-center link-register py-2">
+                                        Bạn chưa có tài khoản?
+                                        <a href="signup.html" class="">Đăng ký</a>
+                                        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!--Vendor JavaScript Files-->
+    <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/assets/vendor/aos/aos.js}"></script>
+    <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+
+    <script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

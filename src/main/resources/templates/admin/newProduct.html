@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!--CSS FILES-->
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/glightbox/css/glightbox.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/admin-style.css}">
+
+  <!--JAVASCRIPT FILES-->
+  <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
+
+  <style type="text/css">
+    label{
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+        display: inline-block;
+        padding-right: 1rem !important;
+    }
+   </style>
+</head>
+
+<body>
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+    
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item py-3">
+          <i class="fa-brands fa-jedi-order"></i>
+          <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="fa-brands fa-squarespace"></i>
+          <span class="navbar-text">Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-brands fa-opencart"></i>
+          <span class="navbar-text">Order</span>
+          <i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="orders.html">
+              <i class="fa-regular fa-circle"></i><span>All orders</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-accordion.html">
+              <i class="fa-regular fa-circle"></i><span>Accordion</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-badges.html">
+              <i class="fa-regular fa-circle"></i><span>Badges</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-breadcrumbs.html">
+              <i class="fa-regular fa-circle"></i><span>Breadcrumbs</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-buttons.html">
+              <i class="fa-regular fa-circle"></i><span>Buttons</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Order Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-cube"></i><span class="navbar-text">Product</span>
+          <i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="products.html" class="active">
+              <i class="fa-regular fa-circle"></i><span>All products</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-layouts.html">
+              <i class="fa-regular fa-circle"></i><span>Form Layouts</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-editors.html">
+              <i class="fa-regular fa-circle"></i><span>Form Editors</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-validation.html">
+              <i class="fa-regular fa-circle"></i><span>Form Validation</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Product Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Account</span>
+          <i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="tables-general.html">
+              <i class="fa-regular fa-circle"></i><span>General Tables</span>
+            </a>
+          </li>
+          <li>
+            <a href="tables-data.html">
+              <i class="fa-regular fa-circle"></i><span>Data Tables</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Account Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Category</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="charts-chartjs.html">
+              <i class="fa-regular fa-circle"></i><span>Chart.js</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-apexcharts.html">
+              <i class="fa-regular fa-circle"></i><span>ApexCharts</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-echarts.html">
+              <i class="fa-regular fa-circle"></i><span>ECharts</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Category Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-regular fa-file-lines"></i><span class="navbar-text">Article</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="icons-bootstrap.html">
+              <i class="fa-regular fa-circle"></i><span>Bootstrap Icons</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-remix.html">
+              <i class="fa-regular fa-circle"></i><span>Remix Icons</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="fa-regular fa-circle"></i><span>Boxicons</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Icons Nav -->
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-faq.html">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-register.html">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.html">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-error-404.html">
+          <i class="bi bi-dash-circle"></i>
+          <span>Error 404</span>
+        </a>
+      </li><!-- End Error 404 Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-blank.html">
+          <i class="bi bi-file-earmark"></i>
+          <span>Blank</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+  <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+  <!-- End Header -->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>PRODUCT</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Tổng quan</a></li>
+          <li class="breadcrumb-item">Sản phẩm </li>
+          <li class="breadcrumb-item active">Thêm mới sản phẩm</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Thêm mới sản phẩm</h5>
+              
+              <form id="new-product-form" th:method="POST" th:action="@{/admin/product/create}" th:object="${productRequest}" enctype="multipart/form-data">
+                <div class="row mt-3 align-items-center">
+                    <label class="col-lg-2 text-end" for="name">
+                        Tên sản phẩm:
+                    </label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control"  id ="name" name ="name" >
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <label class="col-lg-2 text-end" for="description">
+                        Mô tả:
+                    </label>
+                    <div class="col-lg-3 ">
+                      <textarea id="description" name="description" rows="5" cols="50"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <label class="col-lg-2  text-end" for="price">
+                        Giá bán:
+                    </label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" id="price" name="price">
+                    </div>
+                    <label class="col-lg-2 text-end " for="discountPrice">
+                        Giá khuyến mãi:
+                    </label>
+                    
+                    <div class=" col-lg-3 ">
+                        <input type="text" class="form-control" id ="discountPrice" name="discountPrice">
+                    </div>
+                </div>
+                
+                <div class="row mt-3 align-items-center">
+                    <label class="col-lg-2 text-end" for="category">
+                        Danh mục:
+                    </label>
+                    <div class="col-lg-3">
+                      <select class="form-control"
+                              name="category" th:field="*{categoryId}" id="category">
+                        <option th:each="item : ${categoryList}"
+                                th:value="${item.id}" th:text="${item.title}"
+                                th:selected="${item.id == productRequest.categoryId}">
+                          Category Name
+                        </option>
+                      </select>
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <label class="col-lg-2 text-end images">
+                        Hình ảnh:
+                    </label>
+                    <div class="col-lg-3" id="arrImages">
+                        <input type="file"  id="images" name="images" multiple>
+<!--                        </script>-->
+                    </div>
+                </div>
+                <div id="colors-container" >
+                    <label>
+                        <input type="text" class="" hidden name="jsonColors" id="jsonColors">
+                    </label>
+                    <div class="color">
+                        <div class="row mt-3">
+                            <label class="col-lg-2 text-end">Màu sắc:</label>
+
+                            <div class="col-lg-2">
+                                <input type="text" id="color-value-1" name="colorValue[]" required="" class="form-control">
+                            </div>
+
+                            <div class="col-lg-2">
+                              <button type="button" id="add-color-btn" class="btn btn-success mx-1">Thêm màu sắc</button>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <label class="col-lg-2 text-end">Chọn size:</label>
+                            <div class="col-lg-10">
+                                <div class="sizes">
+                                    <div class="col-lg-2">
+                                        <button type="button" class="add-size-btn btn btn-success">Thêm size</button>
+                                    </div>
+                                    
+                                    <div class="size d-flex align-items-center row mt-2">
+                                        <div class="col-lg-3 d-flex align-items-center">
+                                            <label>Size:</label>
+                                            <input type="text" id="size-value-undefined-1" name="sizeValue[]" required="" class="form-control">
+                                        </div>
+                                        <div class="col-lg-3 d-flex align-items-center px-3">
+                                            <label class="col-lg-6">Số lượng:</label>
+                                            <input type="number" id="size-total-undefined-1" name="sizeTotal[]" min="0" required="" class="form-control">
+                                        </div>
+                                        <div class="col-lg-1">
+                                            <button type="button" class="remove-size-btn py-1 btn-danger btn">Xoá</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 offset-2 mt-3">
+                            <button type="button" class="remove-color-btn btn btn-danger mx-1">Xoá màu sắc</button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                  <div class="row align-items-center">
+                    <div class="col-md-12 mx-auto text-center">
+                        <hr class=" border-top border-1 border-success">
+                    </div>
+                  </div>
+
+                  <div class="row mt-3 pb-5">
+                      <div class="col-md-12 text-center">
+                      <button type="submit" name="" class="btn btn-success mx-2" ><i class="fa-solid fa-right-to-bracket"></i> Tạo mới</button>
+                      <button type="button" class="btn btn-secondary">Quay lại <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                  </div>
+              </div>
+            </form>
+
+            <script>
+              const newProductFrom = document.getElementById("new-product-form");
+              let colorsContainer = document.getElementById("colors-container");
+                let addColorBtn = document.getElementById("add-color-btn");
+                
+                let addSizeBtns = document.getElementsByClassName("add-size-btn");
+                let removeColorBtns = document.getElementsByClassName("remove-color-btn");
+                let removeSizeBtns = document.getElementsByClassName("remove-size-btn");
+                
+                // Thêm một màu sắc mới
+                function addColor() {
+                    
+                    let newColor = document.createElement("div");
+                    newColor.classList.add("color");
+                    
+
+                    let newDivRowColor = document.createElement("div");
+                    newDivRowColor.classList.add("row");
+                    newDivRowColor.classList.add("mt-3");
+                    newColor.appendChild(newDivRowColor);
+
+
+                    let index = colorsContainer.children.length + 1;
+                    let colorLabel = document.createElement("label");
+                    colorLabel.classList.add("col-lg-2");
+                    colorLabel.classList.add("text-end")
+                    colorLabel.textContent = "Màu sắc:";
+                    newDivRowColor.appendChild(colorLabel);
+
+                    let newDivInputColor = document.createElement("div");
+                    newDivInputColor.classList.add("col-lg-2");
+                    newDivRowColor.appendChild(newDivInputColor);
+                    
+                    let colorInput = document.createElement("input");
+                    colorInput.classList.add("form-control")
+                    colorInput.type = "text";
+                    colorInput.id = "color-value-" + index;
+                    colorInput.name = "colorValue[]";
+                    colorInput.required = true;
+                    newDivInputColor.appendChild(colorInput);
+                    
+                    let divRowSizes = document.createElement("div");
+                    divRowSizes.classList.add("row","mt-3");
+                    newColor.appendChild(divRowSizes);
+
+                    let labelSizes = document.createElement("label");
+                    labelSizes.classList.add("col-lg-2", "text-end");
+                    labelSizes.textContent= "Chọn size:";
+                    divRowSizes.appendChild(labelSizes);
+
+                    let colSizesDiv = document.createElement("div");
+                    colSizesDiv.classList.add("col-lg-10");
+                    divRowSizes.appendChild(colSizesDiv);
+
+                    let sizesDiv = document.createElement("div");
+                    sizesDiv.classList.add("sizes");
+                    colSizesDiv.appendChild(sizesDiv);
+                    
+                    let colSizeBtn = document.createElement("div");
+                    colSizeBtn.classList.add("col-lg-2");
+                    sizesDiv.appendChild(colSizeBtn);
+
+                    let newSizeBtn = document.createElement("button");
+                    newSizeBtn.type = "button";
+                    newSizeBtn.textContent = "Thêm size";
+                    newSizeBtn.classList.add("add-size-btn", "btn", "btn-success");
+                    colSizeBtn.appendChild(newSizeBtn);
+                    
+                    // Tạo phần tử HTML mới có kiểu là "div" và có lớp CSS "col-lg-2 offset-2 mt-3"
+                    let divRemoveColor = document.createElement("div");
+                    divRemoveColor.classList.add("col-lg-2", "offset-2", "mt-3");
+                    newColor.appendChild(divRemoveColor);
+
+                    let removeColorBtn = document.createElement("button");
+                    removeColorBtn.type = "button";
+                    removeColorBtn.textContent = "Xoá màu sắc";
+                    removeColorBtn.classList.add("remove-color-btn", "btn", "btn-danger", "mx-1");
+                    divRemoveColor.appendChild(removeColorBtn);
+                    
+                    colorsContainer.appendChild(newColor);
+                    
+                    // Xử lý sự kiện cho các nút button mới
+                    newSizeBtn.addEventListener("click", addSize);
+                    removeColorBtn.addEventListener("click", removeColor);
+                }
+                
+                // Xoá một màu sắc
+                function removeColor(event) {
+                  event.target.closest(".color").remove();
+                }
+                
+                // Thêm một size mới vào một màu sắc
+                function addSize(event) {
+                    let sizesDiv = event.target.closest(".sizes");
+                    let index = sizesDiv.children.length + 1;
+                    //------
+                  
+                    // Create a new div element with class "size" and "d-flex" and "align-items-center"
+                    let newSize = document.createElement("div");
+                    newSize.classList.add("size", "d-flex", "align-items-center", "row", "mt-2");
+                    sizesDiv.appendChild(newSize);
+
+                    // Create a new div element with class "col-lg-3" and "d-flex" and "align-items-center"
+                    let newSizeLabel = document.createElement("div");
+                    newSizeLabel.classList.add("col-lg-3");
+                    newSizeLabel.classList.add("d-flex");
+                    newSizeLabel.classList.add("align-items-center");
+                    newSize.appendChild(newSizeLabel);
+
+                    // Create a new label element with text content "Size:"
+                    let sizeLabel = document.createElement("label");
+                    sizeLabel.textContent = "Size:";
+                    newSizeLabel.appendChild(sizeLabel);
+
+                    // Create a new input element with type "text" and id "size-value-undefined-1" and name "sizeValue[]"
+                    let sizeInput = document.createElement("input");
+                    sizeInput.type = "text";
+                    sizeInput.id = "size-value-" + sizesDiv.parentElement.id.split("-")[2] + "-" + index;
+                    sizeInput.name = "sizeValue[]";
+                    sizeInput.required = true;
+                    sizeInput.classList.add("form-control");
+                    newSizeLabel.appendChild(sizeInput);
+
+                    // Create a new div element with class "col-lg-4" and "d-flex" and "align-items-center" and "px-3"
+                    let newSizeTotal = document.createElement("div");
+                    newSizeTotal.classList.add("col-lg-3");
+                    newSizeTotal.classList.add("d-flex");
+                    newSizeTotal.classList.add("align-items-center");
+                    newSizeTotal.classList.add("px-3");
+                    newSize.appendChild(newSizeTotal);
+
+                    // Create a new label element with text content "Số lượng:"
+                    let sizeTotalLabel = document.createElement("label");
+                    sizeTotalLabel.classList.add("col-lg-6");
+                    sizeTotalLabel.textContent = "Số lượng:";
+                    newSizeTotal.appendChild(sizeTotalLabel);
+
+                    // Create a new input element with type "number" and id "size-total-undefined-1" and name "sizeTotal[]" and min "0"
+                    let sizeTotalInput = document.createElement("input");
+                    sizeTotalInput.type = "number";
+                    sizeTotalInput.id = "size-total-" + sizesDiv.parentElement.id.split("-")[2] + "-" + index;
+                    sizeTotalInput.name = "sizeTotal[]";
+                    sizeTotalInput.min = "0";
+                    sizeTotalInput.required = true;
+                    sizeTotalInput.classList.add("form-control");
+                    newSizeTotal.appendChild(sizeTotalInput);
+
+                    // Create a new div element with class "col-lg-1" and "me-2"
+                    let newSizeRemove = document.createElement("div");
+                    newSizeRemove.classList.add("col-lg-1");
+                    newSizeRemove.classList.add("me-2");
+                    newSize.appendChild(newSizeRemove);
+
+                    // Create a new button element with text content "Xoá"
+                    let removeSizeBtn = document.createElement("button");
+                    removeSizeBtn.type = "button";
+                    removeSizeBtn.classList.add("remove-size-btn");
+                    removeSizeBtn.classList.add("py-1");
+                    removeSizeBtn.classList.add("btn-danger");
+                    removeSizeBtn.classList.add("btn");
+                    removeSizeBtn.textContent = "Xoá";
+                    newSizeRemove.appendChild(removeSizeBtn);
+
+                    sizesDiv.appendChild(newSize);
+
+                    // Xử lý sự kiện cho nút button mới
+                    removeSizeBtn.addEventListener("click", removeSize);
+                }
+
+                // Xoá một size khỏi một màu sắc
+                function removeSize(event) {
+                event.target.closest(".size").remove();
+                }
+
+                function submitData(event) {
+                    //event.preventDefault(); // ngăn chặn mặc định hành động của form khi submit
+
+                    let colors = [];
+                    let colorElements = document.getElementsByClassName("color");
+                    for (let i = 0; i < colorElements.length; i++) {
+                    let colorValue = colorElements[i].querySelector("input[name='colorValue[]']").value;
+                
+                    let sizeElements = colorElements[i].querySelectorAll(".size");
+                    let sizes = [];
+                
+                    for (let j = 0; j < sizeElements.length; j++) {
+                        let sizeValue = sizeElements[j].querySelector("input[name='sizeValue[]']").value;
+                        let sizeTotal = sizeElements[j].querySelector("input[name='sizeTotal[]']").value;
+                        
+                        sizes.push({ "value": sizeValue, "total": parseInt(sizeTotal) });
+                    }
+            
+                        colors.push({ "value": colorValue, "sizes": sizes });
+                    }
+
+                  let data = {"colors": colors };
+                    console.log(JSON.stringify(data));
+                    document.getElementById("jsonColors").value= JSON.stringify(data);
+                  // fetch('/admin/product/create', {
+                  //       method: 'POST',
+                  //           headers: {
+                  //           'Content-Type': 'application/json'
+                  //       },
+                  //       body: JSON.stringify(data)
+                  // }).then(response => response.json())
+                  // .then(data => console.log('Response:', data))
+                  // .catch(error => console.error('Error:', error));
+
+
+                }
+
+                // Xử lý sự kiện cho các nút button và form
+                addColorBtn.addEventListener("click", addColor);
+                newProductFrom.addEventListener("submit", submitData);
+
+                for (let i = 0; i < addSizeBtns.length; i++) {
+                addSizeBtns[i].addEventListener("click", addSize);
+                }
+
+                for (let i = 0; i < removeColorBtns.length; i++) {
+                removeColorBtns[i].addEventListener("click", removeColor);
+                }
+
+                for (let i = 0; i < removeSizeBtns.length; i++) {
+                removeSizeBtns[i].addEventListener("click", removeSize);
+                }       
+            </script>
+
+            </div>
+          </div>
+
+        </div>
+
+        
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+ <!-- End Footer -->
+ <div id="preloader"></div>
+
+
+  <!--vendor-scripts.html-->
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script  th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+ <script th:src="@{/assets/js/admin-main.js}"></script>
+
+</body>
+
+</html>

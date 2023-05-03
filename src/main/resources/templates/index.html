@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--CSS FILES-->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendor/aos/aos.css">
+    <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/vendor/glightbox/css/glightbox.min.css">
+
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!--JAVASCRIPT FILES-->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    
+</head>
+<body>
+    <th:block th:replace="~{web/fragments/header :: header}"></th:block>
+    <!-- End Header -->
+   <!-- ======= Slider Section ======= -->
+   <section id="slider" class="d-flex flex-column justify-content-start">
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-start">
+        <div class="col-md-12 offset-md-3 circle">
+         
+        </div>
+        <div class="col-md-12 offset-md-3 circle1">
+         
+        </div>
+        <div class="col-md-12 offset-md-3 circle2">
+         
+        </div>
+        <div class="col-md-12 hero">
+            <div class="row hero-item align-items-center">
+                <div class="col-lg-3 col-md-0 slider-content text-center align-items-center">
+                    <div class="slider-header">
+                        <h3 id="h3">NEW COLLECTION</h3>
+                        <span>NIKE</span>
+                    </div>
+                    <div class="slider-button">
+                        <button class="pe-5" id ="pre">
+                            <i class="fa-solid fa-chevron-left"></i> Pre
+                        </button>
+
+                        <button class="ps-5" id = "next">
+                           Next <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 slider-item active" id="item_0">
+                    <div class="item-content">
+                        <p class="number p-3">01</p>
+                        <img src="/assets/images/sneaker5.png" alt="">
+                        
+                        <div class="item-info px-5">
+                            <p class="item-title">Nike Jordan 2023</p>
+                            <p class="item-price">1,000,000đ</p>
+
+                            <a href="" class="btn"><i class="fa-solid fa-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 slider-item active" id="item_1">
+                    <div class="item-content">
+                        <p class="number p-3">02</p>
+                        <img src="/assets/images/sneaker3.png" alt="">
+                        
+                        <div class="item-info px-5">
+                            <p class="item-title">Nike Jordan 2023</p>
+                            <p class="item-price">990,000đ</p>
+                            <a href="" class="btn d-none"><i class="fa-solid fa-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-0 text-center slider-brand">
+                    <div class="list-brand d-flex justify-content-center flex-column">
+                        <img src="/assets/images/brand/nike.png" alt="">
+                        <img src="/assets/images/brand/adidas.png" alt="">
+                        <img src="/assets/images/brand/nb.png" alt="">
+                        <img src="/assets/images/brand/puma.png" alt="">
+                    </div>
+
+                    <p class="copyright">@mshoes</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Slider -->
+
+
+  <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="col-md-12 offset-md-3 circle">
+         
+        </div>
+        <div class="col-md-12 offset-md-3 circle1">
+         
+        </div>
+        <div class="section-header">
+          <h2>Về chúng tôi</h2>
+          <p>Một vài thông tin chúng tôi dành cho bạn</p>
+        </div>
+
+        <div class="row gy-4 mt-2">
+          <div class="col-lg-7 position-relative about-img" data-aos="fade-up" data-aos-delay="150">
+            <img src="/assets/images/sneaker8.png" alt="">
+            <div class="call-us position-absolute ">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <div class="info-item  d-flex align-items-center">
+                    <i class="icon fa-solid fa-location-dot"></i>
+                    <div>
+                      <h3>Địa chỉ</h3>
+                      <p>Song Lo, Vinh Phuc</p>
+                    </div>
+                  </div>
+                </div><!-- End Info Item -->
+      
+                <div class="col-md-6">
+                  <div class="info-item d-flex align-items-center">
+                    <i class="icon fa-regular fa-paper-plane"></i>
+                    <div>
+                      <h3>Email</h3>
+                      <p>mshoes@gmail.com</p>
+                    </div>
+                  </div>
+                </div><!-- End Info Item -->
+      
+                <div class="col-md-6">
+                  <div class="info-item  d-flex align-items-center">
+                    <i class="icon fa-solid fa-phone-flip"></i>
+                    <div>
+                      <h3>Điện thoại</h3>
+                      <p>0379612164</p>
+                    </div>
+                  </div>
+                </div><!-- End Info Item -->
+      
+                <div class="col-md-6">
+                  <div class="info-item  d-flex align-items-center">
+                    <i class="icon fa-regular fa-clock"></i>
+                    <div>
+                      <h3>Thời gian</h3>
+                      <div>
+                        <strong>Mon - Sat</strong> 8AM - 22PM
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- End Info Item -->
+      
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+            <div class="content ps-0 ps-lg-5">
+              <p class="fst-italic">
+                <strong class="brand-name">MShoes<span class="logo-dot">.</span></strong> chuyên nhập khẩu và phân phối sản phẩm giày dép từ những thương hiệu nổi tiếng <strong>Nike, Adidas, ...</strong> Mục tiêu hàng đầu của chúng tôi là xây dựng một thương hiệu đứng đầu cả nước.
+              </p>
+              <ul>
+                <li><i class="fa-solid fa-check"></i> Nhà phân phối, nhập khẩu giày dép hàng đầu cả nước.</li>
+                <li><i class="fa-solid fa-check"></i> Là đơn vị phân phối chính thức trái cây Nhật Bản.</li>
+                <li><i class="fa-solid fa-check"></i> Tất cả các sản phẩm đều được cấp chứng nhận bởi NASAA, EU - Eco, NPOP, BIOCert, JAS Certificate of Origin, OGA certified Organic.</li>
+              </ul>
+              <p>
+                Trái cây là nguồn cung cấp nhiều chất dinh dưỡng thiết yếu được tiêu thụ ít, bao gồm kali, chất xơ, vitamin C và folate (axit folic). <span class="brand-name">MFruit<span>.</span></span> luôn luôn cam kết chất lượng của từng sản phẩm đến tay người tiêu dùng.
+              </p>
+
+              <div class="position-relative mt-4 about-video align-items-center">
+                <img src="assets/images/sneaker3.png" class="img-fluid" alt="">
+                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= product Section ======= -->
+    <section id="product" class="product">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h2>Sản phẩm</h2>
+          <p>Sản phẩm nổi bật năm 2023</p>
+        </div>
+
+        <div class="row py-3">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="product-filters">
+              <li data-filter="*" class="filter-active">Tất cả</li>
+              <th:block th:each="category : ${categories}">
+                <li th:data-filter="'.' + 'filter-ca' + ${category.id}" th:text="${category.title}"></li>
+              </th:block>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row product-container">
+          <th:block th:each="product: ${products}">
+            <div th:class="'col-lg-3 col-md-6 product-item filter-ca' + ${product.categoryId}">
+              <img th:src="${product.imageResponses[0].url}" class="img-fluid" alt="">
+              <div class="product-info">
+                <h4 th:text="${product.name}"></h4>
+                <p>
+                  <span th:if="${product.discountPrice != 0}" th:text="${product.discountPrice} + 'đ'" th:style="'color:#e57021;'"></span>
+                  <span th:if="${product.discountPrice != 0}" th:text="${product.price}+'đ'" th:style="'text-decoration:line-through; color:#959595; font-size: 14px;'"></span>
+                  <span th:if="${product.discountPrice == 0}" th:text="${product.price}+'đ'" th:style="'color:#e57021;'"></span>
+
+                </p>
+                <a th:src="${product.imageResponses[0].url}" data-gallery="productGallery" class="product-lightbox preview-link" title="App 1"><i class="fa-solid fa-plus"></i></a>
+                <a th:href="@{${'/home/product/detail/' + product.id}}" class="details-link" title="More Details"><i class="fa-solid fa-link"></i></a>
+              </div>
+            </div>
+          </th:block>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <a th:href="@{/home/product}" class="btn view-all-product">Xem tất cả sản phẩm</a>
+          </div>
+        </div>
+      </div>
+    </section><!-- End product Section -->
+
+
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events mt-4 pt-3">
+      <div class="container-fluid" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Sự kiện</h2>
+          <p>Những sự kiện dành cho bạn </p>
+        </div>
+        <div class="row mt-5">
+          <div class="col-lg-10 mx-auto">
+            <div class="slides-events swiper" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper-wrapper">
+
+              <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(/assets/images/event-1.jpg)">
+                <h3>Sinh nhật Nike</h3>
+                <p class="description">
+                  Thời gian: 10/02 - 10/03
+                </p>
+              </div><!-- End Event item -->
+
+              <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(/assets/images/event-2.jpg)">
+                <h3>Siêu sale tháng 4</h3>
+                <p class="description">
+                  Thời gian: 10/02 - 10/03
+                </p>
+              </div><!-- End Event item -->
+
+              <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(/assets/images/event-3.jpg)">
+                <h3>Birthday Parties</h3>
+                <p class="description">
+                  Thời gian: 10/02 - 10/03
+                </p>
+              </div><!-- End Event item -->
+
+              <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(/assets/images/event-4.jpg)">
+                <h3>Birthday Parties</h3>
+                <p class="description">
+                  Thời gian: 10/02 - 10/03
+                </p>
+              </div><!-- End Event item -->
+
+              <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(/assets/images/event-3.jpg)">
+                <h3>Birthday Parties</h3>
+                <p class="description">
+                  Thời gian: 10/02 - 10/03
+                </p>
+              </div><!-- End Event item -->
+
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+          </div>
+        </div>
+        
+
+      </div>
+    </section><!-- End Events Section -->
+
+    <!-- ======= store Section ======= -->
+    <section id="store" class="store mt-5">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Cửa hàng</h2>
+          <p>Những cửa hàng của chúng tôi</p>
+        </div>
+        
+        <div class="row gy-4 mt-5">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="store-item">
+              <div class="store-img">
+                <img src="assets/images/store/store-1.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-twitter"></i></a>
+                  <a href=""><i class="fa-brands fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-instagram"></i></a>
+                  <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="store-info">
+                <h4>Ha Noi Store</h4>
+                <span>8888 Ha Noi</span>
+                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+              </div>
+            </div>
+          </div><!-- End store store -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="store-item">
+              <div class="store-img">
+                <img src="assets/images/store/store-2.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-twitter"></i></a>
+                  <a href=""><i class="fa-brands fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-instagram"></i></a>
+                  <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="store-info">
+                <h4>Da Nang Store</h4>
+                <span>8888 Da Nang</span>
+                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
+              </div>
+            </div>
+          </div><!-- End store store -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="store-item">
+              <div class="store-img">
+                <img src="assets/images/store/store-3.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-twitter"></i></a>
+                  <a href=""><i class="fa-brands fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-instagram"></i></a>
+                  <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="store-info">
+                <h4>Ho Chi Minh Store</h4>
+                <span>8888 Ho Chi Minh</span>
+                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+              </div>
+            </div>
+          </div><!-- End store store -->
+
+        </div>
+
+      </div>
+    </section><!-- End store Section -->
+
+
+    
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact mt-5">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Liên hệ</h2>
+          <p>Bạn cần hỗ trợ?</p>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <iframe style="border:0; width: 83.3333%; height: 350px;margin-left: 50%;transform: translate(-50%, 0);" src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d56241.64966654339!2d105.83492192409867!3d21.027811679804184!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1676341810903!5m2!1svi!2s" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="icon fa-solid fa-location-dot"></i>
+                  <h4>Địa chỉ</h4>
+                  <p>Song Lo, Vinh Phuc</p>
+              </div>
+
+              <div class="email">
+                <i class="fa-regular fa-envelope"></i>
+                <h4>Email</h4>
+                <p>mshoes@gmail.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="icon fa-solid fa-phone-flip"></i>
+                <h4>Điện thoại</h4>
+                <p>0379612164</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Tên của bạn." required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Địa chỉ hòm thư." required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Tiêu đề." required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Lời nhắn cho chúng tôi" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Vui lòng đợi...</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Lời nhắn của bạn đã được gửi. Cảm ơn!</div>
+              </div>
+              <div class="text-center"><button type="submit">Gửi lời nhắn</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+    
+    <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer mt-5">
+
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-geo-alt icon"></i>
+          <div>
+            <h4>Địa chỉ</h4>
+            <p>
+              Đôn Nhân <br>
+              Sông Lô, Vĩnh Phúc<br>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Thông tin liên hệ</h4>
+            <p>
+              <strong>Điện thoại:</strong> +84 0379 612 164<br>
+              <strong>Email:</strong> mshoes@gmail.com<br>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links d-flex">
+          <i class="bi bi-clock icon"></i>
+          <div>
+            <h4>Thời gian mở cửa</h4>
+            <p>
+              <strong>Mon - Sat</strong> 8AM - 22PM
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Theo dõi chúng tôi</h4>
+          <div class="social-links d-flex">
+            <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer><!-- End Footer -->
+  <!-- End Footer -->
+  <div id="preloader"></div>
+
+
+  <!--Vendor JavaScript Files-->
+  <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  
+  <script type="text/javascript" src="/assets/js/main.js"></script>
+</body>
+</body>
+</html>
