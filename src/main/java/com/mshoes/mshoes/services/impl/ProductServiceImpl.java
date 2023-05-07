@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.mshoes.mshoes.models.*;
+import com.mshoes.mshoes.repositories.*;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,18 +24,10 @@ import com.mshoes.mshoes.mapper.ColorMapper;
 import com.mshoes.mshoes.mapper.ImageMapper;
 import com.mshoes.mshoes.mapper.ProductMapper;
 import com.mshoes.mshoes.mapper.SizeMapper;
-import com.mshoes.mshoes.models.Color;
-import com.mshoes.mshoes.models.Image;
-import com.mshoes.mshoes.models.Product;
-import com.mshoes.mshoes.models.Size;
 import com.mshoes.mshoes.models.request.ColorRequest;
 import com.mshoes.mshoes.models.request.ProductRequest;
 import com.mshoes.mshoes.models.request.SizeRequest;
 import com.mshoes.mshoes.models.response.ProductResponse;
-import com.mshoes.mshoes.repositories.ColorRepository;
-import com.mshoes.mshoes.repositories.ImageRepository;
-import com.mshoes.mshoes.repositories.ProductRepository;
-import com.mshoes.mshoes.repositories.SizeRepository;
 import com.mshoes.mshoes.services.ProductService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,6 +42,7 @@ public class ProductServiceImpl implements ProductService {
 
 	private final ImageRepository imageRepository;
 
+	private final CategoryRepository categoryRepository;
 
 	private final ColorRepository colorRepository;
 
@@ -68,10 +63,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository,
-							  ColorRepository colorRepository, SizeRepository sizeRepository, ProductMapper productMapper,
+							  CategoryRepository categoryRepository, ColorRepository colorRepository, SizeRepository sizeRepository, ProductMapper productMapper,
 							  ImageMapper imageMapper, ColorMapper colorMapper, SizeMapper sizeMapper, Utilities utilities) {
 		this.productRepository = productRepository;
 		this.imageRepository = imageRepository;
+		this.categoryRepository = categoryRepository;
 		this.colorRepository = colorRepository;
 		this.sizeRepository = sizeRepository;
 		this.productMapper = productMapper;
@@ -149,7 +145,7 @@ public class ProductServiceImpl implements ProductService {
 			count++; // tăng biến đếm
 		}
 
-		String sku = sb.toString() +"U"+ String.valueOf(productRequest.getUserId()) +"PP"+ String.valueOf(productRepository.findNewestId());
+		String sku = sb.toString() +"U"+ String.valueOf(productRequest.getUserId()) +"P"+ String.valueOf(productRepository.findNewestId());
 		sku = sku.toUpperCase(); // chuyển thành chữ hoa
 
 		productRequest.setSku(sku);
@@ -175,8 +171,7 @@ public class ProductServiceImpl implements ProductService {
 		// Save image into table image
 		this.saveImages(images, productId);
 
-		ProductResponse productResponse = this.getProductById(productId);
-		return productResponse;
+		return this.getProductById(productId);
 	}
 
 	// Save color and size into database
@@ -233,12 +228,28 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public ProductResponse updateProduct(ProductRequest productRequest, long productId) {
 		// get product by id from the database
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
 
-		productMapper.updateModel(product, productRequest);
+		if(!Objects.equals(product.getCategory().getId(), productRequest.getCategoryId())){
+			Category category = categoryRepository.findById(productRequest.getCategoryId()).orElseThrow();
+			product.setCategory(category);
+		}
+		if (!Objects.equals(product.getDescription(), productRequest.getDescription())){
+			product.setDescription(productRequest.getDescription());
+		}
+		if (!Objects.equals(product.getName(), productRequest.getName())){
+			product.setName(productRequest.getName());
+		}
+		if (!Objects.equals(product.getPrice(), productRequest.getPrice())){
+			product.setPrice(productRequest.getPrice());
+		}
+		if (!Objects.equals(product.getDiscountPrice(), productRequest.getDiscountPrice())){
+			product.setDiscountPrice(productRequest.getDiscountPrice());
+		}
 		product.setModifiedDate(utilities.getCurrentDate());
 
 		Product responseProduct = productRepository.save(product);
@@ -258,6 +269,21 @@ public class ProductServiceImpl implements ProductService {
 			System.out.print("Ex: " + e);
 		}
 
+	}
+
+	@Override
+	public void actionProduct(Long productId, int action) {
+		Product product = productRepository.findById(productId).orElseThrow();
+		try{
+			if(action == 0){
+				product.setStatus(1);
+			}else if (action == 1){
+				product.setStatus(0);
+			}
+			productRepository.save(product);
+		}catch (Exception ex){
+			System.out.print("Ex: " + ex);
+		}
 	}
 
 }

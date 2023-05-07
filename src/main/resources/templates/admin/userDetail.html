@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Chi tiết tài khoản</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!--CSS FILES-->
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/admin-style.css}">
+
+  <!--JAVASCRIPT FILES-->
+  <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
+   
+</head>
+
+<body>
+
+  <aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item py-3">
+      <i class="fa-brands fa-jedi-order"></i>
+      <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" th:href="@{/}">
+        <i class="fa-brands fa-squarespace"></i>
+        <span class="navbar-text">Tổng quan </span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
+        <i class="fa-brands fa-opencart"></i>
+        <span class="navbar-text">Quản lý đơn hàng</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/order}">
+            <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/order}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết đơn hàng</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Order Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
+        <i class="fa-solid fa-cube"></i><span class="navbar-text">Quản lý sản phẩm</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/product}">
+            <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/product/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/product}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết sản phẩm sản phẩm</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Product Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link " data-bs-target="#tables-nav" data-bs-toggle="collapse" th:href="@{/admin/user}">
+        <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Quản lý tài khoản</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/user}">
+            <i class="fa-regular fa-circle"></i><span>Xem tài khoản</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/user/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới tài khoản</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/user}" class="active">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết tài khoản</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Account Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Quản lý danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/category}">
+            <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/category/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới danh mục</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/category}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết danh mục</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Category Nav -->
+  </ul>
+</aside><!-- End Sidebar-->
+
+  <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+  <!-- End Header -->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Quản lý tài khoản</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/admin}">Tổng quan</a></li>
+          <li class="breadcrumb-item">Quản lý tài khoản</li>
+          <li class="breadcrumb-item active">Chi tiết tài khoản</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Chi tiết tài khoản</h5>
+
+              <form th:id="'new-user'" th:method="'POST'" th:action="@{/admin/user/update/{id}(id = ${userDetail.id})}" th:object="${userRequest}" enctype="multipart/form-data">
+                <div class="row  mx-0" th:if="${error != '0'}">
+                  <div class="col-md-11 offset-1 text-danger">Lỗi trong quá trình cập nhật dữ liệu mới!</div>
+                </div>
+                <div class="row mx-0">
+                  <div class="col-lg-4 offset-1">
+                    <label for="fullname" class="pt-3 pb-2">Họ và tên:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <input type="text" name="fullname" id="fullname" class="form-control" th:value="${userDetail.fullname}" placeholder="" onchange="validateField('fullname')">
+                    <p id="fullname-error" class="text-danger err"></p>
+                  </div>
+                </div>
+                <div class="row mx-0">
+                  <div class="col-lg-3 offset-1">
+                    <label for="username" class="pt-3 pb-2">Tên đăng nhập:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <input type="text" name="username" id="username" disabled class="form-control" th:value="${userDetail.username}" placeholder="" onchange="validateField('username')">
+                    <input type="text" name="username" class="form-control d-none" th:value="${userDetail.username}" placeholder="" >
+                    <p id="username-error" class="text-danger err"></p>
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="password" class="pt-3 pb-2">Mật khẩu:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <input type="password" name="password" id="password" disabled th:value="${userDetail.password}" class="form-control" placeholder="" onchange="validateField('password')">
+                    <p id="password-error" class="text-danger err"></p>
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="cfPassword" class="pt-3 pb-2">Nhập lại mật khẩu:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <input type="password" name="cfPassword" id="cfPassword" disabled th:value="${userDetail.password}" class="form-control" onchange="validateField('cfPassword')">
+                    <p id="cfPassword-error" class="text-danger err"></p>
+                  </div>
+                </div>
+
+                <div class="row mx-0">
+                  <div class="col-lg-3 offset-1">
+                    <label for="image" class="pt-3 pb-2">Hình ảnh:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <input type="file" name="image" id="image" class="form-control" >
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="email" class="pt-3 pb-2">Email:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <input type="text" name="email" id="email" class="form-control"  th:value="${userDetail.email}" placeholder="" onchange="validateField('email')">
+                    <p id="email-error" class="text-danger err"></p>
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="phone" class="pt-3 pb-2">Số điện thoại:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <input type="text" name="phone" id="phone" class="form-control" th:value="${userDetail.phone}" placeholder="" onchange="validateField('phone')">
+                    <p id="phone-error" class="text-danger err"></p>
+                  </div>
+                </div>
+                <div class="row mx-0">
+                  <div class="col-lg-5 offset-1">
+                    <label for="address" class="pt-3 pb-2">Địa chỉ:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                    <textarea type="text" name="address" id="address" rows="5" cols="50" onchange="validateField('address')">[[${userDetail.address}]]</textarea>
+                    <p id="address-error" class="text-danger err"></p>
+                  </div>
+                </div>
+
+                <div class="row mx-0">
+                  <div class="col-lg-3 offset-1">
+                    <label for="city" class="pt-3 pb-2">Tỉnh / Thành phố:</label>
+                    <select id="city" name="city" class="form-select w-100" style="font-size: 14px">
+                      <option value="">--Tỉnh/Thành--</option>
+                    </select>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <label for="district" class="pt-3 pb-2">Quận / Huyện:</label>
+                    <select id="district" name="district" class="form-select w-100" style="font-size: 14px">
+                      <option value="">--Quận / Huyện--</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="ward" class="pt-3 pb-2">Phường / Xã:</label>
+                    <select id="ward" name="ward" class="form-select w-100" style="font-size: 14px">
+                      <option value="">--Phường / Xã--</option>
+                    </select>
+                  </div>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+                  <script>
+                    const host = "https://provinces.open-api.vn/api/";
+                    var callAPI = (api) => {
+                      return axios.get(api)
+                              .then((response) => {
+                                renderData(response.data, "city");
+                              });
+                    }
+                    callAPI('https://provinces.open-api.vn/api/?depth=1');
+                    var callApiDistrict = (api) => {
+                      return axios.get(api)
+                              .then((response) => {
+                                renderData(response.data.districts, "district");
+                              });
+                    }
+                    var callApiWard = (api) => {
+                      return axios.get(api)
+                              .then((response) => {
+                                renderData(response.data.wards, "ward");
+                              });
+                    }
+
+                    var renderData = (array, select) => {
+                      let row = ' <option disable value="">Chọn</option>';
+                      array.forEach(element => {
+                        row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+                      });
+                      document.querySelector("#" + select).innerHTML = row
+                    }
+
+                    $("#city").change(() => {
+                      callApiDistrict(host + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+                      printResult();
+                    });
+                    $("#district").change(() => {
+                      callApiWard(host + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+                      printResult();
+                    });
+                    $("#ward").change(() => {
+                      printResult();
+                    })
+
+                    var printResult = () => {
+                      if ($("#district").find(':selected').data('id') !== "" && $("#city").find(':selected').data('id') !== "" &&
+                              $("#ward").find(':selected').data('id') !== "") {
+                        let result = $("#city option:selected").text() +
+                                " | " + $("#district option:selected").text() + " | " +
+                                $("#ward option:selected").text();
+                        $("#result").text(result)
+                      }
+
+                    }
+                  </script>
+                </div>
+                <input type="hidden" name="_method" value="PUT">
+                <div class="row mt-5 pb-5 mx-0">
+                  <div class="col-md-12 text-center">
+                    <button type="submit" th:id="'update'" class="btn btn-success mx-2"><i class="fa-solid fa-right-to-bracket"></i> Lưu thay đôi</button>
+                    <button type="button" class="btn btn-secondary">Quay lại <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                  </div>
+                </div>
+              </form>
+
+              <script>
+                function validateField(fieldName) {
+                  const field = document.getElementById(fieldName);
+                  const error = document.getElementById(`${fieldName}-error`);
+                  const value = field.value.trim();
+
+                  if (value === "") {
+                    error.textContent = "Vui lòng điền thông tin!";
+                    disableCreateButton();
+                  } else {
+                    error.textContent = "";
+                    switch (fieldName) {
+                      case "email":
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(value)) {
+                          error.textContent = "Địa chỉ email không hợp lệ!";
+                          disableCreateButton();
+                        }
+                        break;
+                      case "phone":
+                        const phoneRegex = /^\d{10}$/;
+                        if (!phoneRegex.test(value)) {
+                          error.textContent = "Số điện thoại không hợp lệ!";
+                          disableCreateButton();
+                        }
+                        break;
+                      case "password":
+                        if (value.length < 6 || value.length > 50) {
+                          error.textContent = "Mật khẩu phải từ 6 đến 50 ký tự!";
+                          disableCreateButton();
+                        }
+                        break;
+                      case "cfPassword":
+                        let password = document.getElementById("password").value.trim();
+                        if (value !== password) {
+                          error.textContent = "Mật khẩu xác nhận không đúng!";
+                          disableCreateButton();
+                        }
+                        break;
+                      default:
+                        // Do nothing
+                        break;
+                    }
+                  }
+
+                  enableCreateButton();
+                }
+
+                function disableCreateButton() {
+                  const checkoutButton = document.getElementById("update");
+                  checkoutButton.disabled = true;
+                }
+
+                function enableCreateButton() {
+                  const fullname = document.getElementById("fullname");
+                  const email = document.getElementById("email");
+                  const phone = document.getElementById("phone");
+                  const address = document.getElementById("address");
+
+                  const createButton = document.getElementById("update");
+                  createButton.disabled = (fullname.value.trim() === "" || email.value.trim() === "" || phone.value.trim() === "" || address.value.trim() === "");
+                }
+              </script>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">ManhMinh</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fa-solid fa-arrow-up"></i></a>
+
+ <!-- End Footer -->
+ <div id="preloader"></div>
+
+  <!--vendor-scripts.html-->
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+
+  <script th:src="@{/assets/js/admin-main.js}"></script>
+
+</body>
+</html>

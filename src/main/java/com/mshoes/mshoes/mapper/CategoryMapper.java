@@ -28,6 +28,7 @@ public interface CategoryMapper {
 	// mapper list dto to model
 	List<Category> mapDTOToModels(List<CategoryDTO> categoryDTOS);
 
+	Category mapRequestToCategory(CategoryRequest categoryRequest);
 	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 	void updateModel(@MappingTarget Category category, CategoryRequest categoryRequest);
 }

@@ -13,12 +13,12 @@
   }
   
   a {
-    color: #088181cc;
+    color: #2eb8b8;
     text-decoration: none;
   }
   
   a:hover {
-    color: #055757cc;
+    color: #066767;
     text-decoration: none;
   }
   
@@ -478,6 +478,9 @@
   
   .header-nav .nav-profile img {
     max-height: 36px;
+    width: 36px;
+    object-fit: cover;
+    object-position: center;
   }
   
   .header-nav .nav-profile span {
@@ -994,10 +997,13 @@
     vertical-align: middle;
   }
   .datatable.table-striped td span.price{
-    text-decoration:line-through;
+  }
+  .aorders .datatable.table-striped td span.price{
+    text-decoration:none!important;
   }
   .dataTable-sorter::before, .dataTable-sorter::after {
     margin-right: 16px;
+    display: none;
   }
   .table{
     --bs-table-striped-bg: rgba(0, 0, 0, 0.01)!important;
@@ -1010,10 +1016,20 @@
     object-fit: cover;
     object-position: center;
   }
-
+  .aorders .datatable a.link-order:hover{
+    color: #2eb8b8;
+  }
+  .ausers .datatable a.link-user:hover{
+    color: #2eb8b8;
+  }
   /*--------------------------------------------------------------
   # Error 404
   --------------------------------------------------------------*/
+  form#new-user .err{
+    font-size: 13px;
+    padding: 2px 0;
+  }
+
   .error-404 {
     padding: 30px;
   }
@@ -1070,3 +1086,46 @@
     font-size: 13px;
     color: #012970;
   }
+
+.order-detail .quantity {
+  position: absolute;
+  right: 3px;
+  top: -6px;
+  font-size: 14px;
+  padding: 0 6px;
+  background-color: #3D4C53;
+  color: #fff;
+}
+/*product*/
+.products .table.datatable th.description{
+  max-width: 50%!important;
+}
+img.image-detail-product {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  object-position: center;
+}
+ul.product-quantity {
+  list-style: none;
+  padding-left: 0;
+}
+ul.product-quantity li input{
+  display: inline-block!important;
+  width: 25%!important;
+}
+button.x-image {
+  background: #7e7e7e;
+  position: absolute;
+  z-index: 100;
+  padding: 0px 5px;
+  top: -9px;
+  right: -1px;
+  border-radius: 4px;
+}
+button.x-image i {
+  font-size: 14px;
+}
+button.x-image.btn.btn-sm:hover {
+  background: #595353;
+}

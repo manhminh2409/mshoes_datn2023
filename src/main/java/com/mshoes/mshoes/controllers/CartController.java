@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/home/cart")
@@ -120,7 +121,6 @@ public class CartController {
         orderDetailRequest.setId(orderDetailId);
         orderDetailRequest.setTotalQuantity(Integer.parseInt(totalQuantity));
         orderDetailRequest.setTotalAmount(Integer.parseInt(totalAmount.replace(".", "").replace("đ", "")));
-
         model.addAttribute("orderDetailRequest", orderDetailRequest);
 
         return "web/checkout";
@@ -137,7 +137,14 @@ public class CartController {
             orderDetailRequest.setId(checkOutRequest.getId());
             orderDetailRequest.setTotalQuantity(checkOutRequest.getTotalQuantity());
             orderDetailRequest.setTotalAmount(checkOutRequest.getTotalAmount());
-
+            orderDetailRequest.setPhone(checkOutRequest.getPhone());
+            orderDetailRequest.setNotes(checkOutRequest.getNotes());
+            orderDetailRequest.setAddress(checkOutRequest.getAddress() +"; "+ checkOutRequest.getWard() + ", " + checkOutRequest.getDistrict()+", "+ checkOutRequest.getCity());
+            if(Objects.equals(checkOutRequest.getPaymentMethod(), "cod")){
+                orderDetailRequest.setPaymentId((long)1);
+            }else if (Objects.equals(checkOutRequest.getPaymentMethod(), "bankTransfer")){
+                orderDetailRequest.setPaymentId((long)2);
+            }
             OrderDetailResponse orderDetailResponse = orderDetailService.checkOut(userId,orderDetailRequest);
             return "redirect:/home/user";
         }catch (Exception e){

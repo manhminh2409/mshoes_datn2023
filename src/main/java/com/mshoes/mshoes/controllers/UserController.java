@@ -8,15 +8,18 @@ import com.mshoes.mshoes.services.OrderDetailService;
 import com.mshoes.mshoes.services.UserService;
 import com.mshoes.mshoes.utils.GetUserFromToken;
 import com.mshoes.mshoes.utils.JwtUtils;
+import com.mshoes.mshoes.utils.TimeUtils;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/home/user")
@@ -26,7 +29,9 @@ public class UserController {
     private final OrderDetailService orderDetailService;
 
     private final GetUserFromToken getUserFromToken;
+
     private final JwtUtils jwtUtils;
+
 
     public UserController(UserService userService, OrderDetailService orderDetailService, GetUserFromToken getUserFromToken, JwtUtils jwtUtils) {
         this.userService = userService;
@@ -95,7 +100,7 @@ public class UserController {
         // Lưu request của trang hiện tại vào session
         HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         requestCache.saveRequest(request, response);
-        return "web/user";
+        return "web/order";
     }
 
     //Huỷ đơn hàng
@@ -111,24 +116,27 @@ public class UserController {
             return "redirect:/home/user?err=false";
         }
     }
-
+    @ModelAttribute("oldUser")
+    public UserResponse oldUser( HttpServletRequest request){
+        //Lấy thông tin user
+        return getUserFromToken.getUserFromToken(request);
+    }
     @GetMapping("/profile")
     public String getProfile(ModelMap model, HttpServletRequest request){
-        //Lấy thông tin user
-        UserResponse userResponse = getUserFromToken.getUserFromToken(request);
-        model.addAttribute("oldUser", userResponse);
         return "web/profile";
     }
 
     @PutMapping("/profile/change")
-    public String editProfile(ModelMap model, HttpServletRequest request, @ModelAttribute("profileRequest")ProfileRequest profileRequest) throws IOException {
+    public String editProfile(ModelMap model,
+                              HttpServletRequest request,
+                              HttpServletResponse response,
+                              @ModelAttribute("profileRequest")ProfileRequest profileRequest,
+                              RedirectAttributes redirectAttributes) throws IOException {
 
         //Lấy thông tin user
-        String token = jwtUtils.getTokenLoginFromCookie(request);
-        Long userId = jwtUtils.getUserIdFromToken(token);
-
-        UserDTO userDTO = userService.updateUser(profileRequest, userId);
-        return "web/profile";
+        UserResponse userResponse = getUserFromToken.getUserFromToken(request);
+        UserDTO userDTO = userService.updateUser(profileRequest, userResponse.getId());
+        return "redirect:/home/user/profile";
     }
 
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Đăng Ký</title>
     <!--CSS FILES-->
     <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
@@ -32,7 +32,7 @@
                                 <!--Title-->
                                 <div class="row mt-3">
                                     <div class="col-md-12 text-center py-3">
-                                        <h1 class="logo me-auto me-lg-0"><a th:href="@{/home}">MShoes<span class="logo-dot">.</span></a></h1>
+                                        <h1 class="logo me-auto me-lg-0"><a th:href="@{/home}">D.Shop<span class="logo-dot">.</span></a></h1>
                                         <div class="text-secondary pt-2 px-5 login-des link-register">
                                                 Để đăng ký, bạn phải đồng ý với 
                                             <span>
@@ -126,16 +126,13 @@
         </div>
     </div>
 
-    
+
 
     <!--Vendor JavaScript Files-->
-    <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-    
+    <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/assets/vendor/aos/aos.js}"></script>
+    <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+
     <script type="text/javascript" src="/assets/js/main.js"></script>
-</body>
 </body>
 </html>

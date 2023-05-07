@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Quản lý tài khoản</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!--CSS FILES-->
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/admin-style.css}">
+
+  <!--JAVASCRIPT FILES-->
+  <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
+   
+</head>
+
+<body>
+
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item py-3">
+        <i class="fa-brands fa-jedi-order"></i>
+        <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/}">
+          <i class="fa-brands fa-squarespace"></i>
+          <span class="navbar-text">Tổng quan </span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
+          <i class="fa-brands fa-opencart"></i>
+          <span class="navbar-text">Quản lý đơn hàng</span>
+          <i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/admin/order}">
+              <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/admin/order}">
+              <i class="fa-regular fa-circle"></i><span>Chi tiết đơn hàng</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Order Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
+          <i class="fa-solid fa-cube"></i><span class="navbar-text">Quản lý sản phẩm</span>
+          <i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/admin/product}">
+              <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/admin/product/create}">
+              <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/admin/product}">
+              <i class="fa-regular fa-circle"></i><span>Chi tiết sản phẩm sản phẩm</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Product Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" data-bs-target="#tables-nav" data-bs-toggle="collapse" th:href="@{/admin/user}">
+          <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Quản lý tài khoản</span>
+          <i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/admin/user}" class="active">
+              <i class="fa-regular fa-circle"></i><span>Xem tài khoản</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/admin/user/create}">
+              <i class="fa-regular fa-circle"></i><span>Thêm mới tài khoản</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/admin/user}">
+              <i class="fa-regular fa-circle"></i><span>Chi tiết tài khoản</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Account Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Quản lý danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/admin/category}">
+              <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/admin/category/create}">
+              <i class="fa-regular fa-circle"></i><span>Thêm mới danh mục</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/admin/category}">
+              <i class="fa-regular fa-circle"></i><span>Chi tiết danh mục</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Category Nav -->
+    </ul>
+  </aside><!-- End Sidebar-->
+  <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+  <!-- End Header -->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Quản lý tài khoản</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/admin}">Tổng quan</a></li>
+          <li class="breadcrumb-item">Quản lý tài khoản</li>
+          <li class="breadcrumb-item active">Danh sách tài khoản</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Danh sách tài khoản</h5>
+
+              <div class="card-button d-flex justify-content-between pt-3">
+                <div class="btn">
+                  <a th:href="@{/admin/user/create}">Thêm mới</a>
+                </div>
+
+                <div class="ei-file">
+
+                </div>
+              </div>
+
+              <div class="row pt-3">
+                <div class="col-lg-4">
+                  <div class="search-bar pt-3">
+                    <form class="search-form d-flex align-items-center" method="POST" action="#">
+                      <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                      <button type="submit" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                  </div><!-- End Search Bar -->
+                </div>
+
+                <div class="col-lg-5 offset-md-3">
+                  <div class="number-item pt-3">
+
+                    <select name="number-item" id="number-item" class="form-select" aria-label="number-item">
+                      <option value="user-5">5</option>
+                      <option value="user-10" selected>10</option>
+                      <option value="user-15">15</option>
+                      <option value="user-20">20</option>
+                    </select>
+                    <p class="d-inline-block"> tài khoản trên một trang</p>
+                  </div><!-- End Search Bar -->
+                </div>
+              </div>
+
+              <!-- Recent Sales -->
+              <div class="col-12 ausers overflow-auto mt-5">
+                <table class="table table-striped datatable">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"></th>
+                    <th scope="col">Họ và tên</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Quyền</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="user, index : ${users}">
+                      <th scope="row"><a href="#" th:utext="${index.index+1}"></a></th>
+                      <td>
+                        <img th:src="@{${user.image}(timestamp=${#dates.createNow().getTime()})}" class="rounded" alt="">
+                      </td>
+                      <td>
+                        <a th:href="@{/admin/user/detail/{id}(id = ${user.id})}" th:class="'link-user'" th:style="'font-weight: 600;'">
+                          [[${user.fullname}]]
+                          <span th:text="${'(' + user.getUsername() + ')'}" th:style="'font-size: 13px;color: #6c6c6c;'"></span>
+                        </a>
+                      </td>
+                      <td>
+                        <span th:text="${user.getEmail()}"></span>
+                      </td>
+                      <td>
+                        <span th:text="${user.getPhone()}"></span>
+                      </td>
+                      <td>
+                        <span th:text="${user.getAddress()}"></span>
+                      </td>
+                      <td th:each="role : ${user.getRoles()}">
+                        <p th:text="${role} "></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div><!-- End Recent Sales -->
+
+              <nav aria-label="Page navigation">
+                <ul class="pagination pt-3 d-flex justify-content-center">
+                  <!-- Tính toán trang đầu tiên và trang cuối cùng -->
+                  <th:block th:with="startPage=${currentPage > 5 ? currentPage - 5 : 0}, endPage=${currentPage < countUser - 6 ? currentPage + 4 : countUser - 1}">
+                    <li th:class="${currentPage == startPage} ? 'disabled page-item' : 'page-item'">
+                      <a th:href="@{/admin/user(pageNumber=${currentPage - 1}, pageSize=${pageSize})}" aria-label="Previous" class="page-link">
+                        <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                      </a>
+                    </li>
+                    <li th:each="page : ${#numbers.sequence(startPage, endPage)}" class="page-item">
+                      <a th:href="@{/admin/user(pageNumber=${page}, pageSize=${pageSize})}" th:text="${page + 1}" th:class="${currentPage == page} ? 'active page-link' : 'page-link'"></a>
+
+                    </li>
+                    <li th:class="${currentPage == endPage} ? 'disabled page-item' : 'page-item'">
+                      <a th:href="@{/admin/user(pageNumber=${currentPage + 1}, pageSize=${pageSize})}" aria-label="Next" class="page-link">
+                        <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                      </a>
+                    </li>
+                  </th:block>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">ManhMinh</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fa-solid fa-arrow-up"></i></a>
+
+ <!-- End Footer -->
+ <div id="preloader"></div>
+
+
+  <!--vendor-scripts.html-->
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+
+  <script th:src="@{/assets/js/admin-main.js}"></script>
+
+</body>
+</html>

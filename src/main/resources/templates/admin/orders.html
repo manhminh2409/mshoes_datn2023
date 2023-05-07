@@ -1,450 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>All order - Admin</title>
+  <title>Quản lý đơn hàng</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-   <!--CSS FILES-->
-   <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.css">
-   <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
-   <link rel="stylesheet" href="/assets/vendor/aos/aos.css">
-   <link rel="stylesheet" href="/assets/vendor/swiper/swiper-bundle.min.css">
-   <link rel="stylesheet" href="/assets/vendor/glightbox/css/glightbox.min.css">
-   <link rel="stylesheet" href="/assets/vendor/simple-datatables/style.css" >
+  <!--CSS FILES-->
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/admin-style.css}">
 
-   <link rel="stylesheet" href="/assets/vendor/fontawesome/css/all.css">
-   <link rel="stylesheet" href="/assets/css/admin-style.css">
-
-
-   <!--JAVASCRIPT FILES-->
-   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+  <!--JAVASCRIPT FILES-->
+  <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
    
 </head>
 
 <body>
 
-  <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
-    
-    <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item py-3">
-          <i class="fa-brands fa-jedi-order"></i>
-          <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
-      </li><!-- End Dashboard Nav -->
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item py-3">
+      <i class="fa-brands fa-jedi-order"></i>
+      <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+    </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
-          <i class="fa-brands fa-squarespace"></i>
-          <span class="navbar-text">Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" th:href="@{/}">
+        <i class="fa-brands fa-squarespace"></i>
+        <span class="navbar-text">Tổng quan </span>
+      </a>
+    </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="fa-brands fa-opencart"></i>
-          <span class="navbar-text">Order</span>
-          <i class="fa-solid fa-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="orders.html" class="active">
-              <i class="fa-regular fa-circle"></i><span>All orders</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-accordion.html">
-              <i class="fa-regular fa-circle"></i><span>Accordion</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-badges.html">
-              <i class="fa-regular fa-circle"></i><span>Badges</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-breadcrumbs.html">
-              <i class="fa-regular fa-circle"></i><span>Breadcrumbs</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-buttons.html">
-              <i class="fa-regular fa-circle"></i><span>Buttons</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Order Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="fa-solid fa-cube"></i><span class="navbar-text">Product</span>
-          <i class="fa-solid fa-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="products.html">
-              <i class="fa-regular fa-circle"></i><span>All products</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-layouts.html">
-              <i class="fa-regular fa-circle"></i><span>Form Layouts</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="fa-regular fa-circle"></i><span>Form Editors</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="fa-regular fa-circle"></i><span>Form Validation</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Product Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Account</span>
-          <i class="fa-solid fa-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="fa-regular fa-circle"></i><span>General Tables</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="fa-regular fa-circle"></i><span>Data Tables</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Account Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Category</span><i class="fa-solid fa-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="fa-regular fa-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="fa-regular fa-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="fa-regular fa-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Category Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="fa-regular fa-file-lines"></i><span class="navbar-text">Article</span><i class="fa-solid fa-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="fa-regular fa-circle"></i><span>Bootstrap Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-remix.html">
-              <i class="fa-regular fa-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="fa-regular fa-circle"></i><span>Boxicons</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Icons Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="toggle-icon text-end">
-      <i class="fa-solid fa-bars"></i>
-    </div>
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="fa-regular fa-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="fa-regular fa-message"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
+    <li class="nav-item">
+      <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
+        <i class="fa-brands fa-opencart"></i>
+        <span class="navbar-text">Quản lý đơn hàng</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/order}" class="active">
+            <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/order}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết đơn hàng</span>
+          </a>
+        </li>
       </ul>
-    </nav><!-- End Icons Navigation -->
+    </li><!-- End Order Nav -->
 
-  </header><!-- End Header -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
+        <i class="fa-solid fa-cube"></i><span class="navbar-text">Quản lý sản phẩm</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/product}">
+            <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/product/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/product}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết sản phẩm sản phẩm</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Product Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" th:href="@{/admin/user}">
+        <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Quản lý tài khoản</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/user}">
+            <i class="fa-regular fa-circle"></i><span>Xem tài khoản</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/user/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới tài khoản</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/user}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết tài khoản</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Account Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Quản lý danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/category}">
+            <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/category/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới danh mục</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/category}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết danh mục</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Category Nav -->
+  </ul>
+</aside><!-- End Sidebar-->
+
+  <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+  <!-- End Header -->
+
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>ORDER</h1>
+      <h1>Quản lý dơn hàng</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Order</li>
-          <li class="breadcrumb-item active">All orders</li>
+          <li class="breadcrumb-item"><a th:href="@{/admin}">Tổng quan</a></li>
+          <li class="breadcrumb-item">Đơn hàng</li>
+          <li class="breadcrumb-item active">Danh sách đơn hàng</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -455,146 +154,140 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
+              <h5 class="card-title">Danh sách đơn hàng</h5>
 
               <div class="card-button d-flex justify-content-between pt-3">
                 <div class="btn">
-                    <a href="new-order.html">New</a>
+                  <a th:href="@{/admin/product/create}">Thêm mới</a>
                 </div>
 
                 <div class="ei-file">
-                    <div class="btn me-2">
-                        <a href="#">Export</a>
-                        <i class="fa-solid fa-download"></i>
-                    </div>
 
-                    <div class="btn">
-                        <a href="#">Import</a>
-                        <i class="fa-solid fa-upload"></i>
-                    </div>
                 </div>
               </div>
 
               <div class="row pt-3">
                 <div class="col-lg-4">
-                    <div class="search-bar pt-3">
-                        <form class="search-form d-flex align-items-center" method="POST" action="#">
-                        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                        <button type="submit" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
-                    </div><!-- End Search Bar -->
+                  <div class="search-bar pt-3">
+                    <form class="search-form d-flex align-items-center" method="POST" action="#">
+                      <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                      <button type="submit" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                  </div><!-- End Search Bar -->
                 </div>
 
                 <div class="col-lg-5 offset-md-3">
-                    <div class="number-item pt-3">
-                        
-                        <select name="number-item" id="" class="form-select" aria-label="number-item">
-                            <option value="1">5</option>
-                            <option value="2">10</option>
-                            <option value="3">15</option>
-                            <option value="4">20</option>
-                        </select>
-                        <p class="d-inline-block"> entries per page</p>
-                    </div><!-- End Search Bar -->
+                  <div class="number-item pt-3">
+
+                    <select name="number-item" id="number-item" class="form-select" aria-label="number-item">
+                      <option value="order-5">5</option>
+                      <option value="order-10" selected>10</option>
+                      <option value="order-15">15</option>
+                      <option value="order-20">20</option>
+                    </select>
+                    <p class="d-inline-block"> đơn hàng trên một trang</p>
+                  </div><!-- End Search Bar -->
                 </div>
               </div>
-              
+
               <!-- Recent Sales -->
-            <div class="col-12 recent-sales overflow-auto mt-5">
-              <table class="table table-striped datatable">
-                <thead>
+              <div class="col-12 aorders overflow-auto mt-5">
+                <table class="table table-striped datatable">
+                  <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Mã đơn hàng</th>
+                    <th scope="col">Người mua</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Thời gian</th>
+                    <th scope="col">Ghi chú</th>
+                    <th scope="col">Trạng thái</th>
                   </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row"><a href="#">#2457</a></th>
-                    <td>Brandon Jacob</td>
-                    <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                    <td>$64</td>
-                    <td><span class="badge bg-success">Approved</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2147</a></th>
-                    <td>Bridie Kessler</td>
-                    <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                    <td>$47</td>
-                    <td><span class="badge bg-warning">Pending</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2049</a></th>
-                    <td>Ashleigh Langosh</td>
-                    <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                    <td>$147</td>
-                    <td><span class="badge bg-success">Approved</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2644</a></th>
-                    <td>Angus Grady</td>
-                    <td><a href="#" class="text-rejected">Ut voluptatem id earum et</a></td>
-                    <td>$67</td>
-                    <td><span class="badge bg-danger">Rejected</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2644</a></th>
-                    <td>Raheem Lehner</td>
-                    <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                    <td>$165</td>
-                    <td><span class="badge bg-success">Approved</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div><!-- End Recent Sales -->
+                  </thead>
+                  <tbody>
+                    <tr th:each="order, index : ${orders}">
+                      <th scope="row"><a href="#" th:utext="${index.index+1}"></a></th>
+                      <td>
+                        <a th:href="@{/admin/order/detail/{id}(id = ${order.id})}" th:text="${order.getOrderCode()}" th:class="'link-order'" th:style="'font-weight: 600;'"></a>
+                      </td>
+                      <td>
+                        <a th:href="'#'" th:text="${order.getUserResponse().getFullname()}"></a>
+                      </td>
+                      <td>
+                        <span th:text="${order.getPhone()}"></span>
+                      </td>
+                      <td>
+                        <span th:text="${order.getAddress()}"></span>
+                      </td>
+                      <td>
+                        <span th:class="'price'">[[${order.getTotalAmount()}]]</span>
+                      </td>
+                      <td>
+                        <span th:text="${order.getCreatedDate()}"></span>
+                      </td>
+                      <td>
+                        <span th:text="${order.getNotes()}"></span>
+                      </td>
+                      <td>
+                        <span th:if="${order.status == 0}" th:class="'badge bg-warning'" th:text="'Chờ lấy hàng'"></span>
+                        <span th:if="${order.status == 1}" th:class="'badge bg-warning'" th:text="'Chờ lấy hàng'"></span>
+                        <span th:if="${order.status == 2}" th:class="'badge bg-primary'" th:text="'Đang giao'"></span>
+                        <span th:if="${order.status == 3}" th:class="'badge bg-success'" th:text="'Đã giao'"></span>
+                        <span th:if="${order.status == 4}" th:class="'badge bg-danger'" th:text="'Đã huỷ'"></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div><!-- End Recent Sales -->
 
-            <nav aria-label="Page navigation">
-              <ul class="pagination pt-3 d-flex justify-content-center">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <i class="fa-solid fa-chevron-left"></i>
-                  </a>
-                </li>
-                
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-               
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+              <nav aria-label="Page navigation">
+                <ul class="pagination pt-3 d-flex justify-content-center">
+                  <!-- Tính toán trang đầu tiên và trang cuối cùng -->
+                  <th:block th:with="startPage=${currentPage > 5 ? currentPage - 5 : 0}, endPage=${currentPage < countOrder - 6 ? currentPage + 4 : countOrder - 1}">
+                    <li th:class="${currentPage == startPage} ? 'disabled page-item' : 'page-item'">
+                      <a th:href="@{/admin/order(pageNumber=${currentPage - 1}, pageSize=${pageSize})}" aria-label="Previous" class="page-link">
+                        <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                      </a>
+                    </li>
+                    <li th:each="page : ${#numbers.sequence(startPage, endPage)}" class="page-item">
+                      <a th:href="@{/admin/order(pageNumber=${page}, pageSize=${pageSize})}" th:text="${page + 1}" th:class="${currentPage == page} ? 'active page-link' : 'page-link'"></a>
+
+                    </li>
+                    <li th:class="${currentPage == endPage} ? 'disabled page-item' : 'page-item'">
+                      <a th:href="@{/admin/order(pageNumber=${currentPage + 1}, pageSize=${pageSize})}" aria-label="Next" class="page-link">
+                        <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                      </a>
+                    </li>
+                  </th:block>
+                </ul>
+              </nav>
             </div>
           </div>
 
         </div>
 
-        
+
       </div>
     </section>
 
   </main><!-- End #main -->
 
 
+
+
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      Designed by <a href="https://bootstrapmade.com/">ManhMinh</a>
     </div>
   </footer><!-- End Footer -->
 
@@ -604,20 +297,15 @@
  <div id="preloader"></div>
 
 
- <!--Vendor JavaScript Files-->
-  <script type="text/javascript" src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/assets/vendor/php-email-form/validate.js"></script>
-  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="/assets/vendor/chart.js/chart.min.js"></script>
-  <script src="/assets/vendor/echarts/echarts.min.js"></script>
-  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+  <!--vendor-scripts.html-->
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
 
- <script type="text/javascript" src="/assets/js/admin-main.js"></script>
+  <script th:src="@{/assets/js/admin-main.js}"></script>
 
 </body>
-
 </html>

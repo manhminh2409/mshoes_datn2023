@@ -6,205 +6,114 @@
 </head>
 <body>
     <th:block th:fragment="navbar">
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+        <!-- ======= Sidebar ======= -->
+        <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item py-3">
-                <i class="fa-brands fa-jedi-order"></i>
-                <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
-            </li><!-- End Dashboard Nav -->
+            <ul class="sidebar-nav" id="sidebar-nav">
+                <li class="nav-item py-3">
+                    <i class="fa-brands fa-jedi-order"></i>
+                    <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+                </li><!-- End Dashboard Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link " th:href="@{/admin}">
-                    <i class="fa-brands fa-squarespace"></i>
-                    <span class="navbar-text">Tổng quan </span>
-                </a>
-            </li><!-- End Dashboard Nav -->
+                <li class="nav-item">
+                    <a class="nav-link " th:href="@{/}">
+                        <i class="fa-brands fa-squarespace"></i>
+                        <span class="navbar-text">Tổng quan </span>
+                    </a>
+                </li><!-- End Dashboard Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
-                    <i class="fa-brands fa-opencart"></i>
-                    <span class="navbar-text">Đơn hàng</span>
-                    <i class="fa-solid fa-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a th:href="@{/admin/order}">
-                            <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
+                        <i class="fa-brands fa-opencart"></i>
+                        <span class="navbar-text">Quản lý đơn hàng</span>
+                        <i class="fa-solid fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a th:href="@{/admin/order}">
+                                <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/order}">
+                                <i class="fa-regular fa-circle"></i><span>Chi tiết đơn hàng</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Order Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
+                        <i class="fa-solid fa-cube"></i><span class="navbar-text">Quản lý sản phẩm</span>
+                        <i class="fa-solid fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a th:href="@{/admin/product}">
+                                <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/product/create}">
+                                <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/product}">
+                                <i class="fa-regular fa-circle"></i><span>Chi tiết sản phẩm sản phẩm</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Product Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" th:href="@{/admin/user}">
+                        <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Quản lý tài khoản</span>
+                        <i class="fa-solid fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a th:href="@{/admin/user}">
+                                <i class="fa-regular fa-circle"></i><span>Xem tài khoản</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/user/create}">
+                                <i class="fa-regular fa-circle"></i><span>Thêm mới tài khoản</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/user}">
+                                <i class="fa-regular fa-circle"></i><span>Chi tiết tài khoản</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Account Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                        <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Quản lý danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a th:href="@{/admin/category}">
+                                <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/category/create}">
+                                <i class="fa-regular fa-circle"></i><span>Thêm mới danh mục</span>
+                            </a>
+                        </li>
+                        <li>
+                        <a th:href="@{/admin/category}">
+                            <i class="fa-regular fa-circle"></i><span>Chi tiết danh mục</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="components-accordion.html">
-                            <i class="fa-regular fa-circle"></i><span>Accordion</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="components-badges.html">
-                            <i class="fa-regular fa-circle"></i><span>Badges</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="components-breadcrumbs.html">
-                            <i class="fa-regular fa-circle"></i><span>Breadcrumbs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="components-buttons.html">
-                            <i class="fa-regular fa-circle"></i><span>Buttons</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Order Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
-                    <i class="fa-solid fa-cube"></i><span class="navbar-text">Sản phẩm</span>
-                    <i class="fa-solid fa-chevron-down ms-auto"></i>
-                </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a th:href="@{/admin/product}">
-                            <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/admin/product/create}">
-                            <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="forms-editors.html">
-                            <i class="fa-regular fa-circle"></i><span>Form Editors</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="forms-validation.html">
-                            <i class="fa-regular fa-circle"></i><span>Form Validation</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Product Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                    <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Người dùng</span>
-                    <i class="fa-solid fa-chevron-down ms-auto"></i>
-                </a>
-                <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="tables-general.html">
-                            <i class="fa-regular fa-circle"></i><span>Xem người dùng</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="tables-data.html">
-                            <i class="fa-regular fa-circle"></i><span>Data Tables</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Account Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                    <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
-                </a>
-                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="charts-chartjs.html">
-                            <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="charts-apexcharts.html">
-                            <i class="fa-regular fa-circle"></i><span>ApexCharts</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="charts-echarts.html">
-                            <i class="fa-regular fa-circle"></i><span>ECharts</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Category Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                    <i class="fa-regular fa-file-lines"></i><span class="navbar-text">Article</span><i class="fa-solid fa-chevron-down ms-auto"></i>
-                </a>
-                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="icons-bootstrap.html">
-                            <i class="fa-regular fa-circle"></i><span>Bootstrap Icons</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="icons-remix.html">
-                            <i class="fa-regular fa-circle"></i><span>Remix Icons</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="icons-boxicons.html">
-                            <i class="fa-regular fa-circle"></i><span>Boxicons</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Icons Nav -->
-
-            <li class="nav-heading">Pages</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="users-profile.html">
-                    <i class="bi bi-person"></i>
-                    <span>Profile</span>
-                </a>
-            </li><!-- End Profile Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-faq.html">
-                    <i class="bi bi-question-circle"></i>
-                    <span>F.A.Q</span>
-                </a>
-            </li><!-- End F.A.Q Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-contact.html">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contact</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-register.html">
-                    <i class="bi bi-card-list"></i>
-                    <span>Register</span>
-                </a>
-            </li><!-- End Register Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-login.html">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <span>Login</span>
-                </a>
-            </li><!-- End Login Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-error-404.html">
-                    <i class="bi bi-dash-circle"></i>
-                    <span>Error 404</span>
-                </a>
-            </li><!-- End Error 404 Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-blank.html">
-                    <i class="bi bi-file-earmark"></i>
-                    <span>Blank</span>
-                </a>
-            </li><!-- End Blank Page Nav -->
-
-        </ul>
-
-    </aside><!-- End Sidebar-->
-</th:block>
+                    </ul>
+                </li><!-- End Category Nav -->
+            </ul>
+        </aside><!-- End Sidebar-->
+    </th:block>
 </body>
 </html>

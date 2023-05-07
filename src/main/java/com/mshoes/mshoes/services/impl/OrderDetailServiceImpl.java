@@ -1,6 +1,5 @@
 package com.mshoes.mshoes.services.impl;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -8,27 +7,23 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.mshoes.mshoes.mapper.OrderDetailMapper;
+import com.mshoes.mshoes.mapper.UserMapper;
+import com.mshoes.mshoes.models.*;
 import com.mshoes.mshoes.models.request.OrderDetailRequest;
+import com.mshoes.mshoes.models.request.UpdateOrderRequest;
 import com.mshoes.mshoes.models.response.OrderDetailResponse;
+import com.mshoes.mshoes.models.response.UserResponse;
+import com.mshoes.mshoes.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import com.mshoes.mshoes.exception.ResourceNotFoundException;
 import com.mshoes.mshoes.libraries.Utilities;
-import com.mshoes.mshoes.mapper.OrderItemMapper;
 import com.mshoes.mshoes.mapper.ProductMapper;
-import com.mshoes.mshoes.models.Color;
-import com.mshoes.mshoes.models.OrderDetail;
-import com.mshoes.mshoes.models.OrderItem;
-import com.mshoes.mshoes.models.Product;
-import com.mshoes.mshoes.models.Size;
-import com.mshoes.mshoes.models.User;
 import com.mshoes.mshoes.models.request.OrderItemRequest;
 import com.mshoes.mshoes.models.response.OrderItemResponse;
-import com.mshoes.mshoes.repositories.OrderDetailRepository;
-import com.mshoes.mshoes.repositories.OrderItemRepository;
-import com.mshoes.mshoes.repositories.SizeRepository;
-import com.mshoes.mshoes.repositories.UserRepository;
 import com.mshoes.mshoes.services.OrderDetailService;
 
 import javax.transaction.Transactional;
@@ -44,22 +39,28 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	private final OrderItemRepository orderItemRepository;
 
+	private final PaymentRepository paymentRepository;
+
 	private final ProductMapper productMapper;
 
-	private final OrderItemMapper orderItemMapper;
+	private final OrderDetailMapper orderDetailMapper;
+
+	private final UserMapper userMapper;
 
 	private final Utilities utilities;
 
 	@Autowired
 	public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository, UserRepository userRepository,
-								  SizeRepository sizeRepository, OrderItemRepository orderItemRepository, ProductMapper productMapper,
-								  OrderItemMapper orderItemMapper, Utilities utilities) {
+								  SizeRepository sizeRepository, OrderItemRepository orderItemRepository, PaymentRepository paymentRepository, ProductMapper productMapper,
+								  OrderDetailMapper orderDetailMapper, UserMapper userMapper, Utilities utilities) {
 		this.orderDetailRepository = orderDetailRepository;
 		this.userRepository = userRepository;
 		this.sizeRepository = sizeRepository;
 		this.orderItemRepository = orderItemRepository;
+		this.paymentRepository = paymentRepository;
 		this.productMapper = productMapper;
-		this.orderItemMapper = orderItemMapper;
+		this.orderDetailMapper = orderDetailMapper;
+		this.userMapper = userMapper;
 		this.utilities = utilities;
 	}
 
@@ -87,6 +88,33 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	@Transactional
+	public Page<OrderDetailResponse> getAllOrdersByType1(int pageNumber, int pageSize, String sortBy) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+		Page<OrderDetail> orderDetailPage = orderDetailRepository.findAllByType(1, pageable);
+		List<OrderDetail> orderDetails = orderDetailPage.getContent();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		List<OrderDetailResponse> orderDetailResponses = orderDetails.stream()
+				.map(this::mapToOrderDetailResponse)
+				.toList();
+		return new PageImpl<>(orderDetailResponses, pageable, orderDetailPage.getTotalElements());
+	}
+
+
+	@Override
+	@Transactional
+	public Page<OrderDetailResponse> getAllOrdersByType1AndStatus(int status, int pageNumber, int pageSize, String sortBy) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+		Page<OrderDetail> orderDetailPage = orderDetailRepository.findAllByTypeAndStatus(1,status, pageable);
+		List<OrderDetail> orderDetails = orderDetailPage.getContent();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		List<OrderDetailResponse> orderDetailResponses = orderDetails.stream()
+				.map(this::mapToOrderDetailResponse)
+				.toList();
+		return new PageImpl<>(orderDetailResponses, pageable, orderDetailPage.getTotalElements());
+	}
+
+	@Override
+	@Transactional
 	public List<OrderDetailResponse> getAllOrdersWithType1ByStatus(Long userId, int type, int status) {
 		User user = userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("USER", "ID", userId));
 		List<OrderDetail> orderDetails = orderDetailRepository.findAllByUserAndTypeAndStatus(user, 1, status);
@@ -105,6 +133,19 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		}else {
 			return null;
 		}
+	}
+
+	@Override
+	@Transactional
+	public OrderDetailResponse getOrderById(long orderDetailId) {
+		OrderDetail orderDetail = orderDetailRepository.findById(orderDetailId).orElseThrow();
+		//Kiểm tra lại type
+		if(orderDetail.getType() != 1){
+			return null;
+		}else {
+			return this.mapToOrderDetailResponse(orderDetail);
+		}
+
 	}
 
 	@Transactional
@@ -264,7 +305,15 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		orderDetailResponse.setType(orderDetail.getType());
 		orderDetailResponse.setOrderCode(orderDetail.getOrderCode());
 		orderDetailResponse.setStatus(orderDetail.getStatus());
+		orderDetailResponse.setPhone(orderDetail.getPhone());
+		orderDetailResponse.setAddress(orderDetail.getAddress());
+		orderDetailResponse.setNotes(orderDetail.getNotes());
+		if (orderDetail.getPayment() != null){
+			orderDetailResponse.setPaymentType(orderDetail.getPayment().getType());
+		}
 		List<OrderItemResponse> orderItemResponses = orderDetail.getOrderItems().stream().map(this::toOrderItemResponse).toList();
+		UserResponse userResponse = userMapper.mapModelToResponse(orderDetail.getUser());
+		orderDetailResponse.setUserResponse(userResponse);
 		orderDetailResponse.setOrderItemResponses(orderItemResponses);
 		return orderDetailResponse;
 	}
@@ -281,8 +330,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		orderDetail.setCreatedDate(utilities.getCurrentDate());
 		orderDetail.setOrderCode("HD" + orderDetailRequest.getId().toString() + "US" + userId);
 		orderDetail.setUser(user);
+		orderDetail.setAddress(orderDetailRequest.getAddress());
+		orderDetail.setPhone(orderDetailRequest.getPhone());
 		orderDetail.setStatus(0);
 		orderDetail.setType(1);
+		orderDetail.setNotes(orderDetailRequest.getNotes());
+		orderDetail.setPayment(paymentRepository.findById(orderDetailRequest.getPaymentId()).orElseThrow());
 
 		//Cập nhật lại số lượng và đã bán
 		//Lấy danh sách orderItem có trong Giỏ hàng
@@ -343,6 +396,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
+	public long countOrderByType(int type) {
+		return orderDetailRepository.countByType(type);
+	}
+
+	@Override
 	@Transactional
 	public OrderDetailResponse cancelOrder(Long userId, Long orderDetailId) {
 		//Lấy giỏ hàng
@@ -355,5 +413,16 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			//Lấy danh sách orderItem có trong Giỏ hàng
 			return this.mapToOrderDetailResponse(orderDetailRepository.save(orderDetail));
 		}
+	}
+
+	@Override
+	@Transactional
+	public OrderDetailResponse updateOrder(Long orderDetailId, UpdateOrderRequest updateOrderRequest) {
+		OrderDetail orderDetail = orderDetailRepository.findById(orderDetailId).orElseThrow();
+		if(updateOrderRequest.getStatus() == -1){
+			updateOrderRequest.setStatus(orderDetail.getStatus());
+		}
+		orderDetailMapper.updateModel(orderDetail, updateOrderRequest);
+		return this.mapToOrderDetailResponse(orderDetail);
 	}
 }

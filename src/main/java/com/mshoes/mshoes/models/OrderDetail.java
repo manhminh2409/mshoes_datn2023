@@ -27,6 +27,15 @@ public class OrderDetail {
 	private int totalQuantity;
 
 	@Column
+	private String phone;
+
+	@Column
+	private String address;
+
+	@Column(columnDefinition = "LONGTEXT")
+	private String notes;
+
+	@Column
 	private String createdDate;
 
 	@Column

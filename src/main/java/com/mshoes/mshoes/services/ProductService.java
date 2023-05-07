@@ -64,4 +64,6 @@ public interface ProductService {
 	 *
 	 */
 	void deleteProductById(long productId);
+
+	void actionProduct(Long productId,int action);
 }

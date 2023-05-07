@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -34,6 +36,6 @@ public class Size {
     @JoinColumn(name = "color_id")
     private Color color;
 
-    @OneToOne(mappedBy = "size")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "size")
+    private List<OrderItem> orderItems;
 }

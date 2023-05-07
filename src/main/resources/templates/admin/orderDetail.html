@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Chi tiết đơn hàng</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!--CSS FILES-->
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/admin-style.css}">
+
+  <!--JAVASCRIPT FILES-->
+  <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
+   
+</head>
+
+<body>
+
+  <aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item py-3">
+      <i class="fa-brands fa-jedi-order"></i>
+      <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" th:href="@{/}">
+        <i class="fa-brands fa-squarespace"></i>
+        <span class="navbar-text">Tổng quan </span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link " data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
+        <i class="fa-brands fa-opencart"></i>
+        <span class="navbar-text">Quản lý đơn hàng</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/order}">
+            <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/order}" class="active">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết đơn hàng</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Order Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
+        <i class="fa-solid fa-cube"></i><span class="navbar-text">Quản lý sản phẩm</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/product}">
+            <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/product/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/product}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết sản phẩm sản phẩm</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Product Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" th:href="@{/admin/user}">
+        <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Quản lý tài khoản</span>
+        <i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/user}">
+            <i class="fa-regular fa-circle"></i><span>Xem tài khoản</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/user/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới tài khoản</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/user}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết tài khoản</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Account Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Quản lý danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a th:href="@{/admin/category}">
+            <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/category/create}">
+            <i class="fa-regular fa-circle"></i><span>Thêm mới danh mục</span>
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/admin/category}">
+            <i class="fa-regular fa-circle"></i><span>Chi tiết danh mục</span>
+          </a>
+        </li>
+      </ul>
+    </li><!-- End Category Nav -->
+  </ul>
+</aside><!-- End Sidebar-->
+
+  <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+  <!-- End Header -->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Quản lý đơn hàng</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/admin}">Tổng quan</a></li>
+          <li class="breadcrumb-item">Quản lý đơn hàng</li>
+          <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Chi tiết đơn hàng</h5>
+
+              <div class="row mx-0 align-items-center">
+                <div class="col-lg-11 mx-auto">
+                  <div class="order-detail pb-5">
+                    <div class="row mx-0 align-items-top">
+                      <div class="col-lg-6 shipping-infor">
+                        <form th:action="@{/admin/order/update/{id}(id = ${order.id})}" th:method="'POST'" th:object="${updateOrderRequest}">
+                          <div class="row mx-0">
+                            <div class="col-lg-12">
+                              <label for="fullname" class="pt-4 pb-2">Họ và tên:</label>
+                              <input type="text" disabled id="fullname" name="fullname" class="form-control" placeholder="" th:value="${order.getUserResponse().getFullname()}">
+                            </div>
+                          </div>
+                          <div class="row mx-0">
+                            <div class="col-lg-7">
+                              <label for="email" class="pt-4 pb-2">Email:</label>
+                              <input type="text" disabled id="email" name="email" class="form-control" placeholder="" th:value="${order.getUserResponse().getEmail()}">
+                            </div>
+                            <div class="col-lg-5">
+                              <label for="phone" class="pt-4 pb-2">Số điện thoại:</label>
+                              <input type="text" id="phone" name="phone" class="form-control" placeholder="" th:value="${order.getPhone()}">
+                            </div>
+                          </div>
+
+                          <div class="row mx-0">
+                            <div class="col-lg-12">
+                              <label for="address" class="pt-4 pb-2">Địa chỉ nhận hàng:</label>
+                              <input type="text" id="address" name="address" class="form-control" placeholder="" th:value="${order.getAddress()}">
+                            </div>
+                          </div>
+
+                          <div class="row mx-0 mt-4">
+                            <div class="col-lg-12">
+                            <span class="pt-4 pb-2">
+                              Phương thức thanh toán:
+                              <strong th:text="${order.getPaymentType()}"></strong>
+                            </span>
+                            </div>
+
+                          </div>
+
+                          <div class="row mx-0 pt-3">
+                            <div class="col-lg-12">
+                              <p>
+                                <span>Trạng thái đơn hàng:</span>
+                                <span th:if="${order.status == 0}" th:class="'badge bg-warning'" th:text="'Đang chờ duyệt'"></span>
+                                <span th:if="${order.status == 1}" th:class="'badge bg-warning'" th:text="'Chờ lấy hàng'"></span>
+                                <span th:if="${order.status == 2}" th:class="'badge bg-primary'" th:text="'Đang giao'"></span>
+                                <span th:if="${order.status == 3}" th:class="'badge bg-success'" th:text="'Đã giao'"></span>
+                                <span th:if="${order.status == 4}" th:class="'badge bg-danger'" th:text="'Đã huỷ'"></span>
+                              </p>
+                              <select name="status" class="form-select w-75">
+                                <option value="-1">-Trạng thái-</option>
+                                <option value="0">Đang chờ duyệt</option>
+                                <option value="1">Chờ lấy hàng</option>
+                                <option value="2">Đang giao</option>
+                                <option value="3">Đã giao</option>
+                                <option value="4">Đã huỷ</option>
+                              </select>
+                            </div>
+                          </div>
+                          <input type="hidden" name="_method" value="PUT">
+                          <div class="row mx-0 mt-3 pt-3">
+                            <div class="col-lg-12 text-end">
+                              <button type="submit" class="btn btn-success px-4" name="button" >Cập nhật đơn hàng</button>
+                            </div>
+                          </div>
+                        </form>
+
+                      </div>
+
+                      <!-- RIGHT -->
+                      <div class="col-lg-6 cart-infor py-4 px-3">
+                        <th:block th:each="orderItem : ${order.getOrderItemResponses()}">
+                          <div class="row mx-0 align-items-center py-2">
+                            <div class="col-lg-3 position-relative">
+                              <img th:src="${orderItem.getProductItemResponse().getImageResponses[1].url}" alt="" class="w-100 product-img-checkout rounded">
+                              <span class="quantity" th:text="${orderItem.getQuantity()}"></span>
+                            </div>
+                            <div class="col-lg-6 ps-2">
+                              <div class="product-name" th:text="${orderItem.getProductItemResponse().name + ', ' + orderItem.getProductItemResponse().sku}"></div>
+                              <span class="d-block" style="font-size: 12px;color: #727171;" th:text="${orderItem.color + ' / ' + orderItem.size}"></span>
+                            </div>
+                            <div class="col-lg-3 text-end">
+                                <span class="product-price-checkout">
+                                     <strong th:class="'price'"  th:if="${orderItem.getProductItemResponse().discountPrice != 0}">
+                                        [[${orderItem.getProductItemResponse().discountPrice}]]
+                                    </strong>
+                                    <strong th:class="'price'" th:if="${orderItem.getProductItemResponse().discountPrice == 0}">
+                                        [[${orderItem.getProductItemResponse().price}]]
+                                    </strong>
+                                </span>
+                            </div>
+                          </div>
+                        </th:block>
+
+                        <div class="row mx-0 py-5">
+                            <div class="col-lg-9 offset-lg-3">
+                                <div class="d-flex justify-content-end">
+                                    <span class="fs-3">Tổng tiền:
+                                        <span class="total-amount price text-danger" >
+                                                [[${order.getTotalAmount()}]]
+                                        </span>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">ManhMinh</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fa-solid fa-arrow-up"></i></a>
+
+ <!-- End Footer -->
+ <div id="preloader"></div>
+
+
+  <!--vendor-scripts.html-->
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+
+  <script th:src="@{/assets/js/admin-main.js}"></script>
+
+</body>
+</html>

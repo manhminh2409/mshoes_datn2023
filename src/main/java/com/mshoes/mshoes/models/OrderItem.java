@@ -18,8 +18,7 @@ public class OrderItem {
 	@JoinColumn(name = "order_id")
 	private OrderDetail orderDetail;
 
-	@OneToOne()
+	@ManyToOne()
 	@JoinColumn(name = "size_id")
 	private  Size size;
-
 }

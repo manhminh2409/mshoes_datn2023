@@ -8,9 +8,4 @@ public class CategoryRequest {
 
 	private String description;
 
-	private String createdDate;
-
-	private String modifiedDate;
-
-	private int status;
 }

@@ -6,18 +6,20 @@ import com.mshoes.mshoes.models.request.SignupRequest;
 import com.mshoes.mshoes.models.request.UserRequest;
 import com.mshoes.mshoes.models.dtos.UserDTO;
 import com.mshoes.mshoes.models.response.UserResponse;
+import org.springframework.data.domain.Page;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
+	Page<UserResponse> getUsers(int pageNumber, int pageSize, String sortBy);
 
+	UserResponse getUser(Long userId);
 	/**
 	 * Method get all user is active in database <br>
 	 * <u><i>Update: 26/02/2023</i></u>
 	 *
-	 * @return
 	 */
 	List<UserDTO> getAllUsers();
 
@@ -25,8 +27,6 @@ public interface UserService {
 	 * Method get user by userId. <br>
 	 * <u><i>Update: 26/02/2023</i></u>
 	 *
-	 * @param userId
-	 * @return
 	 */
 	UserDTO getUserById(long userId);
 
@@ -37,17 +37,13 @@ public interface UserService {
 	 * Method create new User <br>
 	 * <u><i>Update: 26/02/2023</i></u>
 	 *
-	 * @param userRequest
-	 * @return
 	 */
-	UserDTO createUser(UserRequest userRequest);
+	UserDTO createUser(UserRequest userRequest) throws IOException;
 
 	/**
 	 * Method create new User <br>
 	 * <u><i>Update: 26/02/2023</i></u>
 	 *
-	 * @param signupRequest
-	 * @return
 	 */
 	UserDTO signupUser(SignupRequest signupRequest);
 
@@ -55,17 +51,16 @@ public interface UserService {
 	 * Method update user with new information User and userId. <br>
 	 * <u><i>Update: 26/02/2023</i></u>
 	 *
-	 * @param userRequest
-	 * @param userId
-	 * @return
 	 */
 	UserDTO updateUser(ProfileRequest profileRequest, long userId) throws IOException;
 
+	UserResponse updateUser1(Long userId, UserRequest userRequest) throws IOException;
 	/**
 	 * Method delete user with userId. <br>
 	 * <u><i>Update: 26/02/2023</i></u>
 	 *
-	 * @param userId
 	 */
 	void deleteUser(long userId);
+
+	long countUser();
 }

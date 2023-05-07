@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <title>Quản lý sản phẩm</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -14,10 +14,8 @@
     <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
     <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendor/glightbox/css/glightbox.min.css}">
     <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
     <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
-    <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
     <link rel="stylesheet" th:href="@{/assets/css/admin-style.css}">
 
     <!--JAVASCRIPT FILES-->
@@ -27,46 +25,146 @@
 
 <body>
 
-      <!--NavBar-->
-      <th:block th:replace="~{admin/fragments/navbar :: navbar}"></th:block>
+    <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item py-3">
+            <i class="fa-brands fa-jedi-order"></i>
+            <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" th:href="@{/}">
+                <i class="fa-brands fa-squarespace"></i>
+                <span class="navbar-text">Tổng quan </span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
+                <i class="fa-brands fa-opencart"></i>
+                <span class="navbar-text">Quản lý đơn hàng</span>
+                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/order}">
+                        <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/order}">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết đơn hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Order Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link " data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
+                <i class="fa-solid fa-cube"></i><span class="navbar-text">Quản lý sản phẩm</span>
+                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content  " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/product}" class="active">
+                        <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/product/create}">
+                        <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/product}">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết sản phẩm sản phẩm</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Product Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" th:href="@{/admin/user}">
+                <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Quản lý tài khoản</span>
+                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/user}">
+                        <i class="fa-regular fa-circle"></i><span>Xem tài khoản</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/user/create}">
+                        <i class="fa-regular fa-circle"></i><span>Thêm mới tài khoản</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/user}">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết tài khoản</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Account Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Quản lý danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/category}">
+                        <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/category/create}">
+                        <i class="fa-regular fa-circle"></i><span>Thêm mới danh mục</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/category}">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết danh mục</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Category Nav -->
+    </ul>
+</aside><!-- End Sidebar-->
       <!--Header-->
       <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
       <main id="main" class="main">
 
         <div class="pagetitle">
-          <h1>Sản phẩm</h1>
+          <h1>Quản lý sản phẩm</h1>
           <nav>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a th:href="@{/admin}">Tổng quan</a></li>
-              <li class="breadcrumb-item">Sản phẩm</li>
+              <li class="breadcrumb-item">Quản lý sản phẩm</li>
               <li class="breadcrumb-item active">Danh sách sản phẩm</li>
             </ol>
           </nav>
         </div><!-- End Page Title -->
 
-        <section class="section">
+        <section class="section products">
           <div class="row">
             <div class="col-lg-12">
 
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Danh sách sản phẩm</h5>
-
+                    <th:block th:if="${message != ''}">
+                        <span th:if="${message == 'success'}" class="text-success">Cập nhật thông tin thành công!</span>
+                        <span th:if="${message == 'false'}" class="text-danger">Cập nhật thông tin không thành công!</span>
+                    </th:block>
                   <div class="card-button d-flex justify-content-between pt-3">
                     <div class="btn">
                         <a th:href="@{/admin/product/create}">Thêm mới</a>
                     </div>
 
                     <div class="ei-file">
-                        <div class="btn me-2">
-                            <a href="#">Export</a>
-                            <i class="fa-solid fa-download"></i>
-                        </div>
 
-                        <div class="btn">
-                            <a href="#">Import</a>
-                            <i class="fa-solid fa-upload"></i>
-                        </div>
                     </div>
                   </div>
 
@@ -83,11 +181,11 @@
                     <div class="col-lg-5 offset-md-3">
                         <div class="number-item pt-3">
 
-                            <select name="number-item" id="" class="form-select" aria-label="number-item">
-                                <option value="1">5</option>
-                                <option value="2">10</option>
-                                <option value="3">15</option>
-                                <option value="4">20</option>
+                            <select name="number-item" id="number-item" class="form-select" aria-label="number-item">
+                                <option value="product-5">5</option>
+                                <option value="product-10" selected>10</option>
+                                <option value="product-15">15</option>
+                                <option value="product-20">20</option>
                             </select>
                             <p class="d-inline-block"> sản phẩm trên một trang</p>
                         </div><!-- End Search Bar -->
@@ -105,27 +203,86 @@
                         <th scope="col">Mô tả</th>
                         <th scope="col">Giá bán</th>
                         <th scope="col">Lượt xem</th>
-                        <th scope="col" colspan="2" class="text-center">Lựa chọn</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Hành động</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product,index : ${products}">
+                        <tr th:each="product,index : ${products}">
                         <th scope="row"><a href="#" th:utext="${index.index+1}"></a></th>
                         <td>
                             <img th:src="@{${product.imageResponses[0].url}(timestamp=${#dates.createNow().getTime()})}" class="rounded" alt="">
                         </td>
                         <td>
+                            <a th:href="@{/admin/product/detail/{id}(id = ${product.id})}" >
                             <span  th:text="${product.name + ', '}"></span>
                             <span  th:text="${product.sku}" th:style="'font-weight: bold;'"></span>
+                            </a>
                         </td>
-                        <td th:text="${product.description}"></td>
+                        <td th:if="${product.description.length() > 50}" th:text="${product.description.substring(0,50) + '...'}"></td>
+                        <td th:if="${product.description.length() < 50}" th:text="${product.description}"></td>
                         <td>
-                            <span th:if="${product.discountPrice != 0}" th:text="${product.discountPrice}"></span>
-                            <span th:if="${product.discountPrice != 0}" th:text="'('+${product.price}+')'" th:style="'text-decoration:line-through; color:#959595; font-size: 14px;'"></span>
-                            <span th:if="${product.discountPrice == 0}" th:text="${product.price}"></span>
+                            <span th:if="${product.discountPrice != 0}">
+                                <span class="price text-danger" >[[${product.discountPrice}]]</span>
+                                <span class="price"  th:style="'text-decoration:line-through; color:#959595; font-size: 14px;'">
+                                    [[${product.price}]]
+                                </span>
+                            </span>
+                            <span th:if="${product.discountPrice == 0}" class="price text-danger" >[[${product.price}]]</span>
                         </td>
                         <td th:utext="${product.visited}"></td>
-                        <td><a href="#"><i class="fa-brands fa-autoprefixer"></i></a></td>
+                        <td>
+                            <span th:if="${product.getStatus() == 0}" th:class="'badge bg-secondary'" th:text="'Khoá'"></span>
+                            <span th:if="${product.getStatus() == 1}" th:class="'badge bg-success'" th:text="'Hiển thị'"></span>
+                        </td>
+                        <td class="text-center">
+                            <span th:if="${product.getStatus() == 0}">
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#unlock"><i class="fa-solid fa-unlock"></i></button>
+                              <div class="modal fade" id="unlock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận mở khoá sản phẩm</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                      Sau khi mở khoá, sản phẩm <strong>[[${product.getSku()}]]</strong>   được hiển thị lại phía khách hàng!!
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                      <form th:action="@{/admin/product/action/{id}(id = ${product.id},ac=0)}" class="d-inline-block" method="post">
+                                        <input type="hidden" name="_method" th:value="PUT">
+                                        <button type="submit" class="btn  btn-danger">Xác nhận</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </span>
+                            <span th:if="${product.getStatus() == 1}">
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#lock"><i class="fa-solid fa-lock"></i></button>
+                              <div class="modal fade" id="lock" tabindex="-1" aria-labelledby="labelLock" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="labelLock">Xác nhận khoá sản phẩm</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                      Sau khi khoá, sản phẩm <strong>[[${product.getSku()}]]</strong>  không được hiển thị phía khách hàng!!
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                      <form th:action="@{/admin/product/action/{id}(id = ${product.id},ac=1)}" class="d-inline-block" method="post">
+                                        <input type="hidden" name="_method" th:value="PUT">
+                                        <button type="submit" class="btn  btn-danger">Xác nhận</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </span>
+                        </td>
                     </tr>
                     </tbody>
                   </table>
@@ -167,18 +324,18 @@
       <!-- ======= Footer ======= -->
       <footer id="footer" class="footer">
         <div class="copyright">
-          &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
           <!-- You can delete the links only if you purchased the pro version. -->
           <!-- Licensing information: https://bootstrapmade.com/license/ -->
           <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          Designed by <a href="https://bootstrapmade.com/">ManhMinh</a>
         </div>
       </footer><!-- End Footer -->
 
-      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fa-solid fa-arrow-up"></i></a>
 
      <!-- End Footer -->
      <div id="preloader"></div>
@@ -187,13 +344,12 @@
       <!--vendor-scripts.html-->
       <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
       <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
-      <script th:src="@{/assets/vendor/glightbox/js/glightbox.min.js}"></script>
-      <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
       <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
       <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
       <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
       <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
-      <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+
+      <script th:src="@{/assets/js/admin-main.js}"></script>
 </body>
 
 </html>

@@ -9,4 +9,12 @@ public class OrderDetailRequest {
     private int totalAmount;
 
     private int totalQuantity;
+
+    private Long paymentId;
+
+    private String phone;
+
+    private String address;
+
+    private String notes;
 }

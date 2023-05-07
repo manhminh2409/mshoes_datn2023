@@ -24,4 +24,6 @@ public class ProductResponse {
 	private List<ImageResponse> imageResponses;
 
 	private List<ColorResponse> colorResponses;
+
+	private int status;
 }

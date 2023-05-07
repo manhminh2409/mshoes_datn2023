@@ -12,6 +12,7 @@ public class CheckOutRequest {
     private String district;
     private String ward;
     private String paymentMethod;
+    private String notes;
     private int totalQuantity;
     private int totalAmount;
     private long id;

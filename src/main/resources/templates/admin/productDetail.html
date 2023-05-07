@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Chi tiết sản phẩm</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!--CSS FILES-->
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/admin-style.css}">
+
+  <!--JAVASCRIPT FILES-->
+  <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
+
+  <style type="text/css">
+    label{
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+        display: inline-block;
+        padding-right: 1rem !important;
+    }
+   </style>
+</head>
+
+<body>
+    <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item py-3">
+            <i class="fa-brands fa-jedi-order"></i>
+            <span class="navbar-text">Mshoes<span style="color: #E6772E;">.</span></span>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" th:href="@{/}">
+                <i class="fa-brands fa-squarespace"></i>
+                <span class="navbar-text">Tổng quan </span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" th:href="@{/admin/order}">
+                <i class="fa-brands fa-opencart"></i>
+                <span class="navbar-text">Quản lý đơn hàng</span>
+                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/order}">
+                        <i class="fa-regular fa-circle"></i><span>Xem đơn hàng</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/order}">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết đơn hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Order Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link " data-bs-target="#forms-nav" data-bs-toggle="collapse" th:href="@{/admin/product}">
+                <i class="fa-solid fa-cube"></i><span class="navbar-text">Quản lý sản phẩm</span>
+                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content  " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/product}">
+                        <i class="fa-regular fa-circle"></i><span>Xem sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/product/create}">
+                        <i class="fa-regular fa-circle"></i><span>Thêm mới sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/product}" class="active">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết sản phẩm sản phẩm</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Product Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" th:href="@{/admin/user}">
+                <i class="fa-solid fa-users-viewfinder"></i><span class="navbar-text">Quản lý tài khoản</span>
+                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/user}">
+                        <i class="fa-regular fa-circle"></i><span>Xem tài khoản</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/user/create}">
+                        <i class="fa-regular fa-circle"></i><span>Thêm mới tài khoản</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/user}">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết tài khoản</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Account Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <i class="fa-solid fa-bars-staggered"></i><span class="navbar-text">Quản lý danh mục</span><i class="fa-solid fa-chevron-down ms-auto"></i>
+            </a>
+            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a th:href="@{/admin/category}">
+                        <i class="fa-regular fa-circle"></i><span>Xem danh mục</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/category/create}">
+                        <i class="fa-regular fa-circle"></i><span>Thêm mới danh mục</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/category}">
+                        <i class="fa-regular fa-circle"></i><span>Chi tiết danh mục</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Category Nav -->
+    </ul>
+</aside><!-- End Sidebar-->
+
+  <th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+      <!-- End Header -->
+
+  <main id="main" class="main">
+
+        <div class="pagetitle">
+          <h1>Sản phẩm</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Tổng quan</a></li>
+              <li class="breadcrumb-item">Sản phẩm </li>
+              <li class="breadcrumb-item active">Chi tiết sản phẩm</li>
+            </ol>
+          </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+          <div class="row">
+            <div class="col-lg-12">
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Thêm mới sản phẩm</h5>
+
+                  <form id="new-product-form" th:method="'POST'" th:action="@{/admin/product/update/{id}(id = ${productDetail.id})}" enctype="multipart/form-data">
+                    <th:block th:if="${message != null}">
+                        <span th:if="${message == 'success'}" class="text-success">Cập nhật thông tin thành công!</span>
+                        <span th:if="${message == 'false'}" class="text-danger">Cập nhật thông tin không thành công!</span>
+                    </th:block>
+                      <div class="row mt-3 align-items-center">
+                        <label class="col-lg-2 text-end" for="name">
+                            Tên sản phẩm:
+                        </label>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control"  id ="name" name ="name" th:value="${productDetail.name}">
+                        </div>
+                      </div>
+
+                    <div class="row mt-3 align-items-center">
+                        <label class="col-lg-2 text-end" for="description">
+                            Mô tả:
+                        </label>
+                        <div class="col-lg-4 ">
+                            <textarea id="description" name="description" rows="6" cols="40">[[${productDetail.description}]]</textarea>
+                        </div>
+                        <div class="d-flex justify-content-between col-lg-4" >
+                            <span class="px-2 position-relative" th:each="image, iter : ${productDetail.getImageResponses()}" th:if="${iter.index} &lt; 3">
+                                <img th:src="@{${image.url}}" class="image-detail-product">
+                                <button type="button" class="x-image btn btn-sm" data-bs-toggle="modal" th:data-bs-target="'#delete-img-' + ${iter.index}">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mt-3 align-items-center">
+                        <label class="col-lg-2  text-end" for="price">
+                            Giá bán:
+                        </label>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" id="price" name="price" th:value="${productDetail.price}">
+                        </div>
+                        <label class="col-lg-2 text-end " for="discountPrice">
+                            Giá khuyến mãi:
+                        </label>
+
+                        <div class=" col-lg-3 ">
+                            <input type="text" class="form-control" id ="discountPrice" name="discountPrice" th:value="${productDetail.discountPrice}">
+                        </div>
+                    </div>
+                    <div class="row mt-3 align-items-center">
+                        <label class="col-lg-2 text-end" for="category">
+                            Danh mục: <span th:text="${category.title}" th:class="'badge bg-primary'"></span>
+                        </label>
+                        <div class="col-lg-3">
+                          <select class="form-control"
+                                  name="category"  id="category">
+                            <option th:each="item : ${categoryList}"
+                                    th:value="${item.id}" th:text="${item.title} " th:selected="${item.id == productDetail.categoryId}">
+                            </option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3 align-items-center">
+                        <label class="col-lg-2 text-end images">
+                            Thêm ảnh:
+                        </label>
+                        <div class="col-lg-3" id="arrImages">
+                            <input type="file"  id="images" name="images" multiple>
+                        </div>
+                    </div>
+                    <input type="text" name="sizes" th:id="'sizes'" class="d-none">
+                    <div class="row mt-3 align-items-start" >
+                        <label class="col-lg-2 text-end images">
+                            Số lượng:
+                        </label>
+                        <div class="col-lg-4">
+                            <ul class="product-quantity">
+                                <th:block th:each="entry : ${totalByColorAndSize}">
+                                    <li>
+                                        <label th:text="${entry.key}" th:style="'width: 90px;'"></label>
+                                        <input type="number" class="form-control-sm form-control size-quantity-input" th:name="${entry.value.substring(entry.value.indexOf('-') + 1)}" th:value="${entry.value.substring(0, entry.value.indexOf('-'))}">
+                                    </li>
+                                </th:block>
+                            </ul>
+                            <script>
+                                // Lấy tất cả các ô input và đăng ký sự kiện change cho chúng
+                                const productQuantityInputs = document.querySelectorAll('.size-quantity-input');
+                                productQuantityInputs.forEach(input => {
+                                    input.addEventListener('change', updateQuantities);
+                                });
+
+                                // Cập nhật giá trị của quantities khi có sự thay đổi ở các ô input
+                                function updateQuantities() {
+                                    const quantities = [];
+                                    productQuantityInputs.forEach(input => {
+                                        const sizeId = input.name;
+                                        const quantity = input.value;
+                                        quantities.push(`${sizeId}-${quantity}`);
+                                    });
+                                    document.querySelector('#sizes').value = quantities.join(',');
+                                }
+
+                                // Tự động cập nhật giá trị của quantities khi trang được tải
+                                updateQuantities();
+                            </script>
+                        </div>
+                    </div>
+
+                      <div class="row align-items-center">
+                        <div class="col-md-12 mx-auto text-center">
+                            <hr class=" border-top border-1 border-success">
+                        </div>
+                      </div>
+                        <input type="hidden" name="_method" th:value="'PUT'">
+                      <div class="row mt-3 pb-5">
+                          <div class="col-md-12 text-center">
+                          <button type="submit" onclick="updateForm()" name="" class="btn btn-success mx-2" ><i class="fa-solid fa-right-to-bracket"></i> Lưu thay đổi</button>
+                          <button type="button" onclick="goBack()" class="btn btn-secondary">Quay lại <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                      </div>
+                  </div>
+                </form>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+      <th:block th:each="image, iter : ${productDetail.getImageResponses()}" th:if="${iter.index} &lt; 3">
+          <div class="modal fade" th:id="'delete-img-' + ${iter.index}" tabindex="-1" th:aria-labelledby="'confirm-'+ ${iter.index}" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h1 class="modal-title fs-5" th:id="'confirm-'+ ${iter.index}">Xác nhận xoá ảnh</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          Xoá ảnh khỏi sản phẩm <strong>[[${productDetail.name}]]</strong>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                          <form th:action="@{/admin/product/detail/deleteImage/{id}(id = ${image.id}, product=${productDetail.id})}" class="d-inline-block" th:method="'POST'">
+                              <input type="hidden" name="_method" th:value="'DELETE'">
+                              <button type="submit" class="btn  btn-danger">Xác nhận</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </th:block>
+      </main><!-- End #main -->
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>ManhMinh</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">ManhMinh</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fa-solid fa-arrow-up"></i></a>
+
+  <!-- End Footer -->
+  <div id="preloader"></div>
+
+
+  <!--vendor-scripts.html-->
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+
+  <script th:src="@{/assets/js/admin-main.js}"></script>
+  <script  th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+
+</body>
+
+</html>

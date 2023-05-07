@@ -2,6 +2,8 @@ package com.mshoes.mshoes.models.response;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class UserResponse {
     private  Long id;
@@ -20,5 +22,5 @@ public class UserResponse {
 
     private String phone;
 
-    private String role;
+    private List<String> roles;
 }
