@@ -5,7 +5,6 @@ import com.mshoes.mshoes.models.dtos.UserDTO;
 import com.mshoes.mshoes.models.request.CheckOutRequest;
 import com.mshoes.mshoes.models.request.OrderDetailRequest;
 import com.mshoes.mshoes.models.request.OrderItemRequest;
-import com.mshoes.mshoes.models.request.UserRequest;
 import com.mshoes.mshoes.models.response.OrderDetailResponse;
 import com.mshoes.mshoes.models.response.OrderItemResponse;
 import com.mshoes.mshoes.models.response.UserResponse;

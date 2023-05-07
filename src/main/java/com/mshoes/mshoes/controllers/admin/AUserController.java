@@ -8,7 +8,6 @@ import com.mshoes.mshoes.utils.GetUserFromToken;
 import com.mshoes.mshoes.utils.JwtUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 

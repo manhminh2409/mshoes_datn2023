@@ -2,7 +2,6 @@ package com.mshoes.mshoes.mapper;
 
 import com.mshoes.mshoes.models.Role;
 import com.mshoes.mshoes.models.request.CheckOutRequest;
-import com.mshoes.mshoes.models.request.ProfileRequest;
 import com.mshoes.mshoes.models.request.SignupRequest;
 import com.mshoes.mshoes.models.request.UserRequest;
 import com.mshoes.mshoes.models.dtos.UserDTO;

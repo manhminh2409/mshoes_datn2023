@@ -8,7 +8,6 @@ import com.mshoes.mshoes.services.OrderDetailService;
 import com.mshoes.mshoes.services.UserService;
 import com.mshoes.mshoes.utils.GetUserFromToken;
 import com.mshoes.mshoes.utils.JwtUtils;
-import com.mshoes.mshoes.utils.TimeUtils;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/home/user")

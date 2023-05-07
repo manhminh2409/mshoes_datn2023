@@ -8,7 +8,6 @@ import com.mshoes.mshoes.models.dtos.UserDTO;
 import com.mshoes.mshoes.models.response.UserResponse;
 import org.springframework.data.domain.Page;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
