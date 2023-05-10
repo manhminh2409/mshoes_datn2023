@@ -8,11 +8,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 import com.mshoes.mshoes.mapper.OrderDetailMapper;
+import com.mshoes.mshoes.mapper.PaymentMapper;
 import com.mshoes.mshoes.mapper.UserMapper;
 import com.mshoes.mshoes.models.*;
 import com.mshoes.mshoes.models.request.OrderDetailRequest;
 import com.mshoes.mshoes.models.request.UpdateOrderRequest;
 import com.mshoes.mshoes.models.response.OrderDetailResponse;
+import com.mshoes.mshoes.models.response.PaymentResponse;
 import com.mshoes.mshoes.models.response.UserResponse;
 import com.mshoes.mshoes.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import com.mshoes.mshoes.exception.ResourceNotFoundException;
-import com.mshoes.mshoes.libraries.Utilities;
+import com.mshoes.mshoes.utils.DateUtils;
 import com.mshoes.mshoes.mapper.ProductMapper;
 import com.mshoes.mshoes.models.request.OrderItemRequest;
 import com.mshoes.mshoes.models.response.OrderItemResponse;
@@ -45,14 +47,16 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	private final OrderDetailMapper orderDetailMapper;
 
+	private final PaymentMapper paymentMapper;
+
 	private final UserMapper userMapper;
 
-	private final Utilities utilities;
+	private final DateUtils dateUtils;
 
 	@Autowired
 	public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository, UserRepository userRepository,
 								  SizeRepository sizeRepository, OrderItemRepository orderItemRepository, PaymentRepository paymentRepository, ProductMapper productMapper,
-								  OrderDetailMapper orderDetailMapper, UserMapper userMapper, Utilities utilities) {
+								  OrderDetailMapper orderDetailMapper, PaymentMapper paymentMapper, UserMapper userMapper, DateUtils dateUtils) {
 		this.orderDetailRepository = orderDetailRepository;
 		this.userRepository = userRepository;
 		this.sizeRepository = sizeRepository;
@@ -60,8 +64,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		this.paymentRepository = paymentRepository;
 		this.productMapper = productMapper;
 		this.orderDetailMapper = orderDetailMapper;
+		this.paymentMapper = paymentMapper;
 		this.userMapper = userMapper;
-		this.utilities = utilities;
+		this.dateUtils = dateUtils;
 	}
 
 	@Override
@@ -180,7 +185,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			// Tạo 1 giỏ hàng mới với user sở hữu hiện tại, createdDate và type = 0
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setUser(user);
-			orderDetail.setCreatedDate(utilities.getCurrentDate());
+			orderDetail.setCreatedDate(dateUtils.getCurrentDate());
 			orderDetail.setType(0);
 
 			// Lưu giỏ hàng mới vào csdl
@@ -308,9 +313,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		orderDetailResponse.setPhone(orderDetail.getPhone());
 		orderDetailResponse.setAddress(orderDetail.getAddress());
 		orderDetailResponse.setNotes(orderDetail.getNotes());
-		if (orderDetail.getPayment() != null){
-			orderDetailResponse.setPaymentType(orderDetail.getPayment().getType());
-		}
+
+		PaymentResponse paymentResponse = paymentMapper.mapModelToResponse(paymentRepository.findByOrderDetail(orderDetail)) ;
+		orderDetailResponse.setPaymentResponse(paymentResponse);
+
 		List<OrderItemResponse> orderItemResponses = orderDetail.getOrderItems().stream().map(this::toOrderItemResponse).toList();
 		UserResponse userResponse = userMapper.mapModelToResponse(orderDetail.getUser());
 		orderDetailResponse.setUserResponse(userResponse);
@@ -327,7 +333,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		orderDetail.setId(orderDetailRequest.getId());
 		orderDetail.setTotalAmount(orderDetailRequest.getTotalAmount());
 		orderDetail.setTotalQuantity(orderDetailRequest.getTotalQuantity());
-		orderDetail.setCreatedDate(utilities.getCurrentDate());
+		orderDetail.setCreatedDate(dateUtils.getCurrentDate());
 		orderDetail.setOrderCode("HD" + orderDetailRequest.getId().toString() + "US" + userId);
 		orderDetail.setUser(user);
 		orderDetail.setAddress(orderDetailRequest.getAddress());
@@ -335,7 +341,18 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		orderDetail.setStatus(0);
 		orderDetail.setType(1);
 		orderDetail.setNotes(orderDetailRequest.getNotes());
-		orderDetail.setPayment(paymentRepository.findById(orderDetailRequest.getPaymentId()).orElseThrow());
+		Payment payment = new Payment();
+		if(orderDetailRequest.getPaymentType() == 1){
+			payment.setType("BANK");
+			payment.setStatus(1);
+			payment.setOrderDetail(orderDetail);
+			paymentRepository.save(payment);
+		}else {
+			payment.setType("COD");
+			payment.setStatus(0);
+			payment.setOrderDetail(orderDetail);
+			paymentRepository.save(payment);
+		}
 
 		//Cập nhật lại số lượng và đã bán
 		//Lấy danh sách orderItem có trong Giỏ hàng
@@ -421,6 +438,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		OrderDetail orderDetail = orderDetailRepository.findById(orderDetailId).orElseThrow();
 		if(updateOrderRequest.getStatus() == -1){
 			updateOrderRequest.setStatus(orderDetail.getStatus());
+		}
+		//trạng thái đã thanh toán thì tự động cập nhật status ở payment
+		if(updateOrderRequest.getStatus() == 3){
+			Payment payment = paymentRepository.findByOrderDetail(orderDetail);
+			payment.setStatus(1);
+			paymentRepository.save(payment);
 		}
 		orderDetailMapper.updateModel(orderDetail, updateOrderRequest);
 		return this.mapToOrderDetailResponse(orderDetail);

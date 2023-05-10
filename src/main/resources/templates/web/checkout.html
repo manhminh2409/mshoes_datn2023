@@ -37,159 +37,200 @@
                     <div class="row mx-0 align-items-top">
                         <div class="col-lg-6 shipping-infor">
                             <form th:action="@{/home/cart/checkout}" method="POST" th:object="${checkOutRequest}">
-                            <div class="row mx-0">
-                                <div class="col-lg-12">
-                                    <label for="fullname" class="pt-3 pb-2">Họ và tên:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
-                                    <input type="text" name="fullname" id="fullname" class="form-control" placeholder="" th:value="${userCheckOut.getFullname()}" onchange="validateField('fullname')">
-                                    <p id="fullname-error" class="text-danger err"></p>
-                                </div>
-                            </div>
-
-                            <div class="row mx-0">
-                                <div class="col-lg-7">
-                                    <label for="email" class="pt-3 pb-2">Email:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="" th:value="${userCheckOut.getEmail()}"onchange="validateField('email')">
-                                    <p id="email-error" class="text-danger err"></p>
-                                </div>
-                                <div class="col-lg-5">
-                                    <label for="phone" class="pt-3 pb-2">Số điện thoại:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
-                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="" th:value="${userCheckOut.getPhone()}"onchange="validateField('phone')">
-                                    <p id="phone-error" class="text-danger err"></p>
-                                </div>
-                            </div>
-                            <div class="row mx-0">
-                                <div class="col-lg-12">
-                                    <label for="address" class="pt-3 pb-2">Địa chỉ nhận hàng:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
-                                    <input type="text" name="address" id="address" class="form-control" placeholder="" th:value="${userCheckOut.getAddress()}" onchange="validateField('address')">
-                                    <p id="address-error" class="text-danger err"></p>
-                                </div>
-                            </div>
-
-                            <div class="row mx-0">
-                                <div class="col-lg-4">
-                                    <label for="city" class="pt-3 pb-2">Tỉnh / Thành:</label>
-
-                                    <select id="city" name="city" class="form-select" style="font-size: 14px;">
-                                        <option value="">--Tỉnh/Thành--</option>
-                                    </select>
+                                <div class="row mx-0">
+                                    <div class="col-lg-12">
+                                        <label for="fullname" class="pt-3 pb-2">Họ và tên:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                                        <input type="text" name="fullname" id="fullname" class="form-control" placeholder="" th:value="${userCheckOut.getFullname()}" onchange="validateField('fullname')">
+                                        <p id="fullname-error" class="text-danger err"></p>
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-4">
-                                    <label for="district" class="pt-3 pb-2">Quận / Huyện:</label>
-
-                                    <select id="district" name="district" class="form-select" style="font-size: 14px;">
-                                        <option value="">--Quận / Huyện--</option>
-                                    </select>
+                                <div class="row mx-0">
+                                    <div class="col-lg-7">
+                                        <label for="email" class="pt-3 pb-2">Email:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                                        <input type="text" name="email" id="email" class="form-control" placeholder="" th:value="${userCheckOut.getEmail()}"onchange="validateField('email')">
+                                        <p id="email-error" class="text-danger err"></p>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <label for="phone" class="pt-3 pb-2">Số điện thoại:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                                        <input type="text" name="phone" id="phone" class="form-control" placeholder="" th:value="${userCheckOut.getPhone()}"onchange="validateField('phone')">
+                                        <p id="phone-error" class="text-danger err"></p>
+                                    </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <label for="ward" class="pt-3 pb-2">Phường / Xã:</label>
-
-                                    <select id="ward" name="ward" class="form-select" style="font-size: 14px;">
-                                        <option value="">--Phường / Xã--</option>
-                                    </select>
+                                <div class="row mx-0">
+                                    <div class="col-lg-12">
+                                        <label for="address" class="pt-3 pb-2">Địa chỉ nhận hàng:<span class="text-danger ps-1" style="font-size: 20px;">*</span></label>
+                                        <input type="text" name="address" id="address" class="form-control" placeholder="" th:value="${userCheckOut.getAddress()}" onchange="validateField('address')">
+                                        <p id="address-error" class="text-danger err"></p>
+                                    </div>
                                 </div>
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
-                                <script>
-                                    const host = "https://provinces.open-api.vn/api/";
-                                    var callAPI = (api) => {
-                                        return axios.get(api)
-                                            .then((response) => {
-                                                renderData(response.data, "city");
-                                            });
-                                    }
-                                    callAPI('https://provinces.open-api.vn/api/?depth=1');
-                                    var callApiDistrict = (api) => {
-                                        return axios.get(api)
-                                            .then((response) => {
-                                                renderData(response.data.districts, "district");
-                                            });
-                                    }
-                                    var callApiWard = (api) => {
-                                        return axios.get(api)
-                                            .then((response) => {
-                                                renderData(response.data.wards, "ward");
-                                            });
-                                    }
+                                <div class="row mx-0">
+                                    <div class="col-lg-4">
+                                        <label for="city" class="pt-3 pb-2">Tỉnh / Thành:</label>
 
-                                    var renderData = (array, select) => {
-                                        let row = ' <option disable value="">Chọn</option>';
-                                        array.forEach(element => {
-                                            row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
-                                        });
-                                        document.querySelector("#" + select).innerHTML = row
-                                    }
-
-                                    $("#city").change(() => {
-                                        callApiDistrict(host + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
-                                        printResult();
-                                    });
-                                    $("#district").change(() => {
-                                        callApiWard(host + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
-                                        printResult();
-                                    });
-                                    $("#ward").change(() => {
-                                        printResult();
-                                    })
-
-                                    var printResult = () => {
-                                        if ($("#district").find(':selected').data('id') !== "" && $("#city").find(':selected').data('id') !== "" &&
-                                            $("#ward").find(':selected').data('id') !== "") {
-                                            let result = $("#city option:selected").text() +
-                                                " | " + $("#district option:selected").text() + " | " +
-                                                $("#ward option:selected").text();
-                                            $("#result").text(result)
-                                        }
-
-                                    }
-                                </script>
-                            </div>
-
-
-                            <div class="row mx-0">
-                                <div class="col-lg-12">
-                                    <label  class="pt-4 pb-2">Phương thức thanh toán:</label>
-                                    <div class="form-check pb-3">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" checked >
-                                        <label class="form-check-label" for="cod">
-                                            Thanh toán khi nhận hàng (COD)
-                                        </label>
+                                        <select id="city" name="city" class="form-select" style="font-size: 14px;">
+                                            <option value="">--Tỉnh/Thành--</option>
+                                        </select>
                                     </div>
 
-                                    <div class="form-check pb-3">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="bankTransfer" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">
-                                        <label class="form-check-label" for="bankTransfer">
-                                            Thanh toán chuyển khoản
-                                        </label>
+                                    <div class="col-lg-4">
+                                        <label for="district" class="pt-3 pb-2">Quận / Huyện:</label>
 
-                                        <div class="collapse multi-collapse py-3" id="multiCollapseExample2">
-                                            <div class="card card-body">
-                                                Thanh toán chuyển khoản bằng ngân hàng hoặc QR...
+                                        <select id="district" name="district" class="form-select" style="font-size: 14px;">
+                                            <option value="">--Quận / Huyện--</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="ward" class="pt-3 pb-2">Phường / Xã:</label>
+
+                                        <select id="ward" name="ward" class="form-select" style="font-size: 14px;">
+                                            <option value="">--Phường / Xã--</option>
+                                        </select>
+                                    </div>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+                                    <script>
+                                        const host = "https://provinces.open-api.vn/api/";
+                                        var callAPI = (api) => {
+                                            return axios.get(api)
+                                                .then((response) => {
+                                                    renderData(response.data, "city");
+                                                });
+                                        }
+                                        callAPI('https://provinces.open-api.vn/api/?depth=1');
+                                        var callApiDistrict = (api) => {
+                                            return axios.get(api)
+                                                .then((response) => {
+                                                    renderData(response.data.districts, "district");
+                                                });
+                                        }
+                                        var callApiWard = (api) => {
+                                            return axios.get(api)
+                                                .then((response) => {
+                                                    renderData(response.data.wards, "ward");
+                                                });
+                                        }
+
+                                        var renderData = (array, select) => {
+                                            let row = ' <option disable value="">Chọn</option>';
+                                            array.forEach(element => {
+                                                row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+                                            });
+                                            document.querySelector("#" + select).innerHTML = row
+                                        }
+
+                                        $("#city").change(() => {
+                                            callApiDistrict(host + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+                                            printResult();
+                                        });
+                                        $("#district").change(() => {
+                                            callApiWard(host + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+                                            printResult();
+                                        });
+                                        $("#ward").change(() => {
+                                            printResult();
+                                        })
+
+                                        var printResult = () => {
+                                            if ($("#district").find(':selected').data('id') !== "" && $("#city").find(':selected').data('id') !== "" &&
+                                                $("#ward").find(':selected').data('id') !== "") {
+                                                let result = $("#city option:selected").text() +
+                                                    " | " + $("#district option:selected").text() + " | " +
+                                                    $("#ward option:selected").text();
+                                                $("#result").text(result)
+                                            }
+
+                                        }
+                                    </script>
+                                </div>
+
+
+                                <div class="row mx-0">
+                                    <div class="col-lg-12">
+                                        <label  class="pt-4 pb-2">Phương thức thanh toán:</label>
+                                        <div class="form-check pb-3">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" th:checked="${vnp_Response == ''}" >
+                                            <label class="form-check-label" for="cod">
+                                                Thanh toán khi nhận hàng (COD)
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check pb-3">
+                                            <input class="form-check-input"  type="radio" name="paymentMethod" id="bank" value="bank" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" th:checked="${vnp_Response != ''}">
+                                            <label class="form-check-label" for="bank">
+                                                Thanh toán chuyển khoản
+                                            </label>
+
+                                            <div class="collapse multi-collapse py-3" id="multiCollapseExample2">
+                                                <div class="card card-body">
+                                                    Thanh toán chuyển khoản bằng ngân hàng hoặc QR...
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </div>
-                            <div class="row mx-0">
-                                <div class="col-lg-12">
-                                    <label  class="pt-3 pb-2 d-block">Ghi chú:</label>
-                                    <textarea name="notes" cols="70" rows="5"></textarea>
                                 </div>
-                            </div>
-                            <input type="hidden" name="totalQuantity" th:class="'d-none'" th:value="${orderDetailRequest.getTotalQuantity()}">
-                            <input type="hidden" name="totalAmount" th:class="'d-none'" th:value="${orderDetailRequest.getTotalAmount()}">
-                            <input type="hidden" name="id" th:class="'d-none'" th:value="${cartId}">
-                            <input type="hidden" name="_method" value="PUT">
-                            <div class="row mx-0 pt-3">
-                                <div class="col-lg-12 text-end">
-                                    <button type="submit" th:id="'checkout'" class="btn btn-success px-4" name="button" >Đặt hàng</button>
+                                <div class="row mx-0">
+                                    <div class="col-lg-12">
+                                        <label  class="pt-3 pb-2 d-block">Ghi chú:</label>
+                                        <textarea id="notes" name="notes" cols="70" rows="5"></textarea>
+                                    </div>
                                 </div>
-                            </div>
+                                <input type="hidden" id="total-quanity" name="totalQuantity" th:class="'d-none'" th:value="${orderDetailRequest.getTotalQuantity()}">
+                                <input type="hidden" id="total-amount" name="totalAmount" th:class="'d-none'" th:value="${orderDetailRequest.getTotalAmount()}">
+                                <input type="hidden" name="id" th:class="'d-none'" th:value="${cartId}">
+                                <input type="hidden" name="_method" value="PUT">
+                                <div class="row mx-0 pt-3">
+                                    <div class="col-lg-12 text-end">
+                                        <button type="submit" th:id="'checkout'" class="btn btn-success px-4" name="button" >Đặt hàng</button>
+                                    </div>
+                                </div>
                             </form>
 
                                 <script>
+                                    const $$ = document.querySelector.bind(document);
+                                    const btnSub = $$('#checkout');
+                                    btnSub.addEventListener('click', e => {
+
+                                        const bank = $$('#bank');
+                                        const cod = $$('#cod');
+                                        if(bank.checked){
+                                            e.preventDefault();
+                                            const urlParams = new URLSearchParams(window.location.search);
+                                            // Define the URL to POST the data to
+                                            const url = '/home/cart/checkout_bank';
+                                            const amount = urlParams.get('amount');
+                                            const data = {
+                                                phone: $$('#phone').value,
+                                                address : $$('#address').value+', '+$$('#ward').value + ', '+$$('#district').value + ', ' + $$('#city').value,
+                                                notes: $$('#notes').value,
+                                                totalQuantity : $$('#total-quanity').value,
+                                                totalAmount : amount,
+                                                id : urlParams.get('id')
+                                            }
+                                            console.log(JSON.stringify(data));
+                                            const options = {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify(data)
+                                            };
+
+                                            fetch(url, options)
+                                                .then(response => response.json())
+                                                .then(({data}) => {
+                                                    console.log(data);
+                                                    window.location.href = data;
+                                                })
+                                                .catch(error => console.error(error));
+                                            return;
+                                        }
+
+                                    })
+
                                     function validateField(fieldName) {
                                     const field = document.getElementById(fieldName);
                                     const error = document.getElementById(`${fieldName}-error`);
@@ -227,7 +268,7 @@
                                     function disableCheckoutButton() {
                                     const checkoutButton = document.getElementById("checkout");
                                     checkoutButton.disabled = true;
-                                }
+                                    }
 
                                     function enableCheckoutButton() {
                                     const fullname = document.getElementById("fullname");

@@ -37,8 +37,8 @@
       <h1>Tổng quan</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Tổng quan</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -55,29 +55,47 @@
               <div class="card info-card sales-card">
 
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
+                      <h6>Lọc</h6>
                     </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                    <li><a class="dropdown-item" th:href="@{'/admin?count=day&&revenue=' + ${revenue_time}}">Hôm nay</a></li>
+                    <li><a class="dropdown-item" th:href="@{'/admin?count=month&&revenue=' + ${revenue_time}}">Tháng này</a></li>
+                    <li><a class="dropdown-item" th:href="@{'/admin?count=year&&revenue=' + ${revenue_time}}">Năm nay</a></li>
                   </ul>
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Sales <span>| Today</span></h5>
+                  <h5 class="card-title">
+                    Đơn hàng
+                    <span th:if="${count_time == 'day'}" th:text="'| Hôm nay'"></span>
+                    <span th:if="${count_time == 'month'}" th:text="'| Tháng này'"></span>
+                    <span th:if="${count_time == 'year'}" th:text="'| Năm nay'"></span>
+                  </h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
+                      <i class="fa-solid fa-truck"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small">increase</span>
+                      <h6 th:text="${order.getFirstValue()}"></h6>
+                      <span th:if="${order.getLastValue() != 0}">
+                        <span th:if="${order.getFirstValue() > order.getLastValue()}">
+                          <span class="text-success small pt-1 fw-bold" th:text="${100*(order.getFirstValue() - order.getLastValue())/order.getLastValue()+'%'}"></span>
+                          <span class="small">tăng</span>
+                        </span>
 
+                        <span th:if="${order.getFirstValue() < order.getLastValue()}">
+                          <span class="text-danger small pt-1 fw-bold" th:if="${order.getLastValue() != 0}" th:text="${100*(order.getLastValue() - order.getFirstValue())/order.getLastValue()+'%'}"></span>
+                          <span class="small">giảm</span>
+                        </span>
+                      </span>
+
+                      <span th:if="${order.getLastValue() == 0}">
+                        <span class="text-success small pt-1 fw-bold" th:text="${100*order.getFirstValue() +' %'}"></span>
+                        <span class="small">tăng</span>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -90,29 +108,46 @@
               <div class="card info-card revenue-card">
 
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
+                      <h6>Lọc</h6>
                     </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                    <li><a class="dropdown-item" th:href="@{'/admin?revenue=day&&count=' + ${count_time}}">Hôm nay</a></li>
+                    <li><a class="dropdown-item" th:href="@{'/admin?revenue=month&&count=' + ${count_time}}">Tháng này</a></li>
+                    <li><a class="dropdown-item" th:href="@{'/admin?revenue=year&&count=' + ${count_time}}">Năm nay</a></li>
                   </ul>
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                  <h5 class="card-title">
+                    Doanh thu
+                    <span th:if="${revenue_time == 'day'}" th:text="'| Hôm nay'"></span>
+                    <span th:if="${revenue_time == 'month'}" th:text="'| Tháng này'"></span>
+                    <span th:if="${revenue_time == 'year'}" th:text="'| Năm nay'"></span>
+                  </h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
+                      <i class="fa-solid fa-dong-sign"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small">increase</span>
+                      <h6 th:text="${revenue.getFirstValue()}" class="price"></h6>
+                      <span th:if="${revenue.getLastValue() != 0}">
+                        <span th:if="${revenue.getFirstValue() > revenue.getLastValue()}">
+                          <span class="text-success small pt-1 fw-bold" th:text="${100*(revenue.getFirstValue() - revenue.getLastValue())/revenue.getLastValue()+'%'}"></span>
+                          <span class="small">tăng</span>
+                        </span>
 
+                        <span th:if="${revenue.getFirstValue() < revenue.getLastValue()}">
+                          <span class="text-danger small pt-1 fw-bold" th:text="${100*(revenue.getLastValue() - revenue.getFirstValue())/revenue.getLastValue()+'%'}"></span>
+                          <span class="small">giảm</span>
+                        </span>
+                      </span>
+                      <span th:if="${revenue.getLastValue() == 0}">
+                        <span class="text-success small pt-1 fw-bold" th:text="${100*revenue.getFirstValue() +' %'}"></span>
+                        <span class="small">tăng</span>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -124,31 +159,16 @@
             <div class="col-xxl-4 col-lg-4 col-sm-12">
 
               <div class="card info-card customers-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
                 <div class="card-body">
-                  <h5 class="card-title">Customers <span>| This Year</span></h5>
+                  <h5 class="card-title">Đơn hàng <span>| Chưa duyệt</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
+                      <i class="fa-solid fa-box-open"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small">decrease</span>
-
+                      <h6 th:text="${orderStatus0}"></h6>
+                      <span class=" small">chưa duyệt</span>
                     </div>
                   </div>
 
@@ -162,36 +182,34 @@
               <div class="card">
 
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
+                      <h6>Lọc</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                    <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                <li><a class="dropdown-item" href="#">Năm nay</a></li>
                   </ul>
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Reports <span>/Today</span></h5>
+                  <h5 class="card-title">Báo cáo <span>| Hôm nay</span></h5>
 
                   <!-- Line Chart -->
                   <div id="reportsChart"></div>
 
-                  <script>
+                  <script th:inline="javascript">
+                    var dataRenevue = /*[[${revenuesOfChart}]]*/ [];
+                    var dataDate = /*[[${datesOfChart}]]*/ [];
+                  </script>
+                  <script >
                     document.addEventListener("DOMContentLoaded", () => {
                       new ApexCharts(document.querySelector("#reportsChart"), {
                         series: [{
-                          name: 'Sales',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }, {
-                          name: 'Revenue',
-                          data: [11, 32, 45, 32, 34, 52, 41]
-                        }, {
-                          name: 'Customers',
-                          data: [15, 11, 32, 18, 9, 24, 11]
+                          name: 'Doanh thu',
+                          data: dataRenevue
                         }],
                         chart: {
                           height: 350,
@@ -203,13 +221,13 @@
                         markers: {
                           size: 4
                         },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                        colors: ['#2eca6a'],
                         fill: {
                           type: "gradient",
                           gradient: {
                             shadeIntensity: 1,
                             opacityFrom: 0.3,
-                            opacityTo: 0.4,
+                            opacityTo: 0.7,
                             stops: [0, 90, 100]
                           }
                         },
@@ -221,12 +239,12 @@
                           width: 2
                         },
                         xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                          type: 'date',
+                          categories: dataDate
                         },
                         tooltip: {
                           x: {
-                            format: 'dd/MM/yy HH:mm'
+                            format: 'dd/MM/yy'
                           },
                         }
                       }).render();
@@ -244,15 +262,15 @@
               <div class="card recent-sales overflow-auto">
 
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
+                      <h6>Lọc</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                    <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                <li><a class="dropdown-item" href="#">Năm nay</a></li>
                   </ul>
                 </div>
 
@@ -318,15 +336,15 @@
               <div class="card top-selling overflow-auto">
 
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
+                      <h6>Lọc</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                    <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                <li><a class="dropdown-item" href="#">Năm nay</a></li>
                   </ul>
                 </div>
 
@@ -396,15 +414,15 @@
           <!-- Recent Activity -->
           <div class="card">
             <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                 <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
+                  <h6>Lọc</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
+               <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                <li><a class="dropdown-item" href="#">Năm nay</a></li>
               </ul>
             </div>
 
@@ -469,15 +487,15 @@
           <!-- Budget Report -->
           <div class="card">
             <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                 <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
+                  <h6>Lọc</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
+               <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                <li><a class="dropdown-item" href="#">Năm nay</a></li>
               </ul>
             </div>
 
@@ -543,15 +561,15 @@
           <!-- Website Traffic -->
           <div class="card">
             <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                 <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
+                  <h6>Lọc</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
+               <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                <li><a class="dropdown-item" href="#">Năm nay</a></li>
               </ul>
             </div>
 
@@ -621,15 +639,14 @@
           <!-- News & Updates Traffic -->
           <div class="card">
             <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                 <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
+                  <h6>Lọc</h6>
                 </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
+               <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                <li><a class="dropdown-item" href="#">Năm nay</a></li>
               </ul>
             </div>
 

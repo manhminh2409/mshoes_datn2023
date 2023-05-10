@@ -1,9 +1,11 @@
 package com.mshoes.mshoes.controllers;
 
+import com.mshoes.mshoes.models.dtos.CategoryDTO;
 import com.mshoes.mshoes.models.dtos.UserDTO;
 import com.mshoes.mshoes.models.request.ProfileRequest;
 import com.mshoes.mshoes.models.response.OrderDetailResponse;
 import com.mshoes.mshoes.models.response.UserResponse;
+import com.mshoes.mshoes.services.CategoryService;
 import com.mshoes.mshoes.services.OrderDetailService;
 import com.mshoes.mshoes.services.UserService;
 import com.mshoes.mshoes.utils.GetUserFromToken;
@@ -22,24 +24,32 @@ import java.util.List;
 @Controller
 @RequestMapping("/home/user")
 public class UserController {
+    private static final int  TYPE_ORDER = 1;
+    private static final int  STATUS_PENDING_APPROVAL = 0;
+    private static final int  STATUS_APPROVED = 1;
+    private static final int  STATUS_DELIVERING = 2;
+    private static final int  STATUS_DELIVERED = 3;
+    private static final int  STATUS_CANCELED = 4;
     private final UserService userService;
-
     private final OrderDetailService orderDetailService;
-
     private final GetUserFromToken getUserFromToken;
-
     private final JwtUtils jwtUtils;
+    private final CategoryService categoryService;
 
-
-    public UserController(UserService userService, OrderDetailService orderDetailService, GetUserFromToken getUserFromToken, JwtUtils jwtUtils) {
+    public UserController(UserService userService, OrderDetailService orderDetailService, GetUserFromToken getUserFromToken, JwtUtils jwtUtils, CategoryService categoryService) {
         this.userService = userService;
         this.orderDetailService = orderDetailService;
         this.getUserFromToken = getUserFromToken;
         this.jwtUtils = jwtUtils;
+        this.categoryService = categoryService;
     }
     @ModelAttribute("userLogined")
     public UserResponse getUserLogined(ModelMap model, HttpServletRequest request) {
         return getUserFromToken.getUserFromToken(request);
+    }
+    @ModelAttribute("categories")
+    public List<CategoryDTO> getCategories(){
+        return categoryService.getAllCategories();
     }
     @ModelAttribute("cartItem")
     public int countCartItem(HttpServletRequest request){
@@ -55,46 +65,46 @@ public class UserController {
         String token = jwtUtils.getTokenLoginFromCookie(request);
         Long userId = jwtUtils.getUserIdFromToken(token);
         //Lấy danh dách đơn hàng
-        return orderDetailService.getAllOrdersWithType1(userId,1);
+        return orderDetailService.getAllOrdersWithType1(userId,TYPE_ORDER);
     }
     @ModelAttribute("orderDetailStatus0")
     public List<OrderDetailResponse> getAllOrderDetailStatus0(HttpServletRequest request){
         String token = jwtUtils.getTokenLoginFromCookie(request);
         Long userId = jwtUtils.getUserIdFromToken(token);
         //Lấy danh dách đơn hàng
-        return orderDetailService.getAllOrdersWithType1ByStatus(userId,1, 0);
+        return orderDetailService.getAllOrdersWithType1ByStatus(userId,TYPE_ORDER, STATUS_PENDING_APPROVAL);
     }
     @ModelAttribute("orderDetailStatus1")
     public List<OrderDetailResponse> getAllOrderDetailStatus1(HttpServletRequest request){
         String token = jwtUtils.getTokenLoginFromCookie(request);
         Long userId = jwtUtils.getUserIdFromToken(token);
         //Lấy danh dách đơn hàng
-        return orderDetailService.getAllOrdersWithType1ByStatus(userId,1, 1);
+        return orderDetailService.getAllOrdersWithType1ByStatus(userId,TYPE_ORDER, STATUS_APPROVED);
     }
     @ModelAttribute("orderDetailStatus2")
     public List<OrderDetailResponse> getAllOrderDetailStatus2(HttpServletRequest request){
         String token = jwtUtils.getTokenLoginFromCookie(request);
         Long userId = jwtUtils.getUserIdFromToken(token);
         //Lấy danh dách đơn hàng
-        return orderDetailService.getAllOrdersWithType1ByStatus(userId,1, 2);
+        return orderDetailService.getAllOrdersWithType1ByStatus(userId,TYPE_ORDER, STATUS_DELIVERING);
     }
     @ModelAttribute("orderDetailStatus3")
     public List<OrderDetailResponse> getAllOrderDetailStatus3(HttpServletRequest request){
         String token = jwtUtils.getTokenLoginFromCookie(request);
         Long userId = jwtUtils.getUserIdFromToken(token);
         //Lấy danh dách đơn hàng
-        return orderDetailService.getAllOrdersWithType1ByStatus(userId,1, 3);
+        return orderDetailService.getAllOrdersWithType1ByStatus(userId,TYPE_ORDER, STATUS_DELIVERED);
     }
     @ModelAttribute("orderDetailStatus4")
     public List<OrderDetailResponse> getAllOrderDetailStatus4(HttpServletRequest request){
         String token = jwtUtils.getTokenLoginFromCookie(request);
         Long userId = jwtUtils.getUserIdFromToken(token);
         //Lấy danh dách đơn hàng
-        return orderDetailService.getAllOrdersWithType1ByStatus(userId,1, 4);
+        return orderDetailService.getAllOrdersWithType1ByStatus(userId,TYPE_ORDER, STATUS_CANCELED);
     }
 
-    @GetMapping("")
-    public String getUserInformation(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+    @GetMapping("/order")
+    public String getOrderInformation(ModelMap model, HttpServletRequest request, HttpServletResponse response){
         // Lưu request của trang hiện tại vào session
         HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         requestCache.saveRequest(request, response);

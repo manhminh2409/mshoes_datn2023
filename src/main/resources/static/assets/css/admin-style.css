@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,600;1,700;1,800;1,900;1,1000&display=swap');
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -787,7 +787,10 @@
     transition: 0.3s;
     font-size: 16px;
   }
-  
+a i.fa-solid.fa-ellipsis{
+  color: #979797;
+  font-size: 16px;
+}
   .dashboard .filter .icon:hover,
   .dashboard .filter .icon:focus {
     color: #4154f1;
@@ -817,7 +820,7 @@
   }
   
   .dashboard .info-card h6 {
-    font-size: 28px;
+    font-size: 24px;
     color: #012970;
     font-weight: 700;
     margin: 0;
@@ -825,27 +828,35 @@
   }
   
   .dashboard .card-icon {
-    font-size: 32px;
+    font-size: 26px;
     line-height: 0;
-    width: 64px;
-    height: 64px;
+    width: 54px;
+    height: 54px;
     flex-shrink: 0;
     flex-grow: 0;
   }
   
   .dashboard .sales-card .card-icon {
-    color: #4154f1;
     background: #f6f6fe;
   }
   
   .dashboard .revenue-card .card-icon {
-    color: #2eca6a;
     background: #e0f8e9;
   }
   
   .dashboard .customers-card .card-icon {
-    color: #ff771d;
     background: #ffecdf;
+  }
+  .dashboard .sales-card .card-icon i{
+    color: #4154f1;
+  }
+
+  .dashboard .revenue-card .card-icon i{
+    color: #2eca6a;
+  }
+
+  .dashboard .customers-card .card-icon i{
+    color: #ff771d;
   }
   span.text-muted {
     display: block;

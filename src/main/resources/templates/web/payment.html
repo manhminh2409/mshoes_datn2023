@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặt hàng</title>
+  <!--CSS FILES-->
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/aos/aos.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/fontawesome/css/all.css}">
+  <link rel="stylesheet" th:href="@{/assets/vendor/simple-datatables/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
+  <!--JAVASCRIPT FILES-->
+  <script th:src="@{'https://unpkg.com/isotope-layout@3.0.6/dist/isotope.pkgd.js'}"></script>
+
+</head>
+<body>
+  <th:block th:replace="~{web/fragments/header :: header}"></th:block>
+
+  <main id="main" class="check-out">
+    <div class="pagetitle">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Đặt hàng</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <div class="row mx-0 align-items-center">
+      <div class="col-lg-6 mx-auto">
+        <div class="payment py-5">
+          <div class="row align-items-center">
+            <div class="col-lg-6 payment-infor">
+              <th:block th:switch="${vnp_ResponseCode}">
+                <div class="row border-bottom" th:case="'00'">
+                  <div class="col-lg-12 text-center payment-icon">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                  <div class="col-lg-12 text-center payment-title" >
+                    Giao dịch thành công!
+                  </div>
+                </div>
+
+                <div class="row border-bottom" th:case="'07'">
+                  <div class="col-lg-12 text-center payment-icon">
+                    <i class="fa-solid fa-check bg-warning"></i>
+                  </div>
+                  <div class="col-lg-12 text-center payment-title text-warning" >
+                    Trừ tiền thành công!
+                  </div>
+                  <div class="col-lg-12 text-center payment-description" >
+                    Giao dịch bị nghi ngờ (liên quan tới lừa đảo, giao dịch bất thường).
+                  </div>
+                </div>
+
+                <div class="row border-bottom" th:case="'09'">
+                  <div class="col-lg-12 text-center payment-icon">
+                    <i class="fa-solid fa-xmark bg-danger"></i>
+                  </div>
+                  <div class="col-lg-12 text-center payment-title text-danger" >
+                    Giao dịch không thành công!
+                  </div>
+                  <div class="col-lg-12 text-center payment-description" >
+                    Thẻ/Tài khoản của khách hàng chưa đăng ký dịch vụ InternetBanking tại ngân hàng.
+                  </div>
+                </div>
+
+                <div class="row border-bottom" th:case="'10'">
+                  <div class="col-lg-12 text-center payment-icon">
+                    <i class="fa-solid fa-xmark bg-danger"></i>
+                  </div>
+                  <div class="col-lg-12 text-center payment-title text-danger" >
+                    Giao dịch không thành công!
+                  </div>
+                  <div class="col-lg-12 text-center payment-description" >
+                    Khách hàng xác thực thông tin thẻ/tài khoản không đúng quá 3 lần.
+                  </div>
+                </div>
+
+                <div class="row border-bottom" th:case="'11'">
+                  <div class="col-lg-12 text-center payment-icon">
+                    <i class="fa-solid fa-xmark bg-danger"></i>
+                  </div>
+                  <div class="col-lg-12 text-center payment-title text-danger" >
+                    Giao dịch không thành công!
+                  </div>
+                  <div class="col-lg-12 text-center payment-description" >
+                    Đã hết hạn chờ thanh toán. Xin quý khách vui lòng thực hiện lại giao dịch.
+                  </div>
+                </div>
+              </th:block>
+
+
+              <div class="row mt-3 mx-0">
+                <div class="col-lg-12 p-2">
+                  <span>Mã thanh toán:</span>
+                  <strong class="ps-2" th:text="${vnp_TxnRef}"></strong>
+                </div>
+                <div class="col-lg-12 p-2">
+                  <span>Tổng tiền:</span>
+                  <strong class="ps-2 price" >[[${checkOutRequest.getTotalAmount()}]]</strong>
+                </div>
+                <div class="col-lg-12 p-2">
+                  <span>Thời gian:</span>
+                  <strong class="ps-2" th:text="${vnp_PayDate}"></strong>
+                </div>
+              </div>
+
+              <div class="row mt-4 mx-0">
+                <div class="col-lg-12 text-center">
+                  <button type="button" class="btn btn-success" th:if="${vnp_ResponseCode != '00'}"><a th:href="@{/home/cart/checkout(id = ${checkOutRequest.id}, quantity = ${checkOutRequest.getTotalQuantity()}, amount = ${checkOutRequest.getTotalAmount()})}">Quay lại</a></button>
+                  <th:block th:if="${vnp_ResponseCode == '00'}">
+                    <form th:action="@{/home/cart/checkout_bank_success}" th:method="'POST'">
+                      <input type="hidden" name="id" th:value="${checkOutRequest.id}">
+                      <input type="hidden" name="quantity" th:value="${checkOutRequest.getTotalQuantity()}">
+                      <input type="hidden" name="phone" th:value="${checkOutRequest.getPhone()}">
+                      <input type="hidden" name="address" th:value="${checkOutRequest.getAddress()}">
+                      <input type="hidden" name="amount" th:value="${checkOutRequest.getTotalAmount()}">
+                      <input type="hidden" name="notes" th:value="${checkOutRequest.getNotes()}">
+                      <input type="hidden" name="_method" value="PUT">
+                      <button type="submit" class="btn btn-success">Hoàn tất</button>
+                    </form>
+                  </th:block>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 overflow-hidden">
+              <img src="/assets/images/checkout.png" alt="" class="payment-img">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <th:block th:replace="~{web/fragments/footer :: footer}"></th:block>
+</body>
+</html>

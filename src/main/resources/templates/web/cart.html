@@ -120,6 +120,7 @@
                             totalPrice += parseFloat(totalAmountElements[i].textContent.replace(/\D/g,''));
                         }
                         document.getElementById("total-amount").value = totalPrice.toLocaleString('vi-VN') + 'đ';
+                        document.getElementById("amount").value = totalPrice;
                     }
                     function totalQuantity(){
                         let totalQuantityElements = Array.from(document.querySelectorAll('[id^="quantity"]'));
@@ -137,10 +138,11 @@
                     <div class="col-lg-5 py-2 justify-content-end offset-lg-7 d-flex align-items-center">
                         <input type="number" th:class="'d-none'" name="id" th:value="${cartId}">
                         <label for="total-quantity" th:class="'pe-2'">Tổng số lượng: </label>
-                        <input type="text" name="totalQuantity" id="total-quantity" th:class="'d-inline-block form-control text-center'" th:style="'width:60px;'">
+                        <input type="text" name="quantity" id="total-quantity" th:class="'d-inline-block form-control text-center'" th:style="'width:60px;'">
 
                         <label for="total-amount" th:class="'ps-4  pe-2'">Tổng tiền: </label>
-                        <input type="text" name="totalAmount" id="total-amount" th:class="'d-inline-block form-control text-center'" th:style="'width:120px;'">
+                        <input type="text" id="total-amount" th:class="'d-inline-block form-control text-center'" th:style="'width:120px;'">
+                        <input type="hidden" name="amount" id="amount">
                     </div>
 
                     <div class="col-lg-12 text-end py-3">

@@ -1,7 +1,7 @@
 package com.mshoes.mshoes.services.impl;
 
 import com.mshoes.mshoes.exception.ResourceNotFoundException;
-import com.mshoes.mshoes.libraries.Utilities;
+import com.mshoes.mshoes.utils.DateUtils;
 import com.mshoes.mshoes.mapper.CategoryMapper;
 import com.mshoes.mshoes.models.Category;
 import com.mshoes.mshoes.models.dtos.CategoryDTO;
@@ -24,15 +24,15 @@ public class CategoryServiceImpl implements CategoryService {
 
 	private final CategoryMapper categoryMapper;
 
-	private final Utilities utilities;
+	private final DateUtils dateUtils;
 
 	@Autowired
 	public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper,
-							   Utilities utilities) {
+							   DateUtils dateUtils) {
 		super();
 		this.categoryRepository = categoryRepository;
 		this.categoryMapper = categoryMapper;
-		this.utilities = utilities;
+		this.dateUtils = dateUtils;
 	}
 
 	@Override
@@ -64,8 +64,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 		// Get current date and set categoryCreatedDate, categoryLastModified
 		Category category = categoryMapper.mapRequestToCategory(categoryRequest);
-		category.setCreatedDate(utilities.getCurrentDate());
-		category.setModifiedDate(utilities.getCurrentDate());
+		category.setCreatedDate(dateUtils.getCurrentDate());
+		category.setModifiedDate(dateUtils.getCurrentDate());
 		// Set default status
 		category.setStatus(1);
 		return categoryMapper.mapModelToDTO(categoryRepository.save(category));
@@ -77,7 +77,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Category category = categoryRepository.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "Id", categoryId));
 		categoryMapper.updateModel(category, categoryRequest);
-		category.setModifiedDate(utilities.getCurrentDate());
+		category.setModifiedDate(dateUtils.getCurrentDate());
 
 		// Save
 		return categoryMapper.mapModelToDTO(categoryRepository.save(category));

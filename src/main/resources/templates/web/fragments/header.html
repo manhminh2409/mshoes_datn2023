@@ -95,21 +95,28 @@
                   <span class="badge badge-number" th:text="${cartItem}"></span>
                 </a><!-- End Notification Icon -->
 
-
-
-                    <a class="nav-link dropdown nav-user nav-icon position-relative ms-3" href="#" data-bs-toggle="dropdown">
-                      <th:block th:if="${userLogined} == null">
-                        <img src="/assets/images/user/default.png">
-                      </th:block>
-                      <th:block th:if="${userLogined} != null">
-                        <img th:src="${userLogined.image}" alt="">
-                      </th:block>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                <a class="nav-link dropdown nav-user nav-icon position-relative ms-3" href="#" data-bs-toggle="dropdown">
+                  <th:block th:if="${userLogined} == null">
+                    <img src="/assets/images/user/default.png">
+                  </th:block>
+                  <th:block th:if="${userLogined} != null">
+                    <img th:src="${userLogined.image}" alt="">
+                  </th:block>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                   <li>
-                    <a class="dropdown-item d-flex align-items-center" th:href="@{/home/user}">
+                    <a class="dropdown-item d-flex align-items-center" th:href="@{/home/user/profile}">
                       <i class="bi bi-person"></i>
                       <span>Thông tin cá nhân</span>
+                    </a>
+                  </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" th:href="@{/home/user/order}">
+                      <i class="bi bi-person"></i>
+                      <span>Đơn mua</span>
                     </a>
                   </li>
                   <li>

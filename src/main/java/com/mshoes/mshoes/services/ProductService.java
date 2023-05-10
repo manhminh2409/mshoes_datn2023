@@ -46,9 +46,8 @@ public interface ProductService {
 	/**
 	 * Method create new product<br>
 	 * <u><i>Update: 02/03/2023</i></u>
-	 *
 	 */
-	ProductResponse createProduct(ProductRequest productRequest, MultipartFile[] images) throws IOException;
+	void createProduct(ProductRequest productRequest, MultipartFile[] images) throws IOException;
 
 	/**
 	 * Method update detail a product with new information and product_id<br>

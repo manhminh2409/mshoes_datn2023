@@ -2,6 +2,7 @@ package com.mshoes.mshoes.controllers;
 
 import com.mshoes.mshoes.models.dtos.RoleDTO;
 import com.mshoes.mshoes.models.request.LoginRequest;
+import com.mshoes.mshoes.models.response.UserResponse;
 import com.mshoes.mshoes.repositories.UserRepository;
 import com.mshoes.mshoes.securities.JwtConfig;
 import com.mshoes.mshoes.services.UserService;
@@ -48,7 +49,9 @@ public class LoginController {
 
 
     @GetMapping("/login")
-    public String login(ModelMap model, HttpServletRequest request){
+    public String login(ModelMap model, HttpServletRequest request, @RequestParam(value = "message", defaultValue = "0") String message){
+        model.addAttribute("message", message);
+
         //check lại token đăng nhập từ cookie
         String checkToken = jwtUtils.getTokenLoginFromCookie(request);
 
@@ -81,50 +84,59 @@ public class LoginController {
 
     @PostMapping("/login")
     public String authenticateUser(ModelMap model, @Validated @ModelAttribute("loginRequest") LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername(), loginRequest.getPassword()));
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    loginRequest.getUsername(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserResponse userResponse = userService.getUserByUsername(loginRequest.getUsername());
 
-        //get token form tokenProvider
-        String token = jwtConfig.generateToken(authentication);
+            if (userResponse.getStatus() == 0) {
+                return "redirect:/login?message=locked";
+            } else {
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        //set JWT in cookie
-        addAuthentication(response, token);
+                //get token form tokenProvider
+                String token = jwtConfig.generateToken(authentication);
 
-        // kiểm tra lại role của người dùng đăng nhập và điều hướng
-        List<RoleDTO> roleDTOS = userService.getRoleByUsername(loginRequest.getUsername());
-        RoleDTO roleDTO = null;
+                //set JWT in cookie
+                addAuthentication(response, token);
 
-        //Lấy thông tin của người sử dụng
-        model.addAttribute("userLogined",userService.getUserByUsername(loginRequest.getUsername()));
+                // kiểm tra lại role của người dùng đăng nhập và điều hướng
+                List<RoleDTO> roleDTOS = userService.getRoleByUsername(loginRequest.getUsername());
+                RoleDTO roleDTO = null;
+                //Lấy thông tin của người sử dụng
+                model.addAttribute("userLogined", userResponse);
 
-        if(roleDTOS.size() == 1){
-            roleDTO = roleDTOS.get(0);
-        }
-        assert roleDTO != null;
-
-        // Lấy thông tin trang mà người dùng đã truy cập trước đó
-        SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
-        if (savedRequest != null) {
-            if(Objects.equals(roleDTO.getName(), "ROLE_ADMIN")){
-                return "admin/index";
-            }else {
-                String targetUrl = savedRequest.getRedirectUrl();
-                if (targetUrl != null) {
-                    // Chuyển hướng người dùng trở lại trang đã truy cập trước đó
-                    return "redirect:" + targetUrl;
+                if (roleDTOS.size() == 1) {
+                    roleDTO = roleDTOS.get(0);
                 }
-            }
+                assert roleDTO != null;
 
-        }else {
-            if(Objects.equals(roleDTO.getName(), "ROLE_ADMIN")){
-                return "admin/index";
-            }else {
+                // Lấy thông tin trang mà người dùng đã truy cập trước đó
+                SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
+                if (savedRequest != null) {
+                    if (Objects.equals(roleDTO.getName(), "ROLE_ADMIN")) {
+                        return "admin/index";
+                    } else {
+                        String targetUrl = savedRequest.getRedirectUrl();
+                        if (targetUrl != null) {
+                            // Chuyển hướng người dùng trở lại trang đã truy cập trước đó
+                            return "redirect:" + targetUrl;
+                        }
+                    }
+
+                } else {
+                    if (Objects.equals(roleDTO.getName(), "ROLE_ADMIN")) {
+                        return "redirect:/admin";
+                    } else {
+                        return "redirect:/";
+                    }
+                }
                 return "redirect:/";
             }
+        }catch (Exception e){
+            return "redirect:/login?message=false";
         }
-        return "redirect:/";
     }
     private void addAuthentication(HttpServletResponse response, String jwtToken) {
         // Set cookie value

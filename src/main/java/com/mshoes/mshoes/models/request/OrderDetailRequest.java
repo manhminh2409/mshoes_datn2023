@@ -10,7 +10,7 @@ public class OrderDetailRequest {
 
     private int totalQuantity;
 
-    private Long paymentId;
+    private int paymentType;
 
     private String phone;
 

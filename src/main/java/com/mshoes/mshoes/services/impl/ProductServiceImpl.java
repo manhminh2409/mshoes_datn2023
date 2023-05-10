@@ -19,7 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mshoes.mshoes.exception.ResourceNotFoundException;
-import com.mshoes.mshoes.libraries.Utilities;
+import com.mshoes.mshoes.utils.DateUtils;
 import com.mshoes.mshoes.mapper.ColorMapper;
 import com.mshoes.mshoes.mapper.ImageMapper;
 import com.mshoes.mshoes.mapper.ProductMapper;
@@ -59,12 +59,12 @@ public class ProductServiceImpl implements ProductService {
 	private final SizeMapper sizeMapper;
 
 
-	private final Utilities utilities;
+	private final DateUtils dateUtils;
 
 	@Autowired
 	public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository,
 							  CategoryRepository categoryRepository, ColorRepository colorRepository, SizeRepository sizeRepository, ProductMapper productMapper,
-							  ImageMapper imageMapper, ColorMapper colorMapper, SizeMapper sizeMapper, Utilities utilities) {
+							  ImageMapper imageMapper, ColorMapper colorMapper, SizeMapper sizeMapper, DateUtils dateUtils) {
 		this.productRepository = productRepository;
 		this.imageRepository = imageRepository;
 		this.categoryRepository = categoryRepository;
@@ -74,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
 		this.imageMapper = imageMapper;
 		this.colorMapper = colorMapper;
 		this.sizeMapper = sizeMapper;
-		this.utilities = utilities;
+		this.dateUtils = dateUtils;
 	}
 
 	private void saveColorsAndSizes(List<ColorRequest> colorRequests, long productId) {
@@ -132,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional
 	@Override
-	public ProductResponse createProduct(ProductRequest productRequest, MultipartFile[] images) throws IOException {
+	public void createProduct(ProductRequest productRequest, MultipartFile[] images) throws IOException {
 		String str = productRequest.getName();
 		String[] parts = str.split(" ");
 		StringBuilder sb = new StringBuilder();
@@ -152,8 +152,8 @@ public class ProductServiceImpl implements ProductService {
 		Product product = productMapper.mapRequestedToModel(productRequest);
 
 		// set current date
-		product.setCreatedDate(utilities.getCurrentDate());
-		product.setModifiedDate(utilities.getCurrentDate());
+		product.setCreatedDate(dateUtils.getCurrentDate());
+		product.setModifiedDate(dateUtils.getCurrentDate());
 
 		product.setVisited(-1);
 		product.setStatus(1);
@@ -171,8 +171,8 @@ public class ProductServiceImpl implements ProductService {
 		// Save image into table image
 		this.saveImages(images, productId);
 
-		return this.getProductById(productId);
-	}
+        this.getProductById(productId);
+    }
 
 	// Save color and size into database
 
@@ -250,7 +250,7 @@ public class ProductServiceImpl implements ProductService {
 		if (!Objects.equals(product.getDiscountPrice(), productRequest.getDiscountPrice())){
 			product.setDiscountPrice(productRequest.getDiscountPrice());
 		}
-		product.setModifiedDate(utilities.getCurrentDate());
+		product.setModifiedDate(dateUtils.getCurrentDate());
 
 		Product responseProduct = productRepository.save(product);
 

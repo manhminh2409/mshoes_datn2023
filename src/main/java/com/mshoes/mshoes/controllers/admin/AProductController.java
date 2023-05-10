@@ -242,7 +242,7 @@ public class AProductController {
                                 @RequestParam("discountPrice") int discountPrice,
                                 @RequestParam("category") long categoryId,
                                 @RequestParam("images") MultipartFile[] images,
-                                @RequestParam("sizes") String sizes){
+                                @RequestParam("sizes") String sizes) throws IOException{
         try {
             ProductRequest productRequest = new ProductRequest();
             productRequest.setName(name);
@@ -266,39 +266,41 @@ public class AProductController {
                 sizeRepository.save(size1);
             }
 
-            //Xử lý thêm ảnh
-            if(images != null){
-                for (MultipartFile file : images) {
-                    // Lấy tên file và extension.
-                    String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-                    String extension = FilenameUtils.getExtension(filename);
-
-                    // Tạo đường dẫn tới file ảnh.
-                    String imagePath = "/assets/images/uploads/products/" + filename;
-
-                    // Tạo file mới với đường dẫn được chỉ định.
-
-                    File savedFile = new File("D:/DATN2023/src/main/resources/static/assets/images/uploads/products/"+ filename);
-
-                    // Lưu file vào đường dẫn.
-                    try (OutputStream outputStream = new FileOutputStream(savedFile)) {
-                        outputStream.write(file.getBytes());
-                    }
-                    // Tạo một đối tượng Image mới và thiết lập thuộc tính url.
-                    Image image = new Image();
-                    image.setUrl(imagePath);
-                    image.setProduct(productRepository.findById(productId).orElseThrow());
-
-                    // Lưu đối tượng Image vào cơ sở dữ liệu.
-                    imageRepository.save(image);
-                }
-            }
+//            //Xử lý thêm ảnh
+//            if(images != null){
+//                for (MultipartFile file : images) {
+//                    // Lấy tên file và extension.
+//                    String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+//                    String extension = FilenameUtils.getExtension(filename);
+//
+//                    // Tạo đường dẫn tới file ảnh.
+//                    String imagePath = "/assets/images/uploads/products/" + filename;
+//
+//                    // Tạo file mới với đường dẫn được chỉ định.
+//
+//                    File savedFile = new File("D:/DATN2023/src/main/resources/static/assets/images/uploads/products/"+filename);
+//
+//                    // Lưu file vào đường dẫn.
+//                    try (OutputStream outputStream = new FileOutputStream(savedFile)) {
+//                        outputStream.write(file.getBytes());
+//                    }
+//                    // Tạo một đối tượng Image mới và thiết lập thuộc tính url.
+//                    Image image = new Image();
+//                    image.setUrl(imagePath);
+//                    image.setProduct(productRepository.findById(productId).orElseThrow());
+//
+//                    // Lưu đối tượng Image vào cơ sở dữ liệu.
+//                    imageRepository.save(image);
+//                }
+//            }
             ProductResponse productResponse = productService.updateProduct(productRequest,productId);
             return "redirect:/admin/product/detail/"+productId+"?message=success";
         }catch (Exception e){
             return "redirect:/admin/product/detail/"+productId+"?message=false";
         }
     }
+
+
     @DeleteMapping("/product/detail/deleteImage/{id}")
     @Transactional
     public String deleteImage(@PathVariable("id") Long imageId,

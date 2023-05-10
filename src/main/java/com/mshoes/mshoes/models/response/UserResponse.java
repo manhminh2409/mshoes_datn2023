@@ -23,4 +23,6 @@ public class UserResponse {
     private String phone;
 
     private List<String> roles;
+
+    private int status;
 }

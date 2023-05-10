@@ -105,12 +105,12 @@
                     <div class="order-title d-flex justify-content-between align-items-center">
                       <strong th:text="${'#' + orderDetail.getOrderCode()}"></strong>
                       <span>
-                    <i class="fa-solid fa-truck"></i>
+                    <i class="fa-solid fa-truck ps-1"></i> <span th:text="${orderDetail.getPaymentResponse().type}"></span>
                       |
-                        <span th:if="${orderDetail.status == 0}" >
+                        <span th:if="${orderDetail.status == 0 }" >
                           <span th:text="'Chờ xác nhận'" th:class="'badge bg-warning'"></span>
                           |
-                          <button class="border-0" th:style="'background: transparent'" data-bs-toggle="modal" data-bs-target="#cancel-order1">Huỷ đơn</button>
+                          <button th:if="${orderDetail.status == 0 && orderDetail.getPaymentResponse().type != 'BANK'}" class="border-0" th:style="'background: transparent'" data-bs-toggle="modal" data-bs-target="#cancel-order1">Huỷ đơn</button>
                           <!-- Modal -->
                           <div class="modal fade" id="cancel-order1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                             <div class="modal-dialog">
@@ -151,7 +151,7 @@
                       <div class="col-lg-3 text-end">
                         <span class="product-price-checkout d-flex flex-column">
                             <span th:if="${orderDetail.getOrderItemResponses[0].getProductItemResponse().discountPrice != 0}">
-                              <span class="text-decoration-line-through price"  th:text="${orderDetail.getOrderItemResponses[0].getProductItemResponse().price}"></span>
+                              <span class="text-decoration-line-through price" >[[${orderDetail.getOrderItemResponses[0].getProductItemResponse().price}]]</span>
                               <strong style="color: #E64A45;" th:class="'price'" th:text="${orderDetail.getOrderItemResponses[0].getProductItemResponse().discountPrice}"></strong>
                             </span>
                             <span th:if="${orderDetail.getOrderItemResponses[0].getProductItemResponse().discountPrice == 0}">
@@ -161,33 +161,42 @@
                       </div>
                     </div>
                     <div class="row order-item-end">
-                      <div class="col-lg-12 text-end">
-                          <i class="fa-solid fa-file-invoice-dollar pe-2 fs-4"></i>
-                          | Tổng tiền:
-                          <h4 class="d-inline-block">
-                            <strong th:class="'price'" style="color: #E64A45;" th:text="${orderDetail.getTotalAmount()}">1.990.000đ</strong>
-                          </h4>
+                      <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                          <span class="order-address">
+                            Địa chỉ: <span th:text="${orderDetail.getAddress()}"></span>
+                          </span>
+                          <span>
+                              <i class="fa-solid fa-file-invoice-dollar pe-2 fs-4"></i>
+                            | Tổng tiền:
+                            <h4 class="d-inline-block">
+                              <strong th:class="'price'" style="color: #E64A45;" th:text="${orderDetail.getTotalAmount()}">1.990.000đ</strong>
+                            </h4>
+                          </span>
+
                       </div>
                     </div>
 
-                    <div class="row order-item-end py-3 ">
+                    <div class="row order-item-end">
                       <div class="col-lg-12 d-flex justify-content-between align-items-center">
                         <span>
                           <p th:text="${'Ghi chú: '  + orderDetail.getNotes()}"></p>
                           <span th:text="${'Thời gian: '  + orderDetail.getCreatedDate()}"></span>
                         </span>
                         <div>
-                          <a href="#" class="me-2">Mua lần nữa</a>
-                          <a href="#">Xem chi tiết</a>
+                          <a href="#" class="me-2" th:if="${orderDetail.getStatus() == 3 || orderDetail.getStatus() == 4}">Mua lần nữa</a>
+                          <form class="d-inline-block pe-3" th:if="${orderDetail.getStatus() != 3 || orderDetail.getStatus() != 4}" th:action="@{/home/user/order/dilevered/{id}(id= ${orderDetail.id})}" method="POST">
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class="btn btn-success btn-dilivered">Đã nhận được hàng</button>
+                          </form>
+                          <a href="#" class="btn btn-light">Xem chi tiết</a>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </th:block>
 
               </div>
-  
+
               <div class="tab-pane fade order-0 pt-3" id="order-0">
                 <th:block th:each="orderDetail : ${orderDetailStatus0}">
                   <div class="order-item">
@@ -272,7 +281,7 @@
                 </th:block>
 
               </div>
-  
+
               <div class="tab-pane  fade pt-3" id="order-1">
                 <th:block th:each="orderDetail : ${orderDetailStatus1}">
                   <div class="order-item">
@@ -333,7 +342,7 @@
                 </th:block>
 
               </div>
-  
+
               <div class="tab-pane fade pt-3" id="order-2">
                 <th:block th:each="orderDetail : ${orderDetailStatus2}">
                   <div class="order-item">
@@ -392,7 +401,7 @@
                 </th:block>
 
               </div>
-  
+
               <div class="tab-pane  fade pt-3" id="order-3">
                 <th:block th:each="orderDetail : ${orderDetailStatus3}">
                   <div class="order-item">
@@ -452,7 +461,7 @@
                 </th:block>
 
               </div>
-  
+
               <div class="tab-pane  fade pt-3" id="order-4">
                 <th:block th:each="orderDetail : ${orderDetailStatus4}">
                   <div class="order-item">

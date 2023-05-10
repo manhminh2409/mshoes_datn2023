@@ -12,12 +12,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/user")
-public class AUserController {
+public class    AUserController {
     private final UserService userService;
 
     private final GetUserFromToken getUserFromToken;
@@ -38,7 +39,9 @@ public class AUserController {
     public String viewUsers(ModelMap model, HttpServletRequest request,
                             @RequestParam(value = "pageNumber",defaultValue = "0") int pageNumber,
                             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy){
+                            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                            @RequestParam(value = "message", defaultValue = "0") String message){
+        model.addAttribute("message",message);
         model.addAttribute("countUser",userService.countUser());
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("pageSize", pageSize);
@@ -97,6 +100,18 @@ public class AUserController {
             return "redirect:/admin/user";
         }catch (Exception e){
             return "redirect:/admin/user/detail/"+userId+"?err=false";
+        }
+    }
+
+    @PutMapping("/action/{id}")
+    @Transactional
+    public String actionUser(@PathVariable("id") Long userId,
+                             @RequestParam("ac") int action){
+        try {
+            userService.actionProduct(userId, action);
+            return "redirect:/admin/user?message=success";
+        }catch (Exception e){
+            return "redirect:/admin/user?message=false";
         }
     }
 }

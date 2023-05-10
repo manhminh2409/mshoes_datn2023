@@ -1,7 +1,7 @@
 package com.mshoes.mshoes.services.impl;
 
 import com.mshoes.mshoes.exception.ResourceNotFoundException;
-import com.mshoes.mshoes.libraries.Utilities;
+import com.mshoes.mshoes.utils.DateUtils;
 import com.mshoes.mshoes.mapper.RoleMapper;
 import com.mshoes.mshoes.mapper.UserMapper;
 import com.mshoes.mshoes.models.dtos.RoleDTO;
@@ -15,6 +15,7 @@ import com.mshoes.mshoes.models.response.UserResponse;
 import com.mshoes.mshoes.repositories.RoleRepository;
 import com.mshoes.mshoes.repositories.UserRepository;
 import com.mshoes.mshoes.services.UserService;
+import com.mshoes.mshoes.utils.ImageUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,17 +44,19 @@ public class UserServiceImpl implements UserService {
 
 	private  final RoleMapper roleMapper;
 
-	private final Utilities utilities;
+	private final DateUtils dateUtils;
 
+	private final ImageUtils imageUtils;
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper,
-						   RoleMapper roleMapper, Utilities utilities) {
+						   RoleMapper roleMapper, DateUtils dateUtils, ImageUtils imageUtils) {
 		// TODO Auto-generated constructor stub
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.userMapper = userMapper;
 		this.roleMapper = roleMapper;
-		this.utilities = utilities;
+		this.dateUtils = dateUtils;
+		this.imageUtils = imageUtils;
 	}
 
 	@Override
@@ -107,25 +110,11 @@ public class UserServiceImpl implements UserService {
 	public UserDTO createUser(UserRequest userRequest) throws IOException {
 		// TODO Auto-generated method stub
 		User user = userMapper.mapRequestedToModel(userRequest);
-		// save image
-		String filename = StringUtils.cleanPath(Objects.requireNonNull(userRequest.getImage().getOriginalFilename()));
-		String extension = FilenameUtils.getExtension(filename);
-
-		// Tạo đường dẫn tới file ảnh.
-		String imagePath = "/assets/images/user/" + filename;
-
-		// Tạo file mới với đường dẫn được chỉ định.
-
-		File savedFile = new File("D:/DATN2023/src/main/resources/static/assets/images/user/"+ filename);
-
-		// Lưu file vào đường dẫn.
-		try (OutputStream outputStream = new FileOutputStream(savedFile)) {
-			outputStream.write(userRequest.getImage().getBytes());
-		}
+		String imagePath = imageUtils.saveImage(userRequest.getImage());
 		user.setImage(imagePath);
 		// Get current date and set userCreatedDate and userLastModified
-		user.setCreatedDate(utilities.getCurrentDate());
-		user.setModifiedDate(utilities.getCurrentDate());
+		user.setCreatedDate(dateUtils.getCurrentDate());
+		user.setModifiedDate(dateUtils.getCurrentDate());
 		user.setAddress(user.getAddress() + "; " +userRequest.getWard()+", "+userRequest.getDistrict()+", "+ userRequest.getCity() );
 		// Encode password
 		user.setPassword(passwordEncoder().encode(user.getPassword()));
@@ -151,8 +140,8 @@ public class UserServiceImpl implements UserService {
 		User user = userMapper.mapRequestedSignupToModel(signupRequest);
 
 		// Get current date and set userCreatedDate and userLastModified
-		user.setCreatedDate(utilities.getCurrentDate());
-		user.setModifiedDate(utilities.getCurrentDate());
+		user.setCreatedDate(dateUtils.getCurrentDate());
+		user.setModifiedDate(dateUtils.getCurrentDate());
 
 		// Encode password
 
@@ -187,11 +176,11 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new ResourceNotFoundException("User", "ID", userId));
 
 		if (profileRequest.getImage().getOriginalFilename() != ""){
-			user.setImage(this.saveUserImage(profileRequest.getImage()));
+			user.setImage(imageUtils.saveImage(profileRequest.getImage()));
 			user.setFullname(profileRequest.getFullname());
 			user.setPhone(profileRequest.getPhone());
 			user.setAddress(profileRequest.getAddress());
-			user.setModifiedDate(utilities.getCurrentDate());
+			user.setModifiedDate(dateUtils.getCurrentDate());
 			// Save data
 			User responseUser = userRepository.save(user);
 
@@ -200,7 +189,7 @@ public class UserServiceImpl implements UserService {
 			user.setFullname(profileRequest.getFullname());
 			user.setPhone(profileRequest.getPhone());
 			user.setAddress(profileRequest.getAddress());
-			user.setModifiedDate(utilities.getCurrentDate());
+			user.setModifiedDate(dateUtils.getCurrentDate());
 			// Save data
 			User responseUser = userRepository.save(user);
 
@@ -222,7 +211,7 @@ public class UserServiceImpl implements UserService {
 			if (userRequest.getImage().getOriginalFilename() != ""){
 
 				userMapper.updateModel(user, userRequest);
-				user.setImage(this.saveUserImage(userRequest.getImage()));
+				user.setImage(imageUtils.saveImage(userRequest.getImage()));
 
 				return userMapper.mapModelToResponse(userRepository.save(user));
 			}else{
@@ -230,28 +219,10 @@ public class UserServiceImpl implements UserService {
 				String image = user.getImage();
 				userMapper.updateModel(user, userRequest);
 				user.setImage(image);
-				user.setModifiedDate(utilities.getCurrentDate());
+				user.setModifiedDate(dateUtils.getCurrentDate());
 				return userMapper.mapModelToResponse(userRepository.save(user));
 			}
 		}
-	}
-	private String saveUserImage(MultipartFile image) throws IOException {
-		// Lấy tên file và extension.
-		String filename = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
-		String extension = FilenameUtils.getExtension(filename);
-
-		// Tạo đường dẫn tới file ảnh.
-		String imagePath = "/assets/images/uploads/users/" + filename;
-
-		// Tạo file mới với đường dẫn được chỉ định.
-
-		File savedFile = new File("D:/DATN2023/src/main/resources/static/assets/images/uploads/users/"+ filename);
-
-		// Lưu file vào đường dẫn.
-		try (OutputStream outputStream = new FileOutputStream(savedFile)) {
-			outputStream.write(image.getBytes());
-		}
-		return imagePath;
 	}
 	@Override
 	public void deleteUser(long userId) {
@@ -271,5 +242,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public long countUser() {
 		return userRepository.count();
+	}
+
+	@Override
+	public void actionProduct(Long userId, int action) {
+		//Lấy thông tin user
+		User user = userRepository.findById(userId).orElseThrow();
+		try{
+			if(action == 0){
+				user.setStatus(1);
+			}else if (action == 1){
+				user.setStatus(0);
+			}
+			userRepository.save(user);
+		}catch (Exception ex){
+			System.out.print("Ex: " + ex);
+		}
 	}
 }

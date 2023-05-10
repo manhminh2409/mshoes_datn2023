@@ -1,5 +1,6 @@
 package com.mshoes.mshoes.config;
 
+import com.cloudinary.Cloudinary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +8,9 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableWebMvc
@@ -32,7 +36,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+                .allowedOrigins("http://localhost:8080")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Allow-Headers", "Access-Control-Max-Age", "Access-Control-Request-Headers", "Access-Control-Request-Method")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
     @Bean
     public MultipartResolver multipartResolver() {
@@ -48,4 +57,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/assets/**")
                 .addResourceLocations("classpath:/static/assets/");
     }
+
+
 }

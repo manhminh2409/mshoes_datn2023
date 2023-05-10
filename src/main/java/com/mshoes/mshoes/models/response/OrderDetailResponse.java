@@ -1,5 +1,6 @@
 package com.mshoes.mshoes.models.response;
 
+import com.mshoes.mshoes.models.Payment;
 import lombok.Data;
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class OrderDetailResponse {
 
     private int type;
 
-    private String paymentType;
-
     private String notes;
 
     private List<OrderItemResponse> orderItemResponses;
 
     private UserResponse userResponse;
+
+    private PaymentResponse paymentResponse;
 }

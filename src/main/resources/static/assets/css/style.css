@@ -18,6 +18,9 @@ a {
 .logo-dot{
     color: #E6772E;
 }
+span.message{
+    font-size: 14px;
+}
 #main{
     margin-top: 76px;
     align-items: center;
@@ -1865,8 +1868,11 @@ img.w-100.product-img-checkout {
     border-bottom: 2px solid #e6772e;
 }
 .orders .order  span {
-    margin-bottom: 20px;
     font-size: 15px;
+}
+.order  span.order-address {
+    max-width: 60%;
+    padding: 12px 0;
 }
 
 .order .order-all .order-title {
@@ -1877,9 +1883,6 @@ img.w-100.product-img-checkout {
 .order .order-0 img {
     max-width: 120px;
 }
-.order .order-item-end a{
-    padding: 8px 22px;
-}
 .order .order-item-end a:first-child{
     background-color: #e57021;
     border: 1px solid #e57021;
@@ -1888,4 +1891,27 @@ img.w-100.product-img-checkout {
 .order .order-item-end a:last-child{
     border: 1px solid #bdc2c5;
     color: #3D4C53;
+}
+
+/* payment */
+.col-lg-6.payment-infor {
+    border: 1px solid #ddd;
+    padding: 18px 24px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 5px 15px;
+}
+.payment .payment-icon i {
+    border-radius: 50%;
+    background: #20d29c;
+    color: #fff;
+    padding: 14px;
+    font-size: 24px;
+}
+.payment .payment-title {
+    color: #20d29c;
+    font-size: 20px;
+    padding: 8px 0;
+}
+.payment .payment-img{
+    width: 100%;
 }

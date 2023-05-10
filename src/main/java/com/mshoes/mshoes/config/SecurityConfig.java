@@ -17,7 +17,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 @Configuration
@@ -58,6 +64,7 @@ public class SecurityConfig{
 //						.requestMatchers(HttpMethod.GET, "/products/**").permitAll()
 //						.requestMatchers(HttpMethod.GET, "/users/**").permitAll()
 //						.requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+						.antMatchers("/products/**").permitAll()
 						.antMatchers("/**").permitAll()
 						.antMatchers("/error/**").permitAll()
 						.antMatchers("/login").permitAll()
@@ -81,4 +88,15 @@ public class SecurityConfig{
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(List.of("http://localhost:8080"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowedHeaders(List.of("*"));
+		configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Allow-Headers", "Access-Control-Max-Age", "Access-Control-Request-Headers", "Access-Control-Request-Method"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }

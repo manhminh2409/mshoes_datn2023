@@ -268,9 +268,9 @@
                                               <div class="product-name">
                                                   <a th:href="@{'/home/product/detail/' + ${product.id}}" class="name" th:text="${product.name}"></a>
                                                   <span class="d-block">
-                                                    <strong th:if="${product.discountPrice != 0}" th:text="${product.discountPrice} + 'đ'" th:style="'font-size: 18px;color: #E64A45;'"></strong>
-                                                    <span th:if="${product.discountPrice != 0}" th:text="${product.price}+'đ'" th:style="'text-decoration:line-through; color:#959595; font-size: 14px;'"></span>
-                                                    <strong th:if="${product.discountPrice == 0}" th:text="${product.price}+'đ'" th:style="'font-size: 18px;color: #E64A45;'"></strong>
+                                                    <strong class="price" th:if="${product.discountPrice != 0}" th:style="'font-size: 18px;color: #E64A45;'">[[${product.discountPrice}]]</strong>
+                                                    <span class="price" th:if="${product.discountPrice != 0}" th:style="'text-decoration:line-through; color:#959595; font-size: 14px;'">[[${product.price}]]</span>
+                                                    <strong class="price" th:if="${product.discountPrice == 0}" th:style="'font-size: 18px;color: #E64A45;'">[[${product.price}]]</strong>
                                               </span>
                                               </div>
                                           </a>

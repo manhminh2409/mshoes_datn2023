@@ -62,4 +62,6 @@ public interface UserService {
 	void deleteUser(long userId);
 
 	long countUser();
+
+	void actionProduct(Long userId, int action);
 }

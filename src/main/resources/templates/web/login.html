@@ -31,7 +31,7 @@
                                 <!--Title-->
                                 <div class="row mt-3">
                                     <div class="col-md-12 text-center py-3">
-                                        <h1 class="logo me-auto me-lg-0"><a href="index.html">D.Shop<span class="logo-dot">.</span></a></h1>
+                                        <h1 class="logo me-auto me-lg-0"><a href="index.html">MShoes<span class="logo-dot">.</span></a></h1>
                                         <div class="text-secondary pt-2 login-des">
                                             Đăng nhập bằng 
                                             <span>
@@ -44,8 +44,15 @@
                                         </div>
                                     </div>
                                 </div>
-        
-        
+
+                                <div class="row mx-auto justify-content-center">
+                                    <div class="col-md-10 text-start pt-3">
+                                        <th:block th:if="${message != '0'}">
+                                            <span th:if="${message == 'locked'}" class="text-warning message">Tài khoản tạm khoá.Liên hệ: <i>mshoes@gmail.com</i> !</span>
+                                            <span th:if="${message == 'false'}" class="text-danger message">Thông tin tài khoản không chính xác!</span>
+                                        </th:block>
+                                    </div>
+                                </div>
                                 <!--Username-->
                                 <div class="row mx-auto justify-content-center">
                                     <div class="col-md-10 text-start pt-3">
@@ -90,7 +97,7 @@
                                 <div class="row px-2">
                                     <div class="col-md-12 text-center link-register py-2">
                                         Bạn chưa có tài khoản?
-                                        <a href="signup.html" class="">Đăng ký</a>
+                                        <a th:href="@{/signup}" class="">Đăng ký</a>
                                         
                                     </div>
                                 </div>

@@ -154,7 +154,10 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Danh sách tài khoản</h5>
-
+              <th:block th:if="${message != '0'}">
+                <span th:if="${message == 'success'}" class="text-success">Cập nhật thông tin thành công!</span>
+                <span th:if="${message == 'false'}" class="text-danger">Cập nhật thông tin không thành công!</span>
+              </th:block>
               <div class="card-button d-flex justify-content-between pt-3">
                 <div class="btn">
                   <a th:href="@{/admin/user/create}">Thêm mới</a>
@@ -201,6 +204,8 @@
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Quyền</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Hành động</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -226,6 +231,58 @@
                       </td>
                       <td th:each="role : ${user.getRoles()}">
                         <p th:text="${role} "></p>
+                      </td>
+                      <td>
+                        <span th:if="${user.getStatus() == 0}" th:class="'badge bg-secondary'" th:text="'Khoá'"></span>
+                        <span th:if="${user.getStatus() == 1}" th:class="'badge bg-success'" th:text="'Hiển thị'"></span>
+                      </td>
+                      <td class="text-center">
+                            <span th:if="${user.getStatus() == 0}">
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" th:data-bs-target="'#unlock-'+${user.id}"><i class="fa-solid fa-unlock"></i></button>
+                              <div class="modal fade" th:id="'unlock-'+${user.id}" tabindex="-1" th:aria-labelledby="'labelUnlock'+${user.id}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" th:id="'labelUnlock'+${user.id}">Xác nhận mở khoá tài khoản</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                      Sau khi mở khoá, tài khoản <strong>[[${user.getFullname()}]]</strong> không đươợc phép đăng nhập!
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                      <form th:action="@{/admin/user/action/{id}(id = ${user.id},ac=0)}" class="d-inline-block" method="post">
+                                        <input type="hidden" name="_method" th:value="PUT">
+                                        <button type="submit" class="btn  btn-danger">Xác nhận</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </span>
+                        <span th:if="${user.getStatus() == 1}">
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" th:data-bs-target="'#lock-'+${user.id}"><i class="fa-solid fa-lock"></i></button>
+                              <div class="modal fade" th:id="'lock-'+${user.id}" tabindex="-1" th:aria-labelledby="'labelLock-'+${user.id}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" th:id="'labelLock-'+${user.id}">Xác nhận khoá tài khoản</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                      Sau khi khoá, tài khoản <strong>[[${user.getFullname()}]]</strong>  không được phép đăng nhập!!
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                      <form th:action="@{/admin/user/action/{id}(id = ${user.id},ac=1)}" class="d-inline-block" method="post">
+                                        <input type="hidden" name="_method" th:value="PUT">
+                                        <button type="submit" class="btn  btn-danger">Xác nhận</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </span>
                       </td>
                     </tr>
                   </tbody>

@@ -45,6 +45,10 @@ public class ProductController {
     public UserResponse getUserLogined(ModelMap model, HttpServletRequest request) {
         return getUserFromToken.getUserFromToken(request);
     }
+    @ModelAttribute("categories")
+    public List<CategoryDTO> getCategories(){
+        return categoryService.getAllCategories();
+    }
     @ModelAttribute("cartItem")
     public int countCartItem(HttpServletRequest request){
         UserResponse user = getUserFromToken.getUserFromToken(request);

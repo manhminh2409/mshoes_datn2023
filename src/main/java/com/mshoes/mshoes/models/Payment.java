@@ -14,6 +14,10 @@ public class Payment {
 	@Column
 	private String type;
 
-	@OneToOne(mappedBy = "payment")
+	@Column
+	private int status;
+
+	@OneToOne()
+	@JoinColumn(name = "order_detail_id")
 	private OrderDetail orderDetail;
 }

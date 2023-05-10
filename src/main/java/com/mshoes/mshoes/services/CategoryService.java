@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface CategoryService {
 
+
 	Page<CategoryDTO> getCategories(int pageNumber, int pageSize, String sortBy);
 	/**
 	 * Method get all category is active in database <br>

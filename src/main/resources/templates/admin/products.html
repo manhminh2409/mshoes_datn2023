@@ -182,10 +182,10 @@
                         <div class="number-item pt-3">
 
                             <select name="number-item" id="number-item" class="form-select" aria-label="number-item">
-                                <option value="product-5">5</option>
-                                <option value="product-10" selected>10</option>
-                                <option value="product-15">15</option>
-                                <option value="product-20">20</option>
+                                <option value="product-5" th:selected="${pageSize == 5}">5</option>
+                                <option value="product-10" th:selected="${pageSize == 10}">10</option>
+                                <option value="product-15" th:selected="${pageSize == 15}">15</option>
+                                <option value="product-20" th:selected="${pageSize == 20}">20</option>
                             </select>
                             <p class="d-inline-block"> sản phẩm trên một trang</p>
                         </div><!-- End Search Bar -->
@@ -210,9 +210,10 @@
                     <tbody>
                         <tr th:each="product,index : ${products}">
                         <th scope="row"><a href="#" th:utext="${index.index+1}"></a></th>
-                        <td>
-                            <img th:src="@{${product.imageResponses[0].url}(timestamp=${#dates.createNow().getTime()})}" class="rounded" alt="">
-                        </td>
+<!--                        <td>-->
+<!--                            <img th:src="@{${product.imageResponses[0].url}}" class="rounded" alt="">-->
+<!--                        </td>-->
+                            <td th:text="${products.size()}"></td>
                         <td>
                             <a th:href="@{/admin/product/detail/{id}(id = ${product.id})}" >
                             <span  th:text="${product.name + ', '}"></span>
@@ -237,12 +238,12 @@
                         </td>
                         <td class="text-center">
                             <span th:if="${product.getStatus() == 0}">
-                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#unlock"><i class="fa-solid fa-unlock"></i></button>
-                              <div class="modal fade" id="unlock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" th:data-bs-target="'#unLock-'+${product.id}"><i class="fa-solid fa-unlock"></i></button>
+                              <div class="modal fade" th:id="'unLock-'+${product.id}" tabindex="-1" th:aria-labelledby="'labelUnLock-'+${product.id}" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận mở khoá sản phẩm</h1>
+                                      <h1 class="modal-title fs-5" th:id="'labelUnlock-'+${product.id}">Xác nhận mở khoá sản phẩm</h1>
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-start">
@@ -260,12 +261,12 @@
                               </div>
                             </span>
                             <span th:if="${product.getStatus() == 1}">
-                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#lock"><i class="fa-solid fa-lock"></i></button>
-                              <div class="modal fade" id="lock" tabindex="-1" aria-labelledby="labelLock" aria-hidden="true">
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" th:data-bs-target="'#lock-'+${product.id}"><i class="fa-solid fa-lock"></i></button>
+                              <div class="modal fade" th:id="'lock-'+${product.id}" tabindex="-1" th:aria-labelledby="'labelLock-'+${product.id}" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h1 class="modal-title fs-5" id="labelLock">Xác nhận khoá sản phẩm</h1>
+                                      <h1 class="modal-title fs-5" th:id="'labelLock-'+${product.id}">Xác nhận khoá sản phẩm</h1>
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-start">
@@ -313,7 +314,6 @@
               </div>
 
             </div>
-
 
           </div>
         </section>
